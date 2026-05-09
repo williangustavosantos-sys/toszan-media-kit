@@ -130,7 +130,8 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          whileHover={{ scale: 1.05, y: -6 }}
+          className="relative cursor-pointer"
         >
           <h1
             style={{
@@ -216,21 +217,27 @@ export function HeroSection() {
               fontWeight: 600,
               letterSpacing: "0.35em",
               textTransform: "uppercase",
-              color: "#0B0B0B",
-              background: "linear-gradient(135deg, #FFB000, #FF8C00)",
-              border: "none",
+              color: "#ffffff",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.15)",
               padding: "14px 36px",
               cursor: "pointer",
-              boxShadow: "0 0 40px rgba(255,176,0,0.4)",
-              transition: "transform 0.3s, box-shadow 0.3s",
+              backdropFilter: "blur(12px)",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 0 70px rgba(255,176,0,0.6)";
+              e.currentTarget.style.borderColor = "rgba(255,176,0,0.6)";
+              e.currentTarget.style.color = "#FFB000";
+              e.currentTarget.style.background = "rgba(255,176,0,0.1)";
+              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(255,176,0,0.2)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 0 40px rgba(255,176,0,0.4)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+              e.currentTarget.style.color = "#ffffff";
+              e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+              e.currentTarget.style.transform = "scale(1) translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           >
             {t("hero.booking")}
@@ -246,22 +253,26 @@ export function HeroSection() {
               letterSpacing: "0.35em",
               textTransform: "uppercase",
               color: "#ffffff",
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.3)",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.15)",
               padding: "14px 36px",
               cursor: "pointer",
               backdropFilter: "blur(12px)",
-              transition: "all 0.3s",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,176,0,0.7)";
+              e.currentTarget.style.borderColor = "rgba(255,176,0,0.6)";
               e.currentTarget.style.color = "#FFB000";
-              e.currentTarget.style.background = "rgba(255,176,0,0.09)";
+              e.currentTarget.style.background = "rgba(255,176,0,0.1)";
+              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(255,176,0,0.2)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
               e.currentTarget.style.color = "#ffffff";
-              e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+              e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+              e.currentTarget.style.transform = "scale(1) translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           >
             {t("hero.mediaKit")}
@@ -276,25 +287,30 @@ export function HeroSection() {
               fontWeight: 600,
               letterSpacing: "0.35em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.65)",
-              background: "transparent",
-              border: "1px solid rgba(255,255,255,0.12)",
+              color: "#ffffff",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.15)",
               padding: "14px 36px",
               cursor: "pointer",
-              transition: "all 0.3s",
+              backdropFilter: "blur(12px)",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)";
-              e.currentTarget.style.color = "rgba(255,255,255,0.9)";
-              e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+              e.currentTarget.style.borderColor = "rgba(255,176,0,0.6)";
+              e.currentTarget.style.color = "#FFB000";
+              e.currentTarget.style.background = "rgba(255,176,0,0.1)";
+              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(255,176,0,0.2)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
-              e.currentTarget.style.color = "rgba(255,255,255,0.65)";
-              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+              e.currentTarget.style.color = "#ffffff";
+              e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+              e.currentTarget.style.transform = "scale(1) translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           >
-            {t("hero.watchLive")}
+            {t("nav.music")}
           </button>
         </motion.div>
       </div>

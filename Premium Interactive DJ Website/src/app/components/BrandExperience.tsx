@@ -48,7 +48,7 @@ export function BrandExperience() {
             <video src="/optimized/videos/video_ugc_1.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
           </div>
           <div className="relative h-full w-full overflow-hidden hidden md:block">
-             <img src="/optimized/foto_1.webp" alt="bg" className="w-full h-full object-cover" />
+            <img src="/optimized/foto_1.webp" alt="bg" className="w-full h-full object-cover" />
           </div>
           <div className="relative h-full w-full overflow-hidden">
             <video src="/optimized/videos/video_ugc_4.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
@@ -95,19 +95,20 @@ export function BrandExperience() {
             <motion.div
               key={card.title}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 0.7, delay: card.delay, ease: [0.16, 1, 0.3, 1] } }}
+              whileHover={{ scale: 1.04, y: -6, transition: { duration: 0.3, ease: "easeOut" } }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: card.delay, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative p-8 rounded-2xl overflow-hidden cursor-default"
+              className="group relative p-8 rounded-2xl overflow-hidden cursor-pointer transition-colors duration-500 hover:border-white/20"
               style={{
                 background: "rgba(255,255,255,0.02)",
                 border: "1px solid rgba(255,255,255,0.05)",
                 backdropFilter: "blur(12px)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
               }}
             >
               {/* Glow Effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(circle at 50% 0%, ${card.icon.props.className.includes('FFB000') ? 'rgba(255,176,0,0.08)' : card.icon.props.className.includes('1E90FF') ? 'rgba(30,144,255,0.08)' : 'rgba(0,168,107,0.08)'}, transparent 70%)` }} />
-              
+
               <div className="relative z-10 flex flex-col h-full">
                 <div className="mb-6 p-3 rounded-full inline-flex w-fit" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   {card.icon}

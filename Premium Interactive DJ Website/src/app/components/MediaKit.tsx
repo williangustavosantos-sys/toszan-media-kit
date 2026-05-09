@@ -20,46 +20,46 @@ export function MediaKit() {
 
 
 
-function AnimatedNumber({ value, isFloat, isStatic }: { value: number, isFloat?: boolean, isStatic?: boolean }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
+  function AnimatedNumber({ value, isFloat, isStatic }: { value: number, isFloat?: boolean, isStatic?: boolean }) {
+    const [count, setCount] = useState(0);
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, margin: "-50px" });
 
-  useEffect(() => {
-    if (inView && !isStatic) {
-      let start = 0;
-      const duration = 2000;
-      const startTime = performance.now();
+    useEffect(() => {
+      if (inView && !isStatic) {
+        let start = 0;
+        const duration = 2000;
+        const startTime = performance.now();
 
-      const animate = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        const ease = 1 - Math.pow(1 - progress, 4);
-        const current = start + (value - start) * ease;
-        
-        setCount(current);
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
 
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          setCount(value);
-        }
-      };
-      requestAnimationFrame(animate);
-    } else if (isStatic) {
-      setCount(value);
-    }
-  }, [inView, value, isStatic]);
+          const ease = 1 - Math.pow(1 - progress, 4);
+          const current = start + (value - start) * ease;
 
-  if (isStatic) return null;
+          setCount(current);
 
-  return (
-    <span ref={ref}>
-      {isFloat ? count.toFixed(1).replace(".", ",") : Math.floor(count)}
-    </span>
-  );
-}
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            setCount(value);
+          }
+        };
+        requestAnimationFrame(animate);
+      } else if (isStatic) {
+        setCount(value);
+      }
+    }, [inView, value, isStatic]);
+
+    if (isStatic) return null;
+
+    return (
+      <span ref={ref}>
+        {isFloat ? count.toFixed(1).replace(".", ",") : Math.floor(count)}
+      </span>
+    );
+  }
 
   return (
     <section
@@ -120,28 +120,32 @@ function AnimatedNumber({ value, isFloat, isStatic }: { value: number, isFloat?:
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.8 }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px"
-            style={{ border: "1px solid rgba(255,176,0,0.12)", borderRadius: "6px", overflow: "hidden" }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
           >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07 }}
-              className="flex flex-col items-center justify-center text-center py-7 px-4"
-              style={{ background: "rgba(255,255,255,0.02)", borderRight: i < 5 ? "1px solid rgba(255,176,0,0.08)" : "none" }}
-            >
-              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", letterSpacing: "0.06em", color: stat.accent, lineHeight: 1 }}>
-                <AnimatedNumber value={stat.value} isFloat={stat.isFloat} isStatic={stat.isStatic} />
-                {stat.suffix}
-              </div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.52rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginTop: "6px" }}>
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05, y: -6, zIndex: 10, transition: { duration: 0.3, ease: "easeOut" } }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="relative group flex flex-col items-center justify-center text-center py-7 px-4 rounded-xl cursor-pointer transition-colors duration-500 hover:border-white/20"
+                style={{
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,176,0,0.12)",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
+                }}
+              >
+                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", letterSpacing: "0.06em", color: stat.accent, lineHeight: 1 }}>
+                  <AnimatedNumber value={stat.value} isFloat={stat.isFloat} isStatic={stat.isStatic} />
+                  {stat.suffix}
+                </div>
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.52rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginTop: "6px" }}>
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
 
@@ -153,17 +157,17 @@ function AnimatedNumber({ value, isFloat, isStatic }: { value: number, isFloat?:
           transition={{ duration: 0.9, delay: 0.2 }}
           className="mt-28 text-center"
         >
-          <h3 style={{ 
-            fontFamily: "'Playfair Display', serif", 
-            fontStyle: "italic", 
-            fontSize: "clamp(1.5rem, 4vw, 2.5rem)", 
-            color: "#ffffff", 
+          <h3 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontStyle: "italic",
+            fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+            color: "#ffffff",
             lineHeight: 1.4,
             opacity: 0.9,
             maxWidth: "800px",
             margin: "0 auto"
           }}>
-            “{t("brand.quote1")}<br/>
+            “{t("brand.quote1")}<br />
             <span style={{ color: "#FFB000" }}>{t("brand.quote2")}</span>”
           </h3>
         </motion.div>
