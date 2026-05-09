@@ -1,4 +1,4 @@
 {
-    "buildCommand": "npm install && npm run build",
-    "outputDirectory": "dist"
+    "buildCommand": "cd 'Premium Interactive DJ Website' && npm install && npm run build",
+    "outputDirectory": "Premium Interactive DJ Website/dist"
 }
