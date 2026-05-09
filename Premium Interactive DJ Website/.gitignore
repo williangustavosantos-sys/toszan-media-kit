@@ -1,9 +1,8 @@
-node_modules
-dist
-dist-ssr
-*.local
+node_modules/
+dist/
+build/
+.vercel/
 .env
 .env.*
 .DS_Store
-.gemini
-.vercel
+*.log
