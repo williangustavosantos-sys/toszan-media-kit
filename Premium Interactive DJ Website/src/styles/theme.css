@@ -209,3 +209,12 @@
   mask-image: linear-gradient(to right, black 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
 }
+
+.autoplay-video::-webkit-media-controls,
+.autoplay-video::-webkit-media-controls-panel,
+.autoplay-video::-webkit-media-controls-play-button,
+.autoplay-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

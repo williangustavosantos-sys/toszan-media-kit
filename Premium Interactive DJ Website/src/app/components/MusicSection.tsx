@@ -9,6 +9,22 @@ type Platform = "spotify" | "soundcloud";
 
 const soundcloudTracks = [
   {
+    id: "brasil",
+    title: "BRASIL - Sente essa pressão!",
+    type: "New Release",
+    url: "https://soundcloud.com/dj-willian-toszan/brasil",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/brasil&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    cover: "https://i1.sndcdn.com/artworks-L5NlzlzzUIckkkFZ-3soezQ-t500x500.jpg"
+  },
+  {
+    id: "jamaican-bam-bam",
+    title: "Jamaican (Bam Bam) — TOSZAN Remix",
+    type: "New Release",
+    url: "https://soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    cover: "https://i1.sndcdn.com/artworks-cnwDhLdEQTjyxQDm-Iyp7Xg-t500x500.jpg"
+  },
+  {
     id: "manicomio",
     title: "TOSZAN Live at Manicomio",
     type: "Live Set",
@@ -176,7 +192,7 @@ export function MusicSection() {
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
 
   const [platform, setPlatform] = useState<Platform>("soundcloud");
-  const [activeTrackId, setActiveTrackId] = useState("manicomio");
+  const [activeTrackId, setActiveTrackId] = useState("brasil");
 
   const activeTrack = soundcloudTracks.find((t) => t.id === activeTrackId)!;
 

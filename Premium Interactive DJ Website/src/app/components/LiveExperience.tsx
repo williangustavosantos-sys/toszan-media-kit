@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 const photo1 = "/optimized/foto_1.webp";
@@ -16,7 +16,17 @@ interface GalleryItemType {
 
 function GalleryItem({ item, index }: { item: GalleryItemType; index: number }) {
   const ref = useRef(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  useEffect(() => {
+    if (!inView || !videoRef.current) return;
+
+    videoRef.current.muted = true;
+    videoRef.current.play().catch(() => {
+      // Autoplay can still be blocked by the browser until the next user gesture.
+    });
+  }, [inView]);
 
   return (
     <motion.div
@@ -46,19 +56,29 @@ function GalleryItem({ item, index }: { item: GalleryItemType; index: number }) 
                 vid.style.filter = "brightness(0.65) saturate(1.2)";
               }
             }}
-            dangerouslySetInnerHTML={{
-              __html: `
-                <video
-                  src="${item.src}"
-                  autoplay
-                  loop
-                  muted
-                  playsinline
-                  style="width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease; filter: brightness(0.65) saturate(1.2);"
-                ></video>
-              `
-            }}
-          />
+          >
+            <video
+              ref={videoRef}
+              src={item.src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              disablePictureInPicture
+              controls={false}
+              aria-hidden="true"
+              className="autoplay-video w-full h-full object-cover object-top"
+              style={{
+                transition: "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease",
+                filter: "brightness(0.65) saturate(1.2)",
+                pointerEvents: "none",
+              }}
+              onCanPlay={(event) => {
+                event.currentTarget.play().catch(() => {});
+              }}
+            />
+          </div>
         ) : (
           <img
             src={item.src}
