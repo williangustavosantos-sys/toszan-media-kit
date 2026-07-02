@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
@@ -7,8 +7,15 @@ import { BrandExperience } from "./components/BrandExperience";
 import { MusicSection } from "./components/MusicSection";
 import { MediaKit } from "./components/MediaKit";
 import { ContactSection } from "./components/ContactSection";
+import { BookingPage } from "./components/BookingPage";
+
+function getRoutePath() {
+  return window.location.pathname.replace(/\/+$/, "") || "/";
+}
 
 export default function App() {
+  const [routePath, setRoutePath] = useState(getRoutePath);
+
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
     document.body.style.background = "#0B0B0B";
@@ -18,6 +25,14 @@ export default function App() {
       document.documentElement.style.scrollBehavior = "";
     };
   }, []);
+
+  useEffect(() => {
+    const handleRoute = () => setRoutePath(getRoutePath());
+    window.addEventListener("popstate", handleRoute);
+    return () => window.removeEventListener("popstate", handleRoute);
+  }, []);
+
+  const isBookingRoute = routePath === "/booking";
 
   return (
     <LanguageProvider>
@@ -32,12 +47,18 @@ export default function App() {
       >
         <Navigation />
         <main>
-          <HeroSection />
-          <LiveExperience />
-          <BrandExperience />
-          <MediaKit />
-          <MusicSection />
-          <ContactSection />
+          {isBookingRoute ? (
+            <BookingPage />
+          ) : (
+            <>
+              <HeroSection />
+              <LiveExperience />
+              <MusicSection />
+              <BrandExperience />
+              <MediaKit />
+              <ContactSection />
+            </>
+          )}
         </main>
       </div>
     </LanguageProvider>

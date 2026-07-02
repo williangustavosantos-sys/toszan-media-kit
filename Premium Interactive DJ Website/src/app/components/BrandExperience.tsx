@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Music, Smartphone, Zap, Users } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
@@ -40,18 +40,22 @@ export function BrandExperience() {
 
 
   return (
-    <section id="experience-brand" className="relative py-32 px-6 md:px-12 overflow-hidden bg-[#050505]">
-      {/* Background Media Grid (Autoplay Silent) */}
+    <section
+      id="experience-brand"
+      className="relative py-32 px-6 md:px-12 overflow-hidden bg-[#050505]"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "900px" }}
+    >
+      {/* Background proof grid kept static to protect mobile video performance. */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ filter: "saturate(1.2) contrast(1.1)" }}>
         <div className="grid grid-cols-2 md:grid-cols-3 h-full w-full gap-1">
           <div className="relative h-full w-full overflow-hidden">
-            <video src="/optimized/videos/video_ugc_1.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+            <img src="/reels/posters/01-booth-control-front-closeup.webp" alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
           <div className="relative h-full w-full overflow-hidden hidden md:block">
-            <img src="/optimized/foto_1.webp" alt="bg" className="w-full h-full object-cover" />
+            <img src="/optimized/foto_1.webp" alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
           <div className="relative h-full w-full overflow-hidden">
-            <video src="/optimized/videos/video_ugc_4.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+            <img src="/reels/posters/09-wide-crowd-room-proof.webp" alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
         </div>
       </div>

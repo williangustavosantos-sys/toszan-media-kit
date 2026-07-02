@@ -3,7 +3,6 @@ import { ParticlesCanvas } from "./ParticlesCanvas";
 import { useLanguage } from "../context/LanguageContext";
 import { ToszanLogo } from "./ToszanLogo";
 const heroBg = "/optimized/foto_2.webp";
-const profileImg = "/optimized/foto_3.webp";
 
 export function HeroSection() {
   const { t } = useLanguage();
@@ -11,6 +10,10 @@ export function HeroSection() {
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const openBooking = () => {
+    window.location.href = "/booking";
   };
 
   return (
@@ -67,7 +70,7 @@ export function HeroSection() {
 
       {/* TOP BAR — location + genre */}
       <motion.div
-        className="absolute top-28 left-0 right-0 flex items-center justify-center gap-3"
+        className="absolute top-28 left-0 right-0 flex flex-wrap items-center justify-center gap-3 px-6"
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.3 }}
@@ -87,7 +90,7 @@ export function HeroSection() {
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: "0.62rem",
-            letterSpacing: "0.4em",
+            letterSpacing: "clamp(0.18em, 1vw, 0.4em)",
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.55)",
           }}
@@ -99,12 +102,12 @@ export function HeroSection() {
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: "0.62rem",
-            letterSpacing: "0.4em",
+            letterSpacing: "clamp(0.18em, 1vw, 0.4em)",
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.55)",
           }}
         >
-          DJ · Creator · Entertainer
+          Tribal · Progressive · Circuit House
         </span>
         <span
           style={{
@@ -122,7 +125,7 @@ export function HeroSection() {
 
       {/* MAIN CONTENT — bottom aligned */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-end px-6 pb-16 text-center"
+        className="absolute inset-0 flex flex-col items-center justify-end px-6 pb-24 text-center"
         style={{ zIndex: 3 }}
       >
         {/* Name */}
@@ -147,7 +150,7 @@ export function HeroSection() {
           >WILLIAN</h1>
           <div style={{ display: "flex", justifyContent: "center", filter: "drop-shadow(0 0 50px rgba(255,255,255,0.15))", marginTop: "-2.5rem" }}>
             <ToszanLogo
-              cssHeight="clamp(6rem, 24vw, 17rem)"
+              cssHeight="clamp(5rem, 21vw, 15.5rem)"
               gold={false}
             />
           </div>
@@ -186,20 +189,45 @@ export function HeroSection() {
 
         {/* Support text */}
         <motion.p
-          className="mb-10"
+          className="mb-4"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: "clamp(0.52rem, 1.3vw, 0.68rem)",
-            letterSpacing: "0.38em",
+            letterSpacing: "clamp(0.12em, 0.8vw, 0.24em)",
             textTransform: "uppercase",
             color: "rgba(255,176,0,0.7)",
           }}
         >
           {t("hero.tag")}
         </motion.p>
+
+        <motion.div
+          className="mb-7 flex flex-wrap items-center justify-center gap-2"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.25 }}
+        >
+          {["Milan Based", "EU Booking Ready", "Club / Circuit / Beach"].map((item) => (
+            <span
+              key={item}
+              style={{
+                border: "1px solid rgba(255,176,0,0.26)",
+                background: "rgba(255,255,255,0.045)",
+                color: "rgba(255,255,255,0.68)",
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: "0.56rem",
+                letterSpacing: "0.22em",
+                padding: "8px 11px",
+                textTransform: "uppercase",
+              }}
+            >
+              {item}
+            </span>
+          ))}
+        </motion.div>
 
         {/* CTAs */}
         <motion.div
@@ -210,7 +238,43 @@ export function HeroSection() {
         >
           {/* BOOKING */}
           <button
-            onClick={() => scrollTo("#contact")}
+            onClick={openBooking}
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: "0.64rem",
+              fontWeight: 600,
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "#0B0B0B",
+              background: "linear-gradient(135deg, #FFB000, #FF8C00)",
+              border: "1px solid rgba(255,176,0,0.7)",
+              padding: "14px 36px",
+              cursor: "pointer",
+              backdropFilter: "blur(12px)",
+              boxShadow: "0 0 24px rgba(255,176,0,0.24)",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255,176,0,0.9)";
+              e.currentTarget.style.color = "#0B0B0B";
+              e.currentTarget.style.background = "linear-gradient(135deg, #FFC547, #FF9D21)";
+              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
+              e.currentTarget.style.boxShadow = "0 12px 34px rgba(255,176,0,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255,176,0,0.7)";
+              e.currentTarget.style.color = "#0B0B0B";
+              e.currentTarget.style.background = "linear-gradient(135deg, #FFB000, #FF8C00)";
+              e.currentTarget.style.transform = "scale(1) translateY(0)";
+              e.currentTarget.style.boxShadow = "0 0 24px rgba(255,176,0,0.24)";
+            }}
+          >
+            Book TOSZAN
+          </button>
+
+          {/* MUSIC */}
+          <button
+            onClick={() => scrollTo("#music")}
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: "0.64rem",
@@ -240,7 +304,7 @@ export function HeroSection() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            {t("hero.booking")}
+            {t("nav.music")}
           </button>
 
           {/* MEDIA KIT */}
@@ -276,41 +340,6 @@ export function HeroSection() {
             }}
           >
             {t("hero.mediaKit")}
-          </button>
-
-          {/* WATCH LIVE */}
-          <button
-            onClick={() => scrollTo("#music")}
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "0.64rem",
-              fontWeight: 600,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: "#ffffff",
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              padding: "14px 36px",
-              cursor: "pointer",
-              backdropFilter: "blur(12px)",
-              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,176,0,0.6)";
-              e.currentTarget.style.color = "#FFB000";
-              e.currentTarget.style.background = "rgba(255,176,0,0.1)";
-              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
-              e.currentTarget.style.boxShadow = "0 10px 30px rgba(255,176,0,0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
-              e.currentTarget.style.color = "#ffffff";
-              e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-              e.currentTarget.style.transform = "scale(1) translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            {t("nav.music")}
           </button>
         </motion.div>
       </div>

@@ -31,6 +31,15 @@ export default defineConfig({
     },
   },
 
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        booking: path.resolve(__dirname, 'booking.html'),
+      },
+    },
+  },
+
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
 })

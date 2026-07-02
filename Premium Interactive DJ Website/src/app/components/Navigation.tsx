@@ -12,21 +12,57 @@ export function Navigation() {
 
   const navLinks = [
     { label: t("nav.experience"), href: "#experience" },
-    { label: t("nav.mediaKit"), href: "#mediakit" },
     { label: t("nav.music"), href: "#music" },
-    { label: t("nav.booking"), href: "#contact" },
+    { label: t("nav.mediaKit"), href: "#mediakit" },
+    { label: "Book TOSZAN", href: "/booking" },
   ];
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let frame = 0;
+    const handleScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 60);
+      });
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleLink = (href: string) => {
     setMenuOpen(false);
+
+    if (href.startsWith("/")) {
+      const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+      if (currentPath === href) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      window.location.href = href;
+      return;
+    }
+
+    if (window.location.pathname !== "/") {
+      window.location.href = `/${href}`;
+      return;
+    }
+
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleLogoClick = () => {
+    if (window.location.pathname !== "/") {
+      window.location.href = "/";
+      return;
+    }
+    handleLink("#hero");
   };
 
   return (
@@ -45,7 +81,7 @@ export function Navigation() {
       >
         {/* Logo / Name */}
         <button
-          onClick={() => handleLink("#hero")}
+          onClick={handleLogoClick}
           style={{ 
             background: "none", 
             border: "none", 
@@ -110,7 +146,7 @@ export function Navigation() {
         {/* Desktop CTA & Language - RIGHT */}
         <div className="hidden lg:flex items-center gap-6 ml-auto">
           <button
-            onClick={() => handleLink("#contact")}
+            onClick={() => handleLink("/booking")}
             className="px-6 py-2"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
@@ -136,7 +172,7 @@ export function Navigation() {
               e.currentTarget.style.boxShadow = "0 0 20px rgba(255,176,0,0.25)";
             }}
           >
-            {t("nav.booking")}
+            Book TOSZAN
           </button>
 
           {/* Language Selector */}
@@ -144,10 +180,11 @@ export function Navigation() {
         </div>
 
         {/* Mobile: Language + hamburger */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="lg:hidden flex items-center gap-4">
           <LanguageSelector />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             style={{ color: "#FFB000", background: "none", border: "none", cursor: "pointer" }}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -198,7 +235,7 @@ export function Navigation() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.48 }}
-              onClick={() => handleLink("#contact")}
+              onClick={() => handleLink("/booking")}
               className="mt-4 px-10 py-4"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -213,7 +250,7 @@ export function Navigation() {
                 boxShadow: "0 0 40px rgba(255,176,0,0.3)",
               }}
             >
-              {t("nav.booking")}
+              Book TOSZAN
             </motion.button>
           </motion.div>
         )}

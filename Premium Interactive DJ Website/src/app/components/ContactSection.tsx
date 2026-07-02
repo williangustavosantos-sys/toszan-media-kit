@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Instagram, MessageCircle, Mail, MapPin, Music } from "lucide-react";
+import { ArrowRight, Instagram, MessageCircle, Mail, MapPin, Music } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function ContactSection() {
@@ -10,11 +10,11 @@ export function ContactSection() {
 
   const contactItems = [
     {
-      icon: <Instagram size={18} />,
-      label: "Instagram",
-      value: "@toszan.willian",
-      href: "https://www.instagram.com/toszan.willian?igsh=Zm9md2s2ODB5cXp2&utm_source=qr",
-      cta: "Follow",
+      icon: <Mail size={18} />,
+      label: "Email",
+      value: "dj@toszan.com.br",
+      href: "mailto:dj@toszan.com.br?subject=Booking%20Inquiry%20-%20TOSZAN&body=Date%3A%0ACity%20%2F%20Venue%3A%0AEvent%20format%3A%0ASet%20time%20%2F%20duration%3A%0AExpected%20capacity%3A%0ABudget%20range%3A%0A",
+      cta: "Send Inquiry",
       accent: "#FFB000",
       accentRgb: "255,176,0",
     },
@@ -22,17 +22,17 @@ export function ContactSection() {
       icon: <MessageCircle size={18} />,
       label: "WhatsApp",
       value: "+39 342 836 9444",
-      href: "https://wa.me/393428369444?text=Ciao%2C%20vorrei%20avere%20pi%C3%B9%20informazioni",
-      cta: "Message",
+      href: "https://wa.me/393428369444?text=Hi%2C%20I%20want%20to%20book%20TOSZAN.%0ADate%3A%0ACity%20%2F%20Venue%3A%0AEvent%20format%3A%0ASet%20time%20%2F%20duration%3A%0AExpected%20capacity%3A%0A",
+      cta: "Message Booking",
       accent: "#00A86B",
       accentRgb: "0,168,107",
     },
     {
-      icon: <Mail size={18} />,
-      label: "Email",
-      value: "dj@toszan.com.br",
-      href: "mailto:dj@toszan.com.br",
-      cta: "Send",
+      icon: <Instagram size={18} />,
+      label: "Instagram",
+      value: "@toszan.willian",
+      href: "https://www.instagram.com/toszan.willian?igsh=Zm9md2s2ODB5cXp2&utm_source=qr",
+      cta: "Check Reels",
       accent: "#FFB000",
       accentRgb: "255,176,0",
     },
@@ -56,12 +56,24 @@ export function ContactSection() {
     },
   ];
 
+  const inquiryDetails = ["Date", "City / Venue", "Event format", "Set time", "Capacity", "Budget range"];
+
   const footerNavLinks = [
     { label: t("nav.experience"), href: "#experience" },
-    { label: t("nav.mediaKit"), href: "#mediakit" },
     { label: t("nav.music"), href: "#music" },
-    { label: t("nav.booking"), href: "#contact" },
+    { label: t("nav.mediaKit"), href: "#mediakit" },
+    { label: "Book TOSZAN", href: "/booking" },
   ];
+
+  const handleFooterLink = (href: string) => {
+    if (href.startsWith("/")) {
+      window.location.href = href;
+      return;
+    }
+
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section
@@ -98,7 +110,7 @@ export function ContactSection() {
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.5rem, 7vw, 5.5rem)", letterSpacing: "0.08em", color: "#ffffff", lineHeight: 1 }}>
             {t("contact.title")}
           </h2>
-          <p className="mt-3" style={{ fontFamily: "'Caveat', cursive", fontSize: "1.6rem", color: "rgba(255,176,0,0.6)" }}>
+          <p className="mt-3" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(255,176,0,0.6)" }}>
             {t("contact.tagline")}
           </p>
           <p className="mt-4 max-w-md mx-auto" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.85rem", lineHeight: 1.85, color: "rgba(255,255,255,0.35)", letterSpacing: "0.04em" }}>
@@ -108,14 +120,48 @@ export function ContactSection() {
 
         <div className="flex flex-col gap-16">
 
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65 }}
+            className="mx-auto flex max-w-4xl flex-col items-start justify-between gap-5 rounded-xl p-5 md:flex-row md:items-center md:p-6"
+            style={{ border: "1px solid rgba(255,176,0,0.16)", background: "rgba(255,176,0,0.045)" }}
+          >
+            <div>
+              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.56rem", fontWeight: 800, letterSpacing: "0.3em", textTransform: "uppercase", color: "#FFB000", marginBottom: "8px" }}>
+                Booking page
+              </div>
+              <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.9rem", lineHeight: 1.75, color: "rgba(255,255,255,0.58)" }}>
+                Promoter-ready summary with mix, formats, live proof, technical info and direct contacts.
+              </p>
+            </div>
+            <a
+              href="/booking"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 px-5"
+              style={{
+                background: "linear-gradient(135deg, #FFB000, #FF8C00)",
+                border: "1px solid rgba(255,176,0,0.7)",
+                color: "#0B0B0B",
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: "0.64rem",
+                fontWeight: 800,
+                letterSpacing: "0.22em",
+                textDecoration: "none",
+                textTransform: "uppercase",
+              }}
+            >
+              Open Booking Page
+              <ArrowRight size={15} />
+            </a>
+          </motion.div>
 
-          {/* Icons row instead of cards */}
-          <div className="flex flex-wrap items-center justify-center gap-8 py-10">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {contactItems.filter(item => item.href).map((item, i) => (
               <motion.div
                 key={item.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -123,12 +169,12 @@ export function ContactSection() {
                   href={item.href!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-20 h-20 flex items-center justify-center relative group"
+                  className="group flex h-full min-h-[190px] flex-col justify-between rounded-xl p-6"
                   style={{
                     background: "rgba(255,255,255,0.03)",
                     border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "50%",
                     color: "rgba(255,255,255,0.6)",
+                    textDecoration: "none",
                     transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
                   onMouseEnter={(e) => {
@@ -148,25 +194,55 @@ export function ContactSection() {
                     el.style.transform = "translateY(0)";
                   }}
                 >
-                  <div style={{ transform: "scale(1.5)" }}>{item.icon}</div>
-                  
-                  {/* Tooltip-like label */}
-                  <span 
-                    className="absolute -bottom-10 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-                    style={{ 
-                      fontFamily: "'Space Grotesk', sans-serif", 
-                      fontSize: "0.55rem", 
-                      letterSpacing: "0.2em", 
-                      textTransform: "uppercase", 
-                      color: item.accent 
-                    }}
-                  >
-                    {item.label}
-                  </span>
+                  <div>
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full" style={{ color: item.accent, background: `rgba(${item.accentRgb},0.08)` }}>
+                      {item.icon}
+                    </div>
+                    <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.1em", color: "#ffffff", lineHeight: 1 }}>
+                      {item.label}
+                    </div>
+                    <div className="mt-3 break-words" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.52)", lineHeight: 1.55 }}>
+                      {item.value}
+                    </div>
+                  </div>
+                  <div className="mt-7" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: item.accent }}>
+                    {item.cta}
+                  </div>
                 </a>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mx-auto max-w-4xl rounded-xl p-5 md:p-6"
+            style={{ border: "1px solid rgba(255,176,0,0.14)", background: "rgba(255,176,0,0.035)" }}
+          >
+            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#FFB000", marginBottom: "14px", textAlign: "center" }}>
+              Include in the booking request
+            </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {inquiryDetails.map((detail) => (
+                <span
+                  key={detail}
+                  style={{
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "rgba(255,255,255,0.64)",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: "0.62rem",
+                    letterSpacing: "0.18em",
+                    padding: "8px 10px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {detail}
+                </span>
+              ))}
+            </div>
+          </motion.div>
 
 
         </div>
@@ -194,10 +270,7 @@ export function ContactSection() {
               {footerNavLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => {
-                    const el = document.querySelector(link.href);
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => handleFooterLink(link.href)}
                   style={{
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontSize: "0.58rem",
@@ -221,7 +294,7 @@ export function ContactSection() {
             <div className="flex items-center gap-5">
               {[
                 { href: "https://www.instagram.com/toszan.willian?igsh=Zm9md2s2ODB5cXp2&utm_source=qr", icon: <Instagram size={17} /> },
-                { href: "https://wa.me/393428369444?text=Ciao%2C%20vorrei%20avere%20pi%C3%B9%20informazioni", icon: <MessageCircle size={17} /> },
+                { href: "https://wa.me/393428369444?text=Hi%2C%20I%20want%20to%20book%20TOSZAN.", icon: <MessageCircle size={17} /> },
                 { href: "mailto:dj@toszan.com.br", icon: <Mail size={17} /> },
                 { href: "https://soundcloud.com/dj-willian-toszan", icon: <Music size={17} /> },
               ].map((s, i) => (
@@ -253,8 +326,8 @@ export function ContactSection() {
             <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.15)" }}>
               © 2025 Willian Toszan — All Rights Reserved
             </span>
-            <span style={{ fontFamily: "'Caveat', cursive", fontSize: "1rem", color: "rgba(255,176,0,0.3)" }}>
-              Feito com energia brasileira em Milão 🇧🇷🇮🇹
+            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,176,0,0.32)" }}>
+              Brazilian energy · Milan base
             </span>
           </div>
         </motion.footer>
