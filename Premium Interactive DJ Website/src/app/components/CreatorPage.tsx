@@ -8,6 +8,7 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  Pause,
   Play,
   ShieldCheck,
   Sparkles,
@@ -588,7 +589,26 @@ export function CreatorPage() {
                         ? "View sample"
                         : "Play with sound"}
                   </button>
-                ) : null}
+                ) : (
+                  <button
+                    type="button"
+                    aria-label="Pause sample"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      videoRefs.current[video.source]?.pause();
+                    }}
+                    className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full"
+                    style={{
+                      background: "rgba(11,11,11,0.72)",
+                      border: "1px solid rgba(255,255,255,0.22)",
+                      color: "#ffffff",
+                      cursor: "pointer",
+                      backdropFilter: "blur(12px)",
+                    }}
+                  >
+                    <Pause size={16} fill="currentColor" />
+                  </button>
+                )}
               </div>
                 );
               })()}
