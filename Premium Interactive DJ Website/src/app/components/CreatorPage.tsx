@@ -336,8 +336,10 @@ export function CreatorPage() {
       try {
         await video.play();
       } catch {
-        setActiveVideo(null);
-        setBlockedVideo(source);
+        if (video.paused) {
+          setActiveVideo(null);
+        }
+        setBlockedVideo(null);
       }
       return;
     }
@@ -589,7 +591,7 @@ export function CreatorPage() {
                     }}
                   >
                     <Play size={15} fill="currentColor" />
-                    {blockedVideo === video.source
+                    {video.hasAudio && blockedVideo === video.source
                       ? "Tap again to enable sound"
                       : !video.hasAudio
                         ? "View sample"
