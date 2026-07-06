@@ -376,6 +376,12 @@ export function CreatorPage() {
     setBlockedVideo(source);
   };
 
+  const pausePortfolioVideo = (source: string) => {
+    videoRefs.current[source]?.pause();
+    setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
+  };
+
   return (
     <div style={{ background: "#0B0B0B", minHeight: "100vh" }}>
       <section className="relative min-h-[92vh] overflow-hidden px-5 pb-12 pt-28 md:px-10 md:pt-32 lg:pb-16 lg:pt-36">
@@ -518,7 +524,7 @@ export function CreatorPage() {
                 className="relative aspect-[9/16] overflow-hidden"
                 onClick={() => {
                   if (isPlaying) {
-                    videoRefs.current[video.source]?.pause();
+                    pausePortfolioVideo(video.source);
                   }
                 }}
                 style={{ cursor: isPlaying ? "pointer" : "default" }}
@@ -595,7 +601,7 @@ export function CreatorPage() {
                     aria-label="Pause sample"
                     onClick={(event) => {
                       event.stopPropagation();
-                      videoRefs.current[video.source]?.pause();
+                      pausePortfolioVideo(video.source);
                     }}
                     className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full"
                     style={{
