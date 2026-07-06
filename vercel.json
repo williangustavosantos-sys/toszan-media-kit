@@ -9,6 +9,22 @@
         {
             "source": "/booking/",
             "destination": "/booking.html"
+        },
+        {
+            "source": "/creator",
+            "destination": "/creator.html"
+        },
+        {
+            "source": "/creator/",
+            "destination": "/creator.html"
+        },
+        {
+            "source": "/analytics",
+            "destination": "/analytics.html"
+        },
+        {
+            "source": "/analytics/",
+            "destination": "/analytics.html"
         }
     ],
     "headers": [
@@ -32,6 +48,24 @@
         },
         {
             "source": "/optimized/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=604800, stale-while-revalidate=2592000"
+                }
+            ]
+        },
+        {
+            "source": "/creator/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=604800, stale-while-revalidate=2592000"
+                }
+            ]
+        },
+        {
+            "source": "/analytics/(.*)",
             "headers": [
                 {
                     "key": "Cache-Control",

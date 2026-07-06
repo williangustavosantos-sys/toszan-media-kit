@@ -8,6 +8,8 @@ import { MusicSection } from "./components/MusicSection";
 import { MediaKit } from "./components/MediaKit";
 import { ContactSection } from "./components/ContactSection";
 import { BookingPage } from "./components/BookingPage";
+import { CreatorPage } from "./components/CreatorPage";
+import { AnalyticsPage } from "./components/AnalyticsPage";
 
 function getRoutePath() {
   return window.location.pathname.replace(/\/+$/, "") || "/";
@@ -33,6 +35,8 @@ export default function App() {
   }, []);
 
   const isBookingRoute = routePath === "/booking";
+  const isCreatorRoute = routePath === "/creator";
+  const isAnalyticsRoute = routePath === "/analytics";
 
   return (
     <LanguageProvider>
@@ -49,6 +53,10 @@ export default function App() {
         <main>
           {isBookingRoute ? (
             <BookingPage />
+          ) : isCreatorRoute ? (
+            <CreatorPage />
+          ) : isAnalyticsRoute ? (
+            <AnalyticsPage />
           ) : (
             <>
               <HeroSection />

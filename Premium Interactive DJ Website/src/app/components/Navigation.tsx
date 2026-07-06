@@ -14,6 +14,7 @@ export function Navigation() {
     { label: t("nav.experience"), href: "#experience" },
     { label: t("nav.music"), href: "#music" },
     { label: t("nav.mediaKit"), href: "#mediakit" },
+    { label: "Creator", href: "/creator" },
     { label: "Book TOSZAN", href: "/booking" },
   ];
 

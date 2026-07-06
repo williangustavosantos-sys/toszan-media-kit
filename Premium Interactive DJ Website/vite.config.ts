@@ -36,6 +36,8 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
         booking: path.resolve(__dirname, 'booking.html'),
+        creator: path.resolve(__dirname, 'creator.html'),
+        analytics: path.resolve(__dirname, 'analytics.html'),
       },
     },
   },
