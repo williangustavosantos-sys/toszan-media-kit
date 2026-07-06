@@ -299,6 +299,7 @@ function AudienceBars({ title, bars }: { title: string; bars: AudienceBar[] }) {
 
 export function CreatorPage() {
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [soundVideo, setSoundVideo] = useState<string | null>(null);
   const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
 
@@ -313,6 +314,9 @@ export function CreatorPage() {
       video.muted = true;
       video.volume = 0;
     });
+    setActiveVideo((current) => (current && current !== activeSource ? null : current));
+    setSoundVideo((current) => (current && current !== activeSource ? null : current));
+    setBlockedVideo((current) => (current && current !== activeSource ? null : current));
   };
 
   const handlePortfolioPlay = async (source: string, hasAudio: boolean) => {
@@ -321,7 +325,6 @@ export function CreatorPage() {
 
     stopOtherVideos(source);
     video.currentTime = video.currentTime || 0;
-    video.loop = true;
 
     if (!hasAudio) {
       video.muted = true;
@@ -330,7 +333,9 @@ export function CreatorPage() {
       setBlockedVideo(null);
       try {
         await video.play();
+        setActiveVideo(source);
       } catch {
+        setActiveVideo(null);
         setBlockedVideo(source);
       }
       return;
@@ -342,12 +347,32 @@ export function CreatorPage() {
 
     try {
       await video.play();
+      setActiveVideo(source);
       setSoundVideo(source);
     } catch {
       video.muted = true;
+      setActiveVideo(null);
       setSoundVideo(null);
       setBlockedVideo(source);
     }
+  };
+
+  const handlePortfolioPause = (source: string) => {
+    const video = videoRefs.current[source];
+    if (video && !video.ended && video.error === null && activeVideo !== source) return;
+    setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
+  };
+
+  const handlePortfolioEnded = (source: string) => {
+    setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
+  };
+
+  const handlePortfolioError = (source: string) => {
+    setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
+    setBlockedVideo(source);
   };
 
   return (
@@ -485,20 +510,38 @@ export function CreatorPage() {
                 borderRadius: "8px",
               }}
             >
+              {(() => {
+                const isPlaying = activeVideo === video.source && blockedVideo !== video.source;
+                return (
               <div className="relative aspect-[9/16] overflow-hidden">
                 <video
                   className="h-full w-full object-cover"
                   src={video.source}
                   poster={video.poster}
                   muted
-                  loop
                   playsInline
                   preload="metadata"
                   ref={(node) => {
                     videoRefs.current[video.source] = node;
                   }}
+                  onPause={() => handlePortfolioPause(video.source)}
+                  onEnded={() => handlePortfolioEnded(video.source)}
+                  onError={() => handlePortfolioError(video.source)}
+                  onClick={() => {
+                    if (activeVideo === video.source) {
+                      videoRefs.current[video.source]?.pause();
+                    }
+                  }}
                 />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 45%, rgba(11,11,11,0.86) 100%)" }} />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: isPlaying
+                      ? "linear-gradient(180deg, transparent 72%, rgba(11,11,11,0.54) 100%)"
+                      : "linear-gradient(180deg, rgba(11,11,11,0.08) 0%, rgba(11,11,11,0.18) 46%, rgba(11,11,11,0.86) 100%)",
+                    transition: "background 0.25s ease",
+                  }}
+                />
                 <div className="absolute left-4 top-4">
                   <span
                     className="inline-flex min-h-8 items-center justify-center rounded-full px-3"
@@ -516,34 +559,36 @@ export function CreatorPage() {
                     {video.hasAudio ? "Content sample" : "Visual sample"}
                   </span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handlePortfolioPlay(video.source, video.hasAudio)}
-                  className="absolute left-4 right-4 top-1/2 flex min-h-12 -translate-y-1/2 items-center justify-center gap-2 px-4"
-                  style={{
-                    background: video.hasAudio ? "linear-gradient(135deg, #FFB000, #FF8C00)" : "rgba(255,255,255,0.88)",
-                    border: "1px solid rgba(255,176,0,0.7)",
-                    borderRadius: "8px",
-                    color: "#0B0B0B",
-                    cursor: "pointer",
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: "0.68rem",
-                    fontWeight: 900,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    boxShadow: "0 18px 42px rgba(0,0,0,0.28)",
-                  }}
-                >
-                  <Play size={15} fill="currentColor" />
-                  {blockedVideo === video.source
-                    ? "Tap again to enable sound"
-                    : !video.hasAudio
-                      ? "View sample"
-                      : soundVideo === video.source
-                        ? "Sound on"
+                {!isPlaying ? (
+                  <button
+                    type="button"
+                    onClick={() => handlePortfolioPlay(video.source, video.hasAudio)}
+                    className="absolute left-4 right-4 top-1/2 flex min-h-12 -translate-y-1/2 items-center justify-center gap-2 px-4"
+                    style={{
+                      background: video.hasAudio ? "linear-gradient(135deg, #FFB000, #FF8C00)" : "rgba(255,255,255,0.88)",
+                      border: "1px solid rgba(255,176,0,0.7)",
+                      borderRadius: "8px",
+                      color: "#0B0B0B",
+                      cursor: "pointer",
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: "0.68rem",
+                      fontWeight: 900,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      boxShadow: "0 18px 42px rgba(0,0,0,0.28)",
+                    }}
+                  >
+                    <Play size={15} fill="currentColor" />
+                    {blockedVideo === video.source
+                      ? "Tap again to enable sound"
+                      : !video.hasAudio
+                        ? "View sample"
                         : "Play with sound"}
-                </button>
+                  </button>
+                ) : null}
               </div>
+                );
+              })()}
               <div className="p-5">
                 <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.24em", textTransform: "uppercase" }}>
                   {video.category}
