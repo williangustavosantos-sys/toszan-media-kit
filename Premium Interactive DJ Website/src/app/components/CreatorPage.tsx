@@ -513,7 +513,15 @@ export function CreatorPage() {
               {(() => {
                 const isPlaying = activeVideo === video.source && blockedVideo !== video.source;
                 return (
-              <div className="relative aspect-[9/16] overflow-hidden">
+              <div
+                className="relative aspect-[9/16] overflow-hidden"
+                onClick={() => {
+                  if (isPlaying) {
+                    videoRefs.current[video.source]?.pause();
+                  }
+                }}
+                style={{ cursor: isPlaying ? "pointer" : "default" }}
+              >
                 <video
                   className="h-full w-full object-cover"
                   src={video.source}
@@ -527,11 +535,6 @@ export function CreatorPage() {
                   onPause={() => handlePortfolioPause(video.source)}
                   onEnded={() => handlePortfolioEnded(video.source)}
                   onError={() => handlePortfolioError(video.source)}
-                  onClick={() => {
-                    if (activeVideo === video.source) {
-                      videoRefs.current[video.source]?.pause();
-                    }
-                  }}
                 />
                 <div
                   className="absolute inset-0 pointer-events-none"
