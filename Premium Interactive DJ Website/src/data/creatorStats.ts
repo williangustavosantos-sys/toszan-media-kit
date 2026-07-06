@@ -123,15 +123,15 @@ export const creatorVideos: CreatorVideo[] = [
   {
     title: "European Lifestyle Day",
     category: "Lifestyle + DJ",
-    description: "A Milan-based daily narrative that connects Brazilian personality, transit, nightlife and DJ identity.",
+    description: "Ideal for city lifestyle, travel, nightlife and creator-led campaigns.",
     source: "/creator/videos/lifestyle-dj-day.mp4",
     poster: "/creator/posters/lifestyle-dj-day.jpg",
     hasAudio: false,
   },
   {
     title: "Product Showcase",
-    category: "Brand / UGC",
-    description: "Premium product framing for fashion, gifting and lifestyle brands with clear social-native pacing.",
+    category: "Brand / Product",
+    description: "Ideal for gifting, product reveal, menswear and retail campaigns.",
     source: "/creator/videos/brand-product-showcase.mp4",
     poster: "/creator/posters/brand-product-showcase.jpg",
     hasAudio: true,
@@ -139,7 +139,7 @@ export const creatorVideos: CreatorVideo[] = [
   {
     title: "Fitness Public Speaking",
     category: "Fitness + Communication",
-    description: "Gym, motivation and direct-to-camera presence for wellness, coaching and active lifestyle campaigns.",
+    description: "Ideal for fitness, wellness, coaching and motivational campaigns.",
     source: "/creator/videos/fitness-public-speaking.mp4",
     poster: "/creator/posters/fitness-public-speaking.jpg",
     hasAudio: true,
@@ -147,7 +147,7 @@ export const creatorVideos: CreatorVideo[] = [
   {
     title: "Winter Lifestyle Milan",
     category: "Menswear + Milan",
-    description: "Clean outfit transformation for menswear, winter styling, luxury retail and European city lifestyle.",
+    description: "Ideal for menswear, grooming, styling and premium lifestyle campaigns.",
     source: "/creator/videos/winter-lifestyle-milan.mp4",
     poster: "/creator/posters/winter-lifestyle-milan.jpg",
     hasAudio: true,

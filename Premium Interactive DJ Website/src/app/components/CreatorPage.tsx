@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -298,42 +298,94 @@ function AudienceBars({ title, bars }: { title: string; bars: AudienceBar[] }) {
 }
 
 export function CreatorPage() {
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const [soundVideo, setSoundVideo] = useState<string | null>(null);
+  const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
+
   useEffect(() => {
     setCreatorMeta();
   }, []);
 
+  const stopOtherVideos = (activeSource: string) => {
+    Object.entries(videoRefs.current).forEach(([source, video]) => {
+      if (!video || source === activeSource) return;
+      video.pause();
+      video.muted = true;
+      video.volume = 0;
+    });
+  };
+
+  const handlePortfolioPlay = async (source: string, hasAudio: boolean) => {
+    const video = videoRefs.current[source];
+    if (!video) return;
+
+    stopOtherVideos(source);
+    video.currentTime = video.currentTime || 0;
+    video.loop = true;
+
+    if (!hasAudio) {
+      video.muted = true;
+      video.volume = 0;
+      setSoundVideo(null);
+      setBlockedVideo(null);
+      try {
+        await video.play();
+      } catch {
+        setBlockedVideo(source);
+      }
+      return;
+    }
+
+    video.muted = false;
+    video.volume = 1;
+    setBlockedVideo(null);
+
+    try {
+      await video.play();
+      setSoundVideo(source);
+    } catch {
+      video.muted = true;
+      setSoundVideo(null);
+      setBlockedVideo(source);
+    }
+  };
+
   return (
     <div style={{ background: "#0B0B0B", minHeight: "100vh" }}>
-      <section className="relative min-h-[92vh] overflow-hidden px-5 pb-16 pt-28 md:px-10 md:pt-36">
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/creator/videos/winter-lifestyle-milan.mp4"
-          poster="/creator/posters/winter-lifestyle-milan.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+      <section className="relative min-h-[92vh] overflow-hidden px-5 pb-12 pt-28 md:px-10 md:pt-32 lg:pb-16 lg:pt-36">
+        <img
+          className="absolute inset-0 h-full w-full object-cover lg:hidden"
+          src="/creator/posters/winter-lifestyle-milan.jpg"
+          alt=""
           aria-hidden="true"
-          style={{ opacity: 0.48 }}
+          style={{ objectPosition: "center top", opacity: 0.5 }}
         />
+        <div className="absolute inset-y-0 right-0 hidden w-[58%] lg:block">
+          <img
+            className="h-full w-full object-contain object-right"
+            src="/creator/posters/winter-lifestyle-milan.jpg"
+            alt=""
+            aria-hidden="true"
+            style={{ opacity: 0.7 }}
+          />
+        </div>
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(11,11,11,0.96) 0%, rgba(11,11,11,0.7) 45%, rgba(11,11,11,0.34) 100%), linear-gradient(180deg, rgba(11,11,11,0.12) 0%, #0B0B0B 98%)",
+              "linear-gradient(90deg, rgba(11,11,11,0.97) 0%, rgba(11,11,11,0.78) 48%, rgba(11,11,11,0.34) 100%), linear-gradient(180deg, rgba(11,11,11,0.08) 0%, #0B0B0B 98%)",
           }}
         />
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end gap-10 lg:min-h-[72vh] lg:flex-row lg:items-end">
-          <div className="max-w-4xl">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end gap-8 lg:min-h-[72vh] lg:flex-row lg:items-end">
+          <div className="max-w-3xl">
             <Eyebrow>Creator portfolio</Eyebrow>
             <h1
               className="mt-4"
               style={{
                 color: "#ffffff",
                 fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: "clamp(4.4rem, 17vw, 12rem)",
+                fontSize: "clamp(4rem, 15vw, 10rem)",
                 letterSpacing: "0.07em",
                 lineHeight: 0.82,
               }}
@@ -378,7 +430,7 @@ export function CreatorPage() {
           </div>
 
           <div
-            className="grid w-full max-w-sm grid-cols-2 gap-3 lg:max-w-xs"
+            className="grid w-full max-w-sm grid-cols-2 gap-3 lg:max-w-[330px]"
             style={{ color: "#ffffff" }}
           >
             {creatorSnapshot.slice(0, 4).map((metric) => (
@@ -420,7 +472,7 @@ export function CreatorPage() {
         id="work"
         eyebrow="Selected content"
         title="Premium Creator Portfolio"
-        intro="Only the strongest attached videos were selected for this page: fashion/product, Milan lifestyle, fitness communication and DJ-adjacent nightlife identity."
+        intro="Commercial samples for fashion, product, Milan lifestyle, fitness communication and DJ-adjacent nightlife identity."
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
           {creatorVideos.map((video) => (
@@ -438,20 +490,22 @@ export function CreatorPage() {
                   className="h-full w-full object-cover"
                   src={video.source}
                   poster={video.poster}
-                  autoPlay
                   muted
                   loop
                   playsInline
                   preload="metadata"
+                  ref={(node) => {
+                    videoRefs.current[video.source] = node;
+                  }}
                 />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 45%, rgba(11,11,11,0.86) 100%)" }} />
-                <div className="absolute left-4 top-4 flex items-center gap-2" style={{ color: "#0B0B0B" }}>
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full" style={{ background: "#FFB000" }}>
-                    <Play size={14} fill="currentColor" />
-                  </span>
+                <div className="absolute left-4 top-4">
                   <span
+                    className="inline-flex min-h-8 items-center justify-center rounded-full px-3"
                     style={{
-                      color: "#ffffff",
+                      background: "rgba(11,11,11,0.72)",
+                      border: "1px solid rgba(255,176,0,0.34)",
+                      color: "#FFB000",
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: "0.58rem",
                       fontWeight: 800,
@@ -459,9 +513,36 @@ export function CreatorPage() {
                       textTransform: "uppercase",
                     }}
                   >
-                    {video.hasAudio ? "AAC audio preserved" : "Silent source"}
+                    {video.hasAudio ? "Content sample" : "Visual sample"}
                   </span>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => handlePortfolioPlay(video.source, video.hasAudio)}
+                  className="absolute left-4 right-4 top-1/2 flex min-h-12 -translate-y-1/2 items-center justify-center gap-2 px-4"
+                  style={{
+                    background: video.hasAudio ? "linear-gradient(135deg, #FFB000, #FF8C00)" : "rgba(255,255,255,0.88)",
+                    border: "1px solid rgba(255,176,0,0.7)",
+                    borderRadius: "8px",
+                    color: "#0B0B0B",
+                    cursor: "pointer",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: "0.68rem",
+                    fontWeight: 900,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    boxShadow: "0 18px 42px rgba(0,0,0,0.28)",
+                  }}
+                >
+                  <Play size={15} fill="currentColor" />
+                  {blockedVideo === video.source
+                    ? "Tap again to enable sound"
+                    : !video.hasAudio
+                      ? "View sample"
+                      : soundVideo === video.source
+                        ? "Sound on"
+                        : "Play with sound"}
+                </button>
               </div>
               <div className="p-5">
                 <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.24em", textTransform: "uppercase" }}>
