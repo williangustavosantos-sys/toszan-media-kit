@@ -329,11 +329,11 @@ export function CreatorPage() {
     if (!hasAudio) {
       video.muted = true;
       video.volume = 0;
+      setActiveVideo(source);
       setSoundVideo(null);
       setBlockedVideo(null);
       try {
         await video.play();
-        setActiveVideo(source);
       } catch {
         setActiveVideo(null);
         setBlockedVideo(source);
@@ -343,11 +343,11 @@ export function CreatorPage() {
 
     video.muted = false;
     video.volume = 1;
+    setActiveVideo(source);
     setBlockedVideo(null);
 
     try {
       await video.play();
-      setActiveVideo(source);
       setSoundVideo(source);
     } catch {
       video.muted = true;
