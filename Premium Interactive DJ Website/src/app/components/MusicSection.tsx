@@ -12,9 +12,9 @@ const soundcloudTracks = [
     id: "promo-set-2026",
     title: "Promo DJ Set TOSZAN — Splash Roma",
     type: "Latest Release",
-    url: "https://soundcloud.com/dj-willian-toszan/promo-dj-set-toszan-splash-roma",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/promo-dj-set-toszan-splash-roma&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-    cover: null
+    url: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    cover: "https://i1.sndcdn.com/artworks-XDLKMpoYPopeyXs3-YI5G2Q-t500x500.jpg"
   },
   {
     id: "brasil",
