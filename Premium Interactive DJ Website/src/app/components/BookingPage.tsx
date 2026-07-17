@@ -21,10 +21,10 @@ const BOOKING_DESCRIPTION =
   "Book TOSZAN, Brazilian DJ based in Milan, for Tribal, Circuit and Progressive House events across Europe.";
 
 const promoMix = {
-  title: "TOSZAN Live at Manicomio",
-  url: "https://soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio",
+  title: "Promo DJ Set TOSZAN — Splash Roma",
+  url: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
   embedUrl:
-    "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio&color=%23FFB000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
+    "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23FFB000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
 };
 
 const contactLinks = {
