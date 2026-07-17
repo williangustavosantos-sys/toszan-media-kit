@@ -9,6 +9,14 @@ type Platform = "spotify" | "soundcloud";
 
 const soundcloudTracks = [
   {
+    id: "promo-set-2026",
+    title: "TOSZAN — PROMO SET 2026",
+    type: "Latest Release",
+    url: "https://on.soundcloud.com/mVK7xGYGEzTlbDjXK8",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//on.soundcloud.com/mVK7xGYGEzTlbDjXK8&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    cover: null
+  },
+  {
     id: "brasil",
     title: "BRASIL - Sente essa pressão!",
     type: "New Release",
@@ -137,15 +145,32 @@ function MusicCoverCard({
           transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
-        <img
-          src={track.cover}
-          alt={track.title}
-          className="w-full h-full object-cover"
-          style={{
-            filter: active ? "grayscale(0)" : "grayscale(0.4) brightness(0.8)",
-            transition: "all 0.4s",
-          }}
-        />
+        {track.cover ? (
+          <img
+            src={track.cover}
+            alt={track.title}
+            className="w-full h-full object-cover"
+            style={{
+              filter: active ? "grayscale(0)" : "grayscale(0.4) brightness(0.8)",
+              transition: "all 0.4s",
+            }}
+          />
+        ) : (
+          <div
+            className="flex h-full w-full items-center justify-center"
+            style={{
+              background: "radial-gradient(circle at 30% 20%, rgba(255,176,0,0.32), transparent 46%), linear-gradient(135deg, #18120A, #080808 68%)",
+              color: "#FFB000",
+              fontFamily: "'Syncopate', sans-serif",
+              fontSize: "clamp(1.1rem, 2.2vw, 1.7rem)",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textAlign: "center",
+            }}
+          >
+            PROMO SET<br />2026
+          </div>
+        )}
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <Play fill="#FFB000" color="#FFB000" size={32} />
@@ -192,7 +217,7 @@ export function MusicSection() {
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
 
   const [platform, setPlatform] = useState<Platform>("soundcloud");
-  const [activeTrackId, setActiveTrackId] = useState("brasil");
+  const [activeTrackId, setActiveTrackId] = useState("promo-set-2026");
 
   const activeTrack = soundcloudTracks.find((t) => t.id === activeTrackId)!;
 
