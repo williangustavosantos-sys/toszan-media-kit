@@ -10,10 +10,10 @@ type Platform = "spotify" | "soundcloud";
 const soundcloudTracks = [
   {
     id: "promo-set-2026",
-    title: "TOSZAN — PROMO SET 2026",
+    title: "Promo DJ Set TOSZAN — Splash Roma",
     type: "Latest Release",
-    url: "https://on.soundcloud.com/mVK7xGYGEzTlbDjXK8",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//on.soundcloud.com/mVK7xGYGEzTlbDjXK8&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    url: "https://soundcloud.com/dj-willian-toszan/promo-dj-set-toszan-splash-roma",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/promo-dj-set-toszan-splash-roma&color=%23C9A84C&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: null
   },
   {
@@ -168,7 +168,7 @@ function MusicCoverCard({
               textAlign: "center",
             }}
           >
-            PROMO SET<br />2026
+            SPLASH<br />ROMA
           </div>
         )}
         {/* Hover overlay */}
