@@ -97,6 +97,10 @@ export function AnalyticsPage() {
     label: copy.analyticsPage.metricLabels[index],
     detail: copy.analyticsPage.metricDetails[index],
   }));
+  const localizedScreenshots = analyticsScreenshots.map((item, index) => ({
+    ...item,
+    ...copy.analyticsPage.galleryItems[index],
+  }));
 
   useEffect(() => {
     setAnalyticsMeta(copy);
@@ -192,7 +196,7 @@ export function AnalyticsPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {analyticsScreenshots.map((item) => (
+            {localizedScreenshots.map((item) => (
               <button
                 key={item.src}
                 onClick={() => setSelected(item)}
