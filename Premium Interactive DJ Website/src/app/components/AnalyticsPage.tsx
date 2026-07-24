@@ -1,14 +1,12 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, ExternalLink, X } from "lucide-react";
+import { ArrowLeft, Mail, X } from "lucide-react";
 import {
   analyticsScreenshots,
   analyticsSnapshot,
-  creatorStats,
   type AnalyticsScreenshot,
 } from "../../data/creatorStats";
-
-const ANALYTICS_DESCRIPTION =
-  "Verified Instagram Insights screenshots for Willian TOSZAN creator collaborations, updated monthly.";
+import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
+import { useLanguage } from "../context/LanguageContext";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
   let tag = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
@@ -30,11 +28,12 @@ function upsertCanonical(href: string) {
   link.href = href;
 }
 
-function setAnalyticsMeta() {
-  document.title = "Verified Instagram Insights | TOSZAN";
-  upsertMeta("name", "description", ANALYTICS_DESCRIPTION);
-  upsertMeta("property", "og:title", "Verified Instagram Insights | TOSZAN");
-  upsertMeta("property", "og:description", ANALYTICS_DESCRIPTION);
+function setAnalyticsMeta(copy: CreatorCopy) {
+  const title = `${copy.analyticsPage.title} | TOSZAN`;
+  document.title = title;
+  upsertMeta("name", "description", copy.analyticsPage.verification);
+  upsertMeta("property", "og:title", title);
+  upsertMeta("property", "og:description", copy.analyticsPage.verification);
   upsertMeta("property", "og:type", "website");
   upsertMeta("property", "og:url", "https://toszan-media-kit.vercel.app/analytics");
   upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/analytics/2026-07/instagram-insights-views-overview.png");
@@ -90,11 +89,18 @@ function MetricCard({ label, value, detail }: { label: string; value: string; de
 }
 
 export function AnalyticsPage() {
+  const { language } = useLanguage();
+  const copy = creatorCopy[getCreatorLanguage(language)];
   const [selected, setSelected] = useState<AnalyticsScreenshot | null>(null);
+  const localizedSnapshot = analyticsSnapshot.map((metric, index) => ({
+    ...metric,
+    label: copy.analyticsPage.metricLabels[index],
+    detail: copy.analyticsPage.metricDetails[index],
+  }));
 
   useEffect(() => {
-    setAnalyticsMeta();
-  }, []);
+    setAnalyticsMeta(copy);
+  }, [copy]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -111,7 +117,7 @@ export function AnalyticsPage() {
           <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
             <div>
               <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.28em", textTransform: "uppercase" }}>
-                Private analytics
+                {copy.analyticsPage.eyebrow}
               </div>
               <h1
                 className="mt-4"
@@ -123,20 +129,20 @@ export function AnalyticsPage() {
                   lineHeight: 0.88,
                 }}
               >
-                Verified Instagram Insights
+                {copy.analyticsPage.title}
               </h1>
               <p className="mt-5 max-w-2xl" style={{ color: "rgba(255,255,255,0.62)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "1rem", lineHeight: 1.8 }}>
-                Updated monthly with official Instagram screenshots. Current period: {creatorStats.dateRange}.
+                {copy.analyticsPage.intro}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <PageLink href="/creator">
                 <ArrowLeft size={14} />
-                Creator page
+                {copy.analyticsPage.creatorPage}
               </PageLink>
-              <PageLink href="/booking">
-                Booking
-                <ExternalLink size={14} />
+              <PageLink href="/creator#contact">
+                {copy.analyticsPage.startProject}
+                <Mail size={14} />
               </PageLink>
             </div>
           </div>
@@ -150,7 +156,7 @@ export function AnalyticsPage() {
             }}
           >
             <p style={{ color: "rgba(255,255,255,0.74)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.95rem", lineHeight: 1.75 }}>
-              All analytics displayed on this page come directly from Instagram Professional Insights. These screenshots are taken directly from Instagram Professional Dashboard. Full live verification available upon request.
+              {copy.analyticsPage.verification}
             </p>
           </div>
         </div>
@@ -160,14 +166,14 @@ export function AnalyticsPage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-7">
             <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.26em", textTransform: "uppercase" }}>
-              Current snapshot
+              {copy.analyticsPage.snapshot}
             </div>
             <h2 className="mt-3" style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 7vw, 5rem)", letterSpacing: "0.08em", lineHeight: 0.95 }}>
-              July 2026
+              {copy.analyticsPage.month}
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {analyticsSnapshot.map((metric) => (
+            {localizedSnapshot.map((metric) => (
               <MetricCard key={metric.label} {...metric} />
             ))}
           </div>
@@ -178,10 +184,10 @@ export function AnalyticsPage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-7">
             <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.26em", textTransform: "uppercase" }}>
-              Screenshot gallery
+              {copy.analyticsPage.gallery}
             </div>
             <h2 className="mt-3" style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 7vw, 5rem)", letterSpacing: "0.08em", lineHeight: 0.95 }}>
-              Official Proof
+              {copy.analyticsPage.proof}
             </h2>
           </div>
 
@@ -217,7 +223,7 @@ export function AnalyticsPage() {
                 </div>
                 <div className="p-5">
                   <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.22em", textTransform: "uppercase" }}>
-                    {creatorStats.updatedAt}
+                    {copy.analyticsPage.month}
                   </div>
                   <h3 className="mt-2" style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.08em", lineHeight: 1 }}>
                     {item.title}
@@ -242,7 +248,7 @@ export function AnalyticsPage() {
             <button
               type="button"
               onClick={() => setSelected(null)}
-              aria-label="Close image"
+              aria-label={copy.analyticsPage.close}
               className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full"
               style={{
                 background: "rgba(11,11,11,0.78)",

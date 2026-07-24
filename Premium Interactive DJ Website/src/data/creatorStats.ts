@@ -229,9 +229,9 @@ export const analyticsScreenshots: AnalyticsScreenshot[] = [
 
 export const creatorLinks = {
   email:
-    "mailto:dj@toszan.com.br?subject=Creator%20Collaboration%20-%20TOSZAN&body=Brand%20%2F%20Agency%3A%0ACampaign%20goal%3A%0ADeliverables%3A%0ATimeline%3A%0ABudget%20range%3A%0A",
+    "mailto:dj@toszan.com.br?subject=Brand%20Partnership%20Inquiry%20-%20Willian%20Toszan&body=Brand%20%2F%20Agency%3A%0AContact%20name%3A%0ACampaign%20goal%3A%0ARequested%20deliverables%3A%0ATimeline%3A%0ABudget%20range%3A%0AAdditional%20details%3A%0A",
   whatsapp:
-    "https://wa.me/393428369444?text=Hi%2C%20I%20want%20to%20discuss%20a%20creator%20collaboration%20with%20TOSZAN.%0ABrand%20%2F%20Agency%3A%0ACampaign%20goal%3A%0ADeliverables%3A%0A",
+    "https://wa.me/393428369444?text=Hi%20Willian%2C%20I%27d%20like%20to%20discuss%20a%20creator%20collaboration.%0ABrand%20%2F%20Agency%3A%0ACampaign%20goal%3A%0ATimeline%3A%0A",
   instagram: "https://www.instagram.com/toszan.willian/",
   mediaKit: "/#mediakit",
   analytics: "/analytics",

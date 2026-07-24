@@ -4,19 +4,33 @@ import { Menu, X } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
 import { ToszanLogo } from "./ToszanLogo";
+import { creatorCopy, getCreatorLanguage } from "../../data/creatorCopy";
 
 export function Navigation() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const creatorText = creatorCopy[getCreatorLanguage(language)];
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  const isCreatorPage = currentPath === "/creator";
+  const isAnalyticsPage = currentPath === "/analytics";
+  const isBrandContext = isCreatorPage || isAnalyticsPage;
 
-  const navLinks = [
-    { label: t("nav.experience"), href: "#experience" },
-    { label: t("nav.music"), href: "#music" },
-    { label: t("nav.mediaKit"), href: "#mediakit" },
-    { label: "Creator", href: "/creator" },
-    { label: "Book TOSZAN", href: "/booking" },
-  ];
+  const navLinks = isBrandContext
+    ? [
+        { label: creatorText.nav.overview, href: "/creator#overview" },
+        { label: creatorText.nav.work, href: "/creator#work" },
+        { label: creatorText.nav.audience, href: "/creator#audience" },
+        { label: creatorText.nav.services, href: "/creator#services" },
+        { label: creatorText.nav.contact, href: "/creator#contact" },
+      ]
+    : [
+        { label: t("nav.experience"), href: "#experience" },
+        { label: t("nav.music"), href: "#music" },
+        { label: t("nav.mediaKit"), href: "#mediakit" },
+        { label: "Creator", href: "/creator" },
+        { label: "Book TOSZAN", href: "/booking" },
+      ];
 
   useEffect(() => {
     let frame = 0;
@@ -39,8 +53,16 @@ export function Navigation() {
   const handleLink = (href: string) => {
     setMenuOpen(false);
 
+    const [destinationPath, hash] = href.split("#");
+    if (hash && (destinationPath === "" || destinationPath === currentPath)) {
+      const el = document.querySelector(`#${hash}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+
     if (href.startsWith("/")) {
-      const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
       if (currentPath === href) {
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
@@ -59,6 +81,11 @@ export function Navigation() {
   };
 
   const handleLogoClick = () => {
+    if (isBrandContext) {
+      handleLink("/creator#overview");
+      return;
+    }
+
     if (window.location.pathname !== "/") {
       window.location.href = "/";
       return;
@@ -72,7 +99,7 @@ export function Navigation() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex items-center justify-between"
+        className={`${isBrandContext ? "fixed" : "absolute"} top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex items-center justify-between`}
         style={{
           background: scrolled ? "rgba(11,11,11,0.9)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
@@ -82,6 +109,7 @@ export function Navigation() {
       >
         {/* Logo / Name */}
         <button
+          type="button"
           onClick={handleLogoClick}
           style={{ 
             background: "none", 
@@ -117,6 +145,7 @@ export function Navigation() {
         <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8">
           {navLinks.map((link) => (
             <button
+              type="button"
               key={link.href}
               onClick={() => handleLink(link.href)}
               className="relative group"
@@ -147,7 +176,8 @@ export function Navigation() {
         {/* Desktop CTA & Language - RIGHT */}
         <div className="hidden lg:flex items-center gap-6 ml-auto">
           <button
-            onClick={() => handleLink("/booking")}
+            type="button"
+            onClick={() => handleLink(isBrandContext ? "/creator#contact" : "/booking")}
             className="px-6 py-2"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
@@ -173,17 +203,18 @@ export function Navigation() {
               e.currentTarget.style.boxShadow = "0 0 20px rgba(255,176,0,0.25)";
             }}
           >
-            Book TOSZAN
+            {isAnalyticsPage ? creatorText.nav.analyticsCta : isCreatorPage ? creatorText.nav.cta : "Book TOSZAN"}
           </button>
 
           {/* Language Selector */}
-          <LanguageSelector />
+          <LanguageSelector creatorLanguagesOnly={isBrandContext} />
         </div>
 
         {/* Mobile: Language + hamburger */}
         <div className="lg:hidden flex items-center gap-4">
-          <LanguageSelector />
+          <LanguageSelector creatorLanguagesOnly={isBrandContext} />
           <button
+            type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             style={{ color: "#FFB000", background: "none", border: "none", cursor: "pointer" }}
@@ -209,6 +240,7 @@ export function Navigation() {
 
             {navLinks.map((link, i) => (
               <motion.button
+                type="button"
                 key={link.href}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -233,10 +265,11 @@ export function Navigation() {
             ))}
 
             <motion.button
+              type="button"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.48 }}
-              onClick={() => handleLink("/booking")}
+              onClick={() => handleLink(isBrandContext ? "/creator#contact" : "/booking")}
               className="mt-4 px-10 py-4"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -251,7 +284,7 @@ export function Navigation() {
                 boxShadow: "0 0 40px rgba(255,176,0,0.3)",
               }}
             >
-              Book TOSZAN
+              {isBrandContext ? creatorText.nav.cta : "Book TOSZAN"}
             </motion.button>
           </motion.div>
         )}

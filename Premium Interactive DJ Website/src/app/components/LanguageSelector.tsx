@@ -11,12 +11,17 @@ const languages = [
   { code: "fr" as Language, label: "FR", flag: "🇫🇷", name: "Français" },
 ];
 
-export function LanguageSelector() {
+export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLanguagesOnly?: boolean }) {
   const { language, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  const activeLang = languages.find((l) => l.code === language)!;
+  const visibleLanguages = creatorLanguagesOnly
+    ? languages.filter((item) => item.code === "en" || item.code === "pt" || item.code === "it")
+    : languages;
+  const selectedLanguage = visibleLanguages.some((item) => item.code === language)
+    ? language
+    : "en";
+  const activeLang = visibleLanguages.find((item) => item.code === selectedLanguage)!;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -36,7 +41,11 @@ export function LanguageSelector() {
   return (
     <div ref={ref} className="relative">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        aria-label={`${activeLang.name} language`}
         className="flex items-center gap-2 px-3 py-2"
         style={{
           background: isOpen ? "rgba(255,176,0,0.12)" : "rgba(255,255,255,0.04)",
@@ -65,6 +74,7 @@ export function LanguageSelector() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            role="menu"
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -81,8 +91,10 @@ export function LanguageSelector() {
             }}
           >
             <div className="py-2">
-              {languages.map((lang, i) => (
+              {visibleLanguages.map((lang, i) => (
                 <motion.button
+                  type="button"
+                  role="menuitem"
                   key={lang.code}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -90,8 +102,8 @@ export function LanguageSelector() {
                   onClick={() => handleLanguageChange(lang.code)}
                   className="w-full flex items-center justify-between px-4 py-3"
                   style={{
-                    background: language === lang.code ? "rgba(255,176,0,0.12)" : "transparent",
-                    borderLeft: language === lang.code ? "2px solid #FFB000" : "2px solid transparent",
+                    background: selectedLanguage === lang.code ? "rgba(255,176,0,0.12)" : "transparent",
+                    borderLeft: selectedLanguage === lang.code ? "2px solid #FFB000" : "2px solid transparent",
                     transition: "all 0.3s",
                   }}
                 >
@@ -102,7 +114,7 @@ export function LanguageSelector() {
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontSize: "0.75rem",
                         fontWeight: 600,
-                        color: language === lang.code ? "#FFB000" : "rgba(255,255,255,0.85)",
+                        color: selectedLanguage === lang.code ? "#FFB000" : "rgba(255,255,255,0.85)",
                       }}
                     >
                       {lang.name}
@@ -125,6 +137,7 @@ export function LanguageSelectorMobile() {
     <div className="flex items-center justify-center gap-2 px-4 py-3">
       {languages.map((lang) => (
         <button
+          type="button"
           key={lang.code}
           onClick={() => setLanguage(lang.code)}
           style={{

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
+  BadgeCheck,
   BarChart3,
-  BriefcaseBusiness,
   ExternalLink,
   Instagram,
   Mail,
@@ -14,11 +14,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import {
-  collaborationFormats,
-  contentPillars,
   creatorLinks,
   creatorSnapshot,
-  creatorStats,
   creatorVideos,
   followerAge,
   followerGender,
@@ -26,9 +23,9 @@ import {
   topCountries,
   type AudienceBar,
 } from "../../data/creatorStats";
-
-const CREATOR_DESCRIPTION =
-  "Brazilian creator based in Milan. European lifestyle, fitness, travel, menswear, nightlife and music for premium brand collaborations.";
+import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
+import creatorPortrait from "../../imports/creator-portrait-2026.jpeg";
+import { useLanguage } from "../context/LanguageContext";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
   let tag = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
@@ -50,14 +47,14 @@ function upsertCanonical(href: string) {
   link.href = href;
 }
 
-function setCreatorMeta() {
-  document.title = "WILLIAN TOSZAN | Brazilian Creator Based in Milan";
-  upsertMeta("name", "description", CREATOR_DESCRIPTION);
-  upsertMeta("property", "og:title", "WILLIAN TOSZAN | Brazilian Creator Based in Milan");
-  upsertMeta("property", "og:description", CREATOR_DESCRIPTION);
+function setCreatorMeta(copy: CreatorCopy) {
+  document.title = copy.meta.title;
+  upsertMeta("name", "description", copy.meta.description);
+  upsertMeta("property", "og:title", copy.meta.title);
+  upsertMeta("property", "og:description", copy.meta.description);
   upsertMeta("property", "og:type", "website");
   upsertMeta("property", "og:url", "https://toszan-media-kit.vercel.app/creator");
-  upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/creator/posters/winter-lifestyle-milan.jpg");
+  upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/creator/posters/lifestyle-dj-day.jpg");
   upsertMeta("name", "twitter:card", "summary_large_image");
   upsertMeta("name", "theme-color", "#0B0B0B");
   upsertCanonical("https://toszan-media-kit.vercel.app/creator");
@@ -299,14 +296,47 @@ function AudienceBars({ title, bars }: { title: string; bars: AudienceBar[] }) {
 }
 
 export function CreatorPage() {
+  const { language } = useLanguage();
+  const copy = creatorCopy[getCreatorLanguage(language)];
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
-  const [soundVideo, setSoundVideo] = useState<string | null>(null);
   const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
 
   useEffect(() => {
-    setCreatorMeta();
-  }, []);
+    setCreatorMeta(copy);
+  }, [copy]);
+
+  const localizedSnapshot = creatorSnapshot.map((metric, index) => ({
+    ...metric,
+    label: copy.metricLabels[index],
+    detail: copy.metricDetails[index],
+  }));
+  const localizedVideos = creatorVideos.map((video, index) => ({
+    ...video,
+    ...copy.work.videos[index],
+  }));
+  const localizedGender = followerGender.map((bar, index) => ({
+    ...bar,
+    label: index === 0 ? copy.audience.men : copy.audience.women,
+  }));
+  const localizedCountries = topCountries.map((bar, index) => ({
+    ...bar,
+    label: [
+      copy.audience.brazil,
+      copy.audience.italy,
+      copy.audience.unitedStates,
+      copy.audience.spain,
+    ][index],
+  }));
+  const localizedCities = topCities.map((bar, index) => ({
+    ...bar,
+    label: [
+      copy.audience.saoPaulo,
+      copy.audience.milan,
+      copy.audience.rome,
+      copy.audience.rio,
+    ][index],
+  }));
 
   const stopOtherVideos = (activeSource: string) => {
     Object.entries(videoRefs.current).forEach(([source, video]) => {
@@ -316,7 +346,6 @@ export function CreatorPage() {
       video.volume = 0;
     });
     setActiveVideo((current) => (current && current !== activeSource ? null : current));
-    setSoundVideo((current) => (current && current !== activeSource ? null : current));
     setBlockedVideo((current) => (current && current !== activeSource ? null : current));
   };
 
@@ -331,7 +360,6 @@ export function CreatorPage() {
       video.muted = true;
       video.volume = 0;
       setActiveVideo(source);
-      setSoundVideo(null);
       setBlockedVideo(null);
       try {
         await video.play();
@@ -351,11 +379,9 @@ export function CreatorPage() {
 
     try {
       await video.play();
-      setSoundVideo(source);
     } catch {
       video.muted = true;
       setActiveVideo(null);
-      setSoundVideo(null);
       setBlockedVideo(source);
     }
   };
@@ -364,139 +390,188 @@ export function CreatorPage() {
     const video = videoRefs.current[source];
     if (video && !video.ended && video.error === null && activeVideo !== source) return;
     setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
   };
 
   const handlePortfolioEnded = (source: string) => {
     setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
   };
 
   const handlePortfolioError = (source: string) => {
     setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
     setBlockedVideo(source);
   };
 
   const pausePortfolioVideo = (source: string) => {
     videoRefs.current[source]?.pause();
     setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
   };
 
   return (
     <div style={{ background: "#0B0B0B", minHeight: "100vh" }}>
-      <section className="relative min-h-[92vh] overflow-hidden px-5 pb-12 pt-28 md:px-10 md:pt-32 lg:pb-16 lg:pt-36">
-        <img
-          className="absolute inset-0 h-full w-full object-cover lg:hidden"
-          src="/creator/posters/winter-lifestyle-milan.jpg"
-          alt=""
-          aria-hidden="true"
-          style={{ objectPosition: "center top", opacity: 0.5 }}
-        />
-        <div className="absolute inset-y-0 right-0 hidden w-[58%] lg:block">
-          <img
-            className="h-full w-full object-contain object-right"
-            src="/creator/posters/winter-lifestyle-milan.jpg"
-            alt=""
-            aria-hidden="true"
-            style={{ opacity: 0.7 }}
-          />
-        </div>
+      <section
+        id="overview"
+        className="relative overflow-hidden border-b px-5 pb-12 pt-28 md:px-10 md:pb-16 md:pt-32 lg:min-h-[100svh] lg:pt-28"
+        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+      >
         <div
-          className="absolute inset-0"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(11,11,11,0.97) 0%, rgba(11,11,11,0.78) 48%, rgba(11,11,11,0.34) 100%), linear-gradient(180deg, rgba(11,11,11,0.08) 0%, #0B0B0B 98%)",
+              "radial-gradient(circle at 74% 35%, rgba(255,176,0,0.12), transparent 28%), radial-gradient(circle at 12% 80%, rgba(255,77,0,0.08), transparent 30%)",
           }}
         />
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end gap-8 lg:min-h-[72vh] lg:flex-row lg:items-end">
-          <div className="max-w-3xl">
-            <Eyebrow>Creator portfolio</Eyebrow>
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
+          <div className="order-2 lg:order-1">
+            <div className="flex flex-wrap items-center gap-3">
+              <span
+                className="inline-flex min-h-9 items-center gap-2 rounded-full px-3"
+                style={{
+                  background: "rgba(255,176,0,0.1)",
+                  border: "1px solid rgba(255,176,0,0.28)",
+                  color: "#FFB000",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: "0.62rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                }}
+              >
+                <MapPin size={13} /> {copy.hero.location}
+              </span>
+              <span
+                className="inline-flex min-h-9 items-center gap-2 rounded-full px-3"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "rgba(255,255,255,0.72)",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: "0.62rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.13em",
+                  textTransform: "uppercase",
+                }}
+              >
+                <BadgeCheck size={13} /> {copy.hero.availability}
+              </span>
+            </div>
+
+            <div className="mt-7"><Eyebrow>{copy.hero.eyebrow}</Eyebrow></div>
             <h1
               className="mt-4"
               style={{
                 color: "#ffffff",
                 fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: "clamp(4rem, 15vw, 10rem)",
-                letterSpacing: "0.07em",
+                fontSize: "clamp(4.6rem, 10vw, 8.8rem)",
+                letterSpacing: "0.055em",
                 lineHeight: 0.82,
               }}
             >
-              WILLIAN TOSZAN
+              WILLIAN<br />TOSZAN
             </h1>
             <h2
-              className="mt-5"
+              className="mt-6 max-w-3xl"
               style={{
                 color: "#FFB000",
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "clamp(1.05rem, 3vw, 1.6rem)",
+                fontSize: "clamp(1rem, 2.2vw, 1.45rem)",
                 fontWeight: 800,
-                letterSpacing: "0.18em",
+                letterSpacing: "0.13em",
+                lineHeight: 1.45,
                 textTransform: "uppercase",
               }}
             >
-              Brazilian Creator Based in Milan
+              {copy.hero.headline}
             </h2>
             <p
               className="mt-5 max-w-2xl"
               style={{
-                color: "rgba(255,255,255,0.72)",
+                color: "rgba(255,255,255,0.68)",
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "clamp(1rem, 2vw, 1.22rem)",
+                fontSize: "clamp(0.98rem, 1.7vw, 1.14rem)",
                 lineHeight: 1.75,
               }}
             >
-              European lifestyle, fitness, travel, menswear, nightlife and music. DJ identity is the differentiator, not the whole story.
+              {copy.hero.description}
             </p>
+
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <PrimaryLink href="#contact" icon={<ArrowRight size={15} />}>
-                Work With Me
+              <PrimaryLink href="#work" icon={<ArrowRight size={15} />}>
+                {copy.hero.work}
               </PrimaryLink>
+              <SecondaryLink href="#contact" icon={<Mail size={15} />}>
+                {copy.hero.collaboration}
+              </SecondaryLink>
               <SecondaryLink href="/analytics" icon={<BarChart3 size={15} />}>
-                View Analytics
+                {copy.hero.analytics}
               </SecondaryLink>
-              <SecondaryLink href={creatorLinks.instagram} external icon={<Instagram size={15} />}>
-                Instagram
-              </SecondaryLink>
+            </div>
+
+            <div className="mt-9 grid grid-cols-2 gap-x-6 gap-y-5 border-t pt-6 sm:grid-cols-4" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
+              {localizedSnapshot.slice(0, 4).map((metric) => (
+                <div key={metric.label}>
+                  <div style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.2rem", letterSpacing: "0.07em", lineHeight: 1 }}>
+                    {metric.value}
+                  </div>
+                  <div className="mt-1" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.56rem", fontWeight: 800, letterSpacing: "0.17em", textTransform: "uppercase" }}>
+                    {metric.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div
-            className="grid w-full max-w-sm grid-cols-2 gap-3 lg:max-w-[330px]"
-            style={{ color: "#ffffff" }}
-          >
-            {creatorSnapshot.slice(0, 4).map((metric) => (
-              <div
-                key={metric.label}
-                className="p-4"
-                style={{
-                  background: "rgba(11,11,11,0.62)",
-                  border: "1px solid rgba(255,176,0,0.22)",
-                  borderRadius: "8px",
-                  backdropFilter: "blur(14px)",
-                }}
-              >
-                <div style={{ color: "#FFB000", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.08em", lineHeight: 1 }}>
-                  {metric.value}
+          <div className="order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:max-w-none">
+            <div
+              className="relative mx-auto aspect-[4/5] max-h-[720px] overflow-hidden rounded-[10px]"
+              style={{
+                border: "1px solid rgba(255,176,0,0.24)",
+                background: "#151515",
+                boxShadow: "0 40px 100px rgba(0,0,0,0.5)",
+              }}
+            >
+              <img
+                className="h-full w-full object-cover"
+                src={creatorPortrait}
+                alt={copy.hero.alt}
+                loading="eager"
+                fetchPriority="high"
+                style={{ objectPosition: "center 24%" }}
+              />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 48%, rgba(11,11,11,0.9) 100%)" }} />
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+                <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
+                  {copy.hero.roles}
                 </div>
-                <div style={{ color: "rgba(255,255,255,0.58)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>
-                  {metric.label}
+                <div className="mt-2 flex items-center justify-between gap-4">
+                  <span style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.08em" }}>
+                    {copy.hero.region}
+                  </span>
+                  <a
+                    href={creatorLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${copy.contact.open} Instagram`}
+                    className="flex h-11 w-11 items-center justify-center rounded-full"
+                    style={{ background: "#FFB000", color: "#0B0B0B" }}
+                  >
+                    <Instagram size={18} />
+                  </a>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
       <Section
-        eyebrow="Audience snapshot"
-        title="Real Instagram Numbers"
-        intro={`Numbers based on recent Instagram Insights, ${creatorStats.dateRange}. Updated monthly.`}
+        id="performance"
+        eyebrow={copy.performance.eyebrow}
+        title={copy.performance.title}
+        intro={copy.performance.intro}
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {creatorSnapshot.map((metric) => (
+          {localizedSnapshot.map((metric) => (
             <MetricCard key={metric.label} {...metric} />
           ))}
         </div>
@@ -504,12 +579,12 @@ export function CreatorPage() {
 
       <Section
         id="work"
-        eyebrow="Selected content"
-        title="Premium Creator Portfolio"
-        intro="Commercial samples for fashion, product, Milan lifestyle, fitness communication and DJ-adjacent nightlife identity."
+        eyebrow={copy.work.eyebrow}
+        title={copy.work.title}
+        intro={copy.work.intro}
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {creatorVideos.map((video) => (
+          {localizedVideos.map((video) => (
             <article
               key={video.source}
               className="overflow-hidden"
@@ -537,7 +612,7 @@ export function CreatorPage() {
                   poster={video.poster}
                   muted
                   playsInline
-                  preload="metadata"
+                  preload="none"
                   ref={(node) => {
                     videoRefs.current[video.source] = node;
                   }}
@@ -568,7 +643,7 @@ export function CreatorPage() {
                       textTransform: "uppercase",
                     }}
                   >
-                    {video.hasAudio ? "Content sample" : "Visual sample"}
+                    {video.hasAudio ? copy.work.contentSample : copy.work.visualSample}
                   </span>
                 </div>
                 {!isPlaying ? (
@@ -592,15 +667,15 @@ export function CreatorPage() {
                   >
                     <Play size={15} fill="currentColor" />
                     {video.hasAudio && blockedVideo === video.source
-                      ? "Tap again to enable sound"
+                      ? copy.work.tapAgain
                       : !video.hasAudio
-                        ? "View sample"
-                        : "Play with sound"}
+                        ? copy.work.viewSample
+                        : copy.work.playSound}
                   </button>
                 ) : (
                   <button
                     type="button"
-                    aria-label="Pause sample"
+                    aria-label={copy.work.pause}
                     onClick={(event) => {
                       event.stopPropagation();
                       pausePortfolioVideo(video.source);
@@ -637,12 +712,12 @@ export function CreatorPage() {
       </Section>
 
       <Section
-        eyebrow="Content pillars"
-        title="Lifestyle With a Point of View"
-        intro="The audience follows a Brazilian creator living in Europe: Milan, body transformation, menswear, travel, nightlife and music all sit inside one recognizable identity."
+        eyebrow={copy.pillars.eyebrow}
+        title={copy.pillars.title}
+        intro={copy.pillars.intro}
       >
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {contentPillars.map((pillar) => (
+          {copy.pillars.items.map((pillar) => (
             <div
               key={pillar}
               className="min-h-[108px] p-5"
@@ -664,21 +739,24 @@ export function CreatorPage() {
       </Section>
 
       <Section
-        eyebrow="Audience profile"
-        title="Brazilian Reach, European Context"
-        intro="The core follower profile is male, 25-44, with strong Brazil and Italy signals plus visible Europe and US interest."
+        id="audience"
+        eyebrow={copy.audience.eyebrow}
+        title={copy.audience.title}
+        intro={copy.audience.intro}
       >
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <AudienceBars title="Follower gender" bars={followerGender} />
-          <AudienceBars title="Follower age" bars={followerAge} />
-          <AudienceBars title="Top countries" bars={topCountries} />
-          <AudienceBars title="Top cities" bars={topCities} />
+          <AudienceBars title={copy.audience.gender} bars={localizedGender} />
+          <AudienceBars title={copy.audience.age} bars={followerAge} />
+          <AudienceBars title={copy.audience.countries} bars={localizedCountries} />
+          <AudienceBars title={copy.audience.cities} bars={localizedCities} />
         </div>
       </Section>
 
       <Section
-        eyebrow="Brand fit"
-        title="Why Brands Work With This Profile"
+        id="services"
+        eyebrow={copy.services.eyebrow}
+        title={copy.services.title}
+        intro={copy.services.intro}
       >
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.1fr_0.9fr]">
           <div
@@ -699,11 +777,31 @@ export function CreatorPage() {
                 lineHeight: 1.85,
               }}
             >
-              Willian gives brands a creator who can speak to Brazil while living inside a European visual world. The content has a clear face, body transformation credibility, Milan styling, nightlife energy and a DJ edge that makes campaigns feel more alive than generic UGC.
+              {copy.services.description}
             </p>
+            <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {copy.services.advantages.map((advantage) => (
+                <div
+                  key={advantage}
+                  className="flex items-center gap-2 p-3"
+                  style={{
+                    background: "rgba(255,176,0,0.07)",
+                    border: "1px solid rgba(255,176,0,0.16)",
+                    borderRadius: "6px",
+                    color: "rgba(255,255,255,0.74)",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: "0.78rem",
+                    lineHeight: 1.45,
+                  }}
+                >
+                  <BadgeCheck color="#FFB000" size={16} />
+                  {advantage}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            {collaborationFormats.slice(0, 6).map((format) => (
+            {copy.services.formats.map((format) => (
               <div
                 key={format}
                 className="flex items-center gap-3 p-4"
@@ -726,17 +824,16 @@ export function CreatorPage() {
 
       <Section
         id="contact"
-        eyebrow="Contact"
-        title="Request Collaboration"
-        intro="For agencies, hotels, tourism boards, fashion, fitness, lifestyle, nightlife and event brands."
+        eyebrow={copy.contact.eyebrow}
+        title={copy.contact.title}
+        intro={copy.contact.intro}
       >
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {[
-            { icon: <Mail size={18} />, label: "Email", value: "dj@toszan.com.br", href: creatorLinks.email, external: false },
+            { icon: <Mail size={18} />, label: copy.contact.partnershipEmail, value: "dj@toszan.com.br", href: creatorLinks.email, external: false },
             { icon: <MessageCircle size={18} />, label: "WhatsApp", value: "+39 342 836 9444", href: creatorLinks.whatsapp, external: true },
             { icon: <Instagram size={18} />, label: "Instagram", value: "@toszan.willian", href: creatorLinks.instagram, external: true },
-            { icon: <BriefcaseBusiness size={18} />, label: "Media Kit", value: "DJ + brand page", href: creatorLinks.mediaKit, external: false },
-            { icon: <BarChart3 size={18} />, label: "Analytics", value: "Verified screenshots", href: creatorLinks.analytics, external: false },
+            { icon: <BarChart3 size={18} />, label: copy.contact.analytics, value: copy.contact.verified, href: creatorLinks.analytics, external: false },
           ].map((item) => (
             <a
               key={item.label}
@@ -764,7 +861,7 @@ export function CreatorPage() {
                 </div>
               </div>
               <div className="mt-8 flex items-center gap-2" style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                Open
+                {copy.contact.open}
                 <ExternalLink size={13} />
               </div>
             </a>
@@ -773,11 +870,22 @@ export function CreatorPage() {
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <PrimaryLink href={creatorLinks.email} icon={<ArrowRight size={15} />}>
-            Request Collaboration
+            {copy.contact.sendBrief}
           </PrimaryLink>
-          <SecondaryLink href="/booking" icon={<MapPin size={15} />}>
-            Book TOSZAN
+          <SecondaryLink href={creatorLinks.instagram} external icon={<Instagram size={15} />}>
+            {copy.contact.instagram}
           </SecondaryLink>
+        </div>
+
+        <div className="mt-16 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <span style={{ color: "rgba(255,255,255,0.36)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              {copy.contact.footerLocation}
+            </span>
+            <span style={{ color: "rgba(255,255,255,0.36)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              {copy.contact.footerRoles}
+            </span>
+          </div>
         </div>
       </Section>
     </div>
