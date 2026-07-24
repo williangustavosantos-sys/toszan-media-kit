@@ -24,7 +24,7 @@ import {
   type AudienceBar,
 } from "../../data/creatorStats";
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
-import creatorPortrait from "../../imports/creator-portrait-2026.jpeg";
+import creatorPortrait from "../../imports/creator-portrait-transparent.png";
 import { useLanguage } from "../context/LanguageContext";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
@@ -525,20 +525,20 @@ export function CreatorPage() {
             <div
               className="relative mx-auto aspect-[4/5] max-h-[720px] overflow-hidden rounded-[10px]"
               style={{
-                border: "1px solid rgba(255,176,0,0.24)",
-                background: "#151515",
+                border: "1px solid rgba(255,176,0,0.18)",
+                background:
+                  "radial-gradient(circle at 55% 32%, rgba(255,176,0,0.12), transparent 42%), linear-gradient(180deg, #171717 0%, #0d0d0d 100%)",
                 boxShadow: "0 40px 100px rgba(0,0,0,0.5)",
               }}
             >
               <img
-                className="h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-contain object-bottom"
                 src={creatorPortrait}
                 alt={copy.hero.alt}
                 loading="eager"
                 fetchPriority="high"
-                style={{ objectPosition: "center 24%" }}
               />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 48%, rgba(11,11,11,0.9) 100%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 56%, rgba(11,11,11,0.92) 100%)" }} />
               <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
                 <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
                   {copy.hero.roles}
