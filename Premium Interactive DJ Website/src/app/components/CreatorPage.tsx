@@ -342,9 +342,6 @@ export function CreatorPage() {
     Object.entries(videoRefs.current).forEach(([source, video]) => {
       if (!video || source === activeSource) return;
       video.pause();
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
     });
     setActiveVideo((current) => (current && current !== activeSource ? null : current));
     setBlockedVideo((current) => (current && current !== activeSource ? null : current));
@@ -359,6 +356,7 @@ export function CreatorPage() {
 
     if (!hasAudio) {
       video.muted = true;
+      video.defaultMuted = true;
       video.volume = 0;
       setActiveVideo(source);
       setBlockedVideo(null);
@@ -383,10 +381,13 @@ export function CreatorPage() {
 
     try {
       await video.play();
+      // Keep the media element aligned with React's rendered `muted` prop
+      // after the asynchronous play request completes.
+      video.defaultMuted = false;
+      video.muted = false;
+      video.volume = 1;
       setActiveVideo(source);
     } catch {
-      video.muted = true;
-      video.defaultMuted = true;
       setActiveVideo(null);
       setBlockedVideo(source);
     }
@@ -616,6 +617,7 @@ export function CreatorPage() {
                   className="h-full w-full object-cover"
                   src={video.source}
                   poster={video.poster}
+                  muted={!video.hasAudio}
                   playsInline
                   preload="metadata"
                   ref={(node) => {
@@ -654,7 +656,10 @@ export function CreatorPage() {
                 {!isPlaying ? (
                   <button
                     type="button"
-                    onClick={() => handlePortfolioPlay(video.source, video.hasAudio)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handlePortfolioPlay(video.source, video.hasAudio);
+                    }}
                     className="absolute left-4 right-4 top-1/2 flex min-h-12 -translate-y-1/2 items-center justify-center gap-2 px-4"
                     style={{
                       background: video.hasAudio ? "linear-gradient(135deg, #FFB000, #FF8C00)" : "rgba(255,255,255,0.88)",
