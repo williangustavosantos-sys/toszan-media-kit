@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/assemble-creator-videos.mjs",
     "build": "vite build",
     "dev": "vite"
   },

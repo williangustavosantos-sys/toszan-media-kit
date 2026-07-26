@@ -343,6 +343,7 @@ export function CreatorPage() {
       if (!video || source === activeSource) return;
       video.pause();
       video.muted = true;
+      video.defaultMuted = true;
       video.volume = 0;
     });
     setActiveVideo((current) => (current && current !== activeSource ? null : current));
@@ -372,15 +373,20 @@ export function CreatorPage() {
       return;
     }
 
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.removeAttribute("muted");
+    video.defaultMuted = false;
     video.muted = false;
     video.volume = 1;
-    setActiveVideo(source);
     setBlockedVideo(null);
 
     try {
       await video.play();
+      setActiveVideo(source);
     } catch {
       video.muted = true;
+      video.defaultMuted = true;
       setActiveVideo(null);
       setBlockedVideo(source);
     }
@@ -583,7 +589,7 @@ export function CreatorPage() {
         title={copy.work.title}
         intro={copy.work.intro}
       >
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {localizedVideos.map((video) => (
             <article
               key={video.source}
@@ -610,9 +616,8 @@ export function CreatorPage() {
                   className="h-full w-full object-cover"
                   src={video.source}
                   poster={video.poster}
-                  muted
                   playsInline
-                  preload="none"
+                  preload="metadata"
                   ref={(node) => {
                     videoRefs.current[video.source] = node;
                   }}

@@ -6,3 +6,5 @@ build/
 .env.*
 .DS_Store
 *.log
+public/creator/videos/ugc-creator-introduction.mp4
+public/creator/videos/ugc-hair-wax-bottega-paesano.mp4

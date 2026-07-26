@@ -74,9 +74,14 @@ const english = {
     pause: "Pause sample",
     videos: [
       {
-        title: "European Lifestyle Day",
-        category: "Lifestyle + DJ",
-        description: "Ideal for city lifestyle, travel, nightlife and creator-led campaigns.",
+        title: "UGC Creator Introduction",
+        category: "UGC + On-camera",
+        description: "A concise introduction to my approach to attention-led, authentic brand content.",
+      },
+      {
+        title: "Hair Wax UGC Campaign",
+        category: "Men's Grooming",
+        description: "A complete UGC product story created for Bottega Paesano, from problem to result.",
       },
       {
         title: "Product Showcase",
@@ -277,9 +282,14 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       pause: "Pausar exemplo",
       videos: [
         {
-          title: "Um dia de lifestyle europeu",
-          category: "Lifestyle + DJ",
-          description: "Ideal para campanhas de lifestyle urbano, viagens, vida noturna e conteúdo com creator.",
+          title: "Apresentação como creator UGC",
+          category: "UGC + Comunicação",
+          description: "Uma apresentação objetiva da minha abordagem para criar conteúdo autêntico que conquista atenção para marcas.",
+        },
+        {
+          title: "Campanha UGC — Cera capilar",
+          category: "Grooming masculino",
+          description: "Trabalho completo de UGC criado para a Bottega Paesano, apresentando o problema, o produto e o resultado.",
         },
         {
           title: "Apresentação de produto",
@@ -475,9 +485,14 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       pause: "Metti in pausa",
       videos: [
         {
-          title: "Una giornata di lifestyle europeo",
-          category: "Lifestyle + DJ",
-          description: "Ideale per campagne di lifestyle urbano, viaggi, nightlife e contenuti con creator.",
+          title: "Presentazione come creator UGC",
+          category: "UGC + Comunicazione",
+          description: "Una presentazione diretta del mio approccio alla creazione di contenuti autentici capaci di conquistare l'attenzione per i brand.",
+        },
+        {
+          title: "Campagna UGC — Cera per capelli",
+          category: "Grooming uomo",
+          description: "Un contenuto UGC completo creato per Bottega Paesano, dal problema iniziale al prodotto e al risultato.",
         },
         {
           title: "Presentazione prodotto",

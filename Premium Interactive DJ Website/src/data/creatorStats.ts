@@ -121,12 +121,20 @@ export const collaborationFormats = [
 
 export const creatorVideos: CreatorVideo[] = [
   {
-    title: "European Lifestyle Day",
-    category: "Lifestyle + DJ",
-    description: "Ideal for city lifestyle, travel, nightlife and creator-led campaigns.",
-    source: "/creator/videos/lifestyle-dj-day.mp4",
-    poster: "/creator/posters/lifestyle-dj-day.jpg",
-    hasAudio: false,
+    title: "UGC Creator Introduction",
+    category: "UGC + On-camera",
+    description: "A concise introduction to my approach to attention-led, authentic brand content.",
+    source: "/creator/videos/ugc-creator-introduction.mp4",
+    poster: "/creator/posters/ugc-creator-introduction.jpg",
+    hasAudio: true,
+  },
+  {
+    title: "Hair Wax UGC Campaign",
+    category: "Men's Grooming",
+    description: "A complete UGC product story created for Bottega Paesano, from problem to result.",
+    source: "/creator/videos/ugc-hair-wax-bottega-paesano.mp4",
+    poster: "/creator/posters/ugc-hair-wax-bottega-paesano.jpg",
+    hasAudio: true,
   },
   {
     title: "Product Showcase",
