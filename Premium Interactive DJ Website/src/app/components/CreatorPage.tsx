@@ -10,8 +10,9 @@ import {
   MessageCircle,
   Pause,
   Play,
-  ShieldCheck,
-  Sparkles,
+  Clapperboard,
+  Dumbbell,
+  CalendarDays,
 } from "lucide-react";
 import {
   creatorLinks,
@@ -841,67 +842,34 @@ export function CreatorPage() {
         title={copy.services.title}
         intro={copy.services.intro}
       >
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <div
-            className="p-6 md:p-8"
-            style={{
-              background: "rgba(255,255,255,0.035)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              borderRadius: "8px",
-            }}
-          >
-            <Sparkles color="#FFB000" size={24} />
-            <p
-              className="mt-5"
-              style={{
-                color: "rgba(255,255,255,0.68)",
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "clamp(1rem, 2vw, 1.18rem)",
-                lineHeight: 1.85,
-              }}
-            >
-              {copy.services.description}
-            </p>
-            <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {copy.services.advantages.map((advantage) => (
-                <div
-                  key={advantage}
-                  className="flex items-center gap-2 p-3"
-                  style={{
-                    background: "rgba(255,176,0,0.07)",
-                    border: "1px solid rgba(255,176,0,0.16)",
-                    borderRadius: "6px",
-                    color: "rgba(255,255,255,0.74)",
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: "0.78rem",
-                    lineHeight: 1.45,
-                  }}
-                >
-                  <BadgeCheck color="#FFB000" size={16} />
-                  {advantage}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            {copy.services.formats.map((format) => (
-              <div
-                key={format}
-                className="flex items-center gap-3 p-4"
-                style={{
-                  background: "rgba(255,255,255,0.035)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: "8px",
-                  color: "rgba(255,255,255,0.72)",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: "0.9rem",
-                }}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {copy.services.offers.map((offer, index) => {
+            const Icon = [Clapperboard, MapPin, Dumbbell, CalendarDays][index];
+            return (
+              <article
+                key={offer.title}
+                className="group flex min-h-[148px] flex-col rounded-xl border border-white/10 bg-white/[0.035] p-5 transition-[border-color,background-color,transform] duration-200 hover:-translate-y-1 hover:border-[#FFB000]/45 hover:bg-white/[0.065] sm:min-h-[150px]"
               >
-                <ShieldCheck color="#FFB000" size={18} />
-                {format}
-              </div>
-            ))}
-          </div>
+                <div className="flex items-center justify-between">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#FFB000]/20 bg-[#FFB000]/[0.08] text-[#FFB000]">
+                    <Icon size={19} strokeWidth={1.8} aria-hidden="true" />
+                  </span>
+                  <span aria-hidden="true" className="text-[0.65rem] font-semibold tracking-[0.15em] text-white/30">0{index + 1}</span>
+                </div>
+                <h3 className="mt-4 text-[1.05rem] font-bold leading-snug tracking-[-0.02em] text-white">{offer.title}</h3>
+                <p className="mt-1 text-[0.84rem] leading-[1.55] text-white/65">{offer.detail}</p>
+              </article>
+            );
+          })}
+        </div>
+        <div className="mt-6 flex justify-center sm:justify-end">
+          <a
+            href="#contact"
+            className="group inline-flex min-h-11 items-center gap-3 border-b border-[#FFB000]/50 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#FFB000] transition-colors hover:border-[#FFD063] hover:text-[#FFD063] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFB000]"
+          >
+            {copy.services.cta}
+            <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </Section>
 

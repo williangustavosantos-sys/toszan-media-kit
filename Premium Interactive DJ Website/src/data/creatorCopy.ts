@@ -137,22 +137,15 @@ const english = {
     rio: "Rio de Janeiro",
   },
   services: {
-    eyebrow: "Brand fit",
-    title: "Campaign-Ready, Not Just Visible",
-    intro:
-      "Available for creator-led campaigns, UGC production and on-location activations across Milan and Europe.",
-    description:
-      "Willian combines nine years of fitness and wellness expertise with a strong on-camera presence and a distinctive European lifestyle setting. The result is content that can educate, demonstrate and entertain — delivered in Portuguese or Italian, with subtitles available for international campaigns.",
-    advantages: ["Milan-based production", "Fitness credibility", "International-ready subtitles"],
-    formats: [
-      "Reels and short-form campaigns",
-      "Hotel, tourism and city lifestyle content",
-      "Menswear and grooming product showcases",
-      "Fitness, wellness and transformation stories",
-      "Nightlife and event coverage",
-      "Brand activations with DJ and creator presence",
-      "Instagram Stories with link and call to action",
-      "UGC-style product videos for paid media",
+    eyebrow: "Services",
+    title: "Content for Brands",
+    intro: "Short-form content and real experiences, created in Milan for brands across Europe.",
+    cta: "Discuss a collaboration",
+    offers: [
+      { title: "UGC & Reels", detail: "Product demos and short-form videos." },
+      { title: "Lifestyle & Travel", detail: "Hotels, menswear and city experiences." },
+      { title: "Fitness & Wellness", detail: "Content backed by professional experience." },
+      { title: "Events & Nightlife", detail: "Event coverage and brand activations." },
     ],
   },
   contact: {
@@ -345,22 +338,15 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       rio: "Rio de Janeiro",
     },
     services: {
-      eyebrow: "Adequação às marcas",
-      title: "Pronto para campanhas, não apenas visível",
-      intro:
-        "Disponível para campanhas com creator, produção de UGC e ativações presenciais em Milão e em toda a Europa.",
-      description:
-        "Willian combina mais de nove anos de experiência em fitness e bem-estar com forte presença em frente à câmera e um contexto visual europeu diferenciado. O resultado é um conteúdo que pode informar, demonstrar e entreter — produzido em português ou italiano, com legendas disponíveis para campanhas internacionais.",
-      advantages: ["Produção em Milão", "Credibilidade no fitness", "Legendas para campanhas internacionais"],
-      formats: [
-        "Reels e campanhas em vídeo curto",
-        "Conteúdo para hotéis, turismo e lifestyle urbano",
-        "Apresentação de moda masculina e produtos de grooming",
-        "Histórias de fitness, bem-estar e transformação",
-        "Cobertura de vida noturna e eventos",
-        "Ativações de marca com presença de DJ e creator",
-        "Stories no Instagram com link e chamada para ação",
-        "Vídeos UGC de produto para mídia paga",
+      eyebrow: "Serviços",
+      title: "Conteúdo para marcas",
+      intro: "Vídeos curtos e experiências reais, criados em Milão para marcas na Europa.",
+      cta: "Conversar sobre uma parceria",
+      offers: [
+        { title: "UGC & Reels", detail: "Demonstrações de produtos e vídeos curtos." },
+        { title: "Lifestyle & Viagens", detail: "Hotéis, moda masculina e experiências urbanas." },
+        { title: "Fitness & Bem-estar", detail: "Conteúdo com experiência profissional." },
+        { title: "Eventos & Nightlife", detail: "Cobertura de eventos e ativações de marcas." },
       ],
     },
     contact: {
@@ -548,22 +534,15 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       rio: "Rio de Janeiro",
     },
     services: {
-      eyebrow: "Affinità con i brand",
-      title: "Pronto per le campagne, non solo visibile",
-      intro:
-        "Disponibile per campagne con creator, produzione UGC e attivazioni in presenza a Milano e in tutta Europa.",
-      description:
-        "Willian unisce oltre nove anni di esperienza nel fitness e nel benessere a una forte presenza davanti alla videocamera e a un contesto lifestyle europeo distintivo. Il risultato è un contenuto capace di informare, mostrare e intrattenere — realizzato in portoghese o italiano, con sottotitoli disponibili per campagne internazionali.",
-      advantages: ["Produzione a Milano", "Credibilità nel fitness", "Sottotitoli per campagne internazionali"],
-      formats: [
-        "Reel e campagne video brevi",
-        "Contenuti per hotel, turismo e lifestyle urbano",
-        "Presentazioni di moda uomo e prodotti grooming",
-        "Storie di fitness, benessere e trasformazione",
-        "Copertura di nightlife ed eventi",
-        "Attivazioni di brand con presenza di DJ e creator",
-        "Instagram Stories con link e call to action",
-        "Video prodotto in stile UGC per advertising",
+      eyebrow: "Servizi",
+      title: "Contenuti per brand",
+      intro: "Video brevi ed esperienze reali, creati a Milano per brand in Europa.",
+      cta: "Parliamo di una collaborazione",
+      offers: [
+        { title: "UGC & Reels", detail: "Demo di prodotto e video brevi." },
+        { title: "Lifestyle & Viaggi", detail: "Hotel, moda uomo ed esperienze urbane." },
+        { title: "Fitness & Benessere", detail: "Contenuti con esperienza professionale." },
+        { title: "Eventi & Nightlife", detail: "Copertura di eventi e attivazioni di brand." },
       ],
     },
     contact: {
