@@ -33,6 +33,24 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        ref.current?.querySelector<HTMLButtonElement>("button")?.focus();
+      }
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        const items = Array.from(ref.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') || []);
+        const index = items.indexOf(document.activeElement as HTMLButtonElement);
+        items[(index + (event.key === "ArrowDown" ? 1 : -1) + items.length) % items.length]?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [isOpen]);
+
   const handleLanguageChange = (code: Language) => {
     setLanguage(code);
     setIsOpen(false);
@@ -46,7 +64,7 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-label={`${activeLang.name} language`}
-        className="flex items-center gap-2 px-3 py-2"
+        className="flex min-h-11 items-center gap-2 px-3 py-2"
         style={{
           background: isOpen ? "rgba(255,176,0,0.12)" : "rgba(255,255,255,0.04)",
           backdropFilter: "blur(20px)",

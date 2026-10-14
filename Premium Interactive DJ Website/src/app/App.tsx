@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MotionConfig } from "motion/react";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
@@ -19,7 +20,7 @@ export default function App() {
   const [routePath, setRoutePath] = useState(getRoutePath);
 
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
+    document.documentElement.style.scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
     document.body.style.background = "#0B0B0B";
     document.body.style.color = "#ffffff";
     return () => {
@@ -57,7 +58,7 @@ export default function App() {
   const isAnalyticsRoute = routePath === "/analytics";
 
   return (
-    <LanguageProvider>
+    <MotionConfig reducedMotion="user"><LanguageProvider>
       <div
         className="min-h-screen w-full"
         style={{
@@ -68,7 +69,7 @@ export default function App() {
         }}
       >
         <Navigation />
-        <main>
+        <main id="main-content" tabIndex={-1}>
           {isBookingRoute ? (
             <BookingPage />
           ) : isCreatorRoute ? (
@@ -87,6 +88,6 @@ export default function App() {
           )}
         </main>
       </div>
-    </LanguageProvider>
+    </LanguageProvider></MotionConfig>
   );
 }

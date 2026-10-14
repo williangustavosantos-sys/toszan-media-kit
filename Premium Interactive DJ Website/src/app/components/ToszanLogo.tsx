@@ -15,10 +15,10 @@ const logoImg = "/logo_toszan_sem_preto.png";
  */
 
 // Crop fractions (tweak if logo art changes)
-const TOP_FRAC    = 0.32;   // text starts at 32% from top
-const BOTTOM_FRAC = 0.57;   // text ends at 57% from top
-const LEFT_FRAC   = 0.05;   // text starts at 5% from left
-const RIGHT_FRAC  = 0.88;   // text ends at 88% from left
+const TOP_FRAC    = 562 / 1350;   // text starts at 32% from top
+const BOTTOM_FRAC = 761 / 1350;   // text ends at 57% from top
+const LEFT_FRAC   = 93 / 1080;   // text starts at 5% from left
+const RIGHT_FRAC  = 967 / 1080;   // text ends at 88% from left
 
 // Image natural aspect ratio
 const IMG_W = 1080;

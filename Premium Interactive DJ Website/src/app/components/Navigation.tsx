@@ -1,314 +1,60 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
 import { ToszanLogo } from "./ToszanLogo";
 import { creatorCopy, getCreatorLanguage } from "../../data/creatorCopy";
 import { bookingCopy } from "../../data/bookingCopy";
+import "../../styles/cinematic.css";
 
 export function Navigation() {
   const { t, language } = useLanguage();
-  const creatorText = creatorCopy[getCreatorLanguage(language)];
+  const text = creatorCopy[getCreatorLanguage(language)];
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  const isCreatorPage = currentPath === "/creator";
-  const isAnalyticsPage = currentPath === "/analytics";
-  const isBrandContext = isCreatorPage || isAnalyticsPage;
-  const bookingCta = currentPath === "/booking" ? bookingCopy[language].contact : `${t("nav.booking")} TOSZAN`;
-  const ctaHref = isBrandContext ? "/creator#contact" : currentPath === "/booking" ? "#booking-contact" : "/booking";
-
-  const navLinks = isBrandContext
-    ? [
-        { label: creatorText.nav.overview, href: "/creator#overview" },
-        { label: creatorText.nav.work, href: "/creator#work" },
-        { label: creatorText.nav.audience, href: "/creator#audience" },
-        { label: creatorText.nav.services, href: "/creator#services" },
-        { label: creatorText.nav.contact, href: "/creator#contact" },
-      ]
-    : [
-        { label: t("nav.experience"), href: "#experience" },
-        { label: t("nav.music"), href: "#music" },
-        { label: t("nav.mediaKit"), href: "#mediakit" },
-        { label: "Creator", href: "/creator" },
-      ];
-
+  const toggle = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  const brand = path === "/creator" || path === "/analytics";
+  const booking = path === "/booking";
+  const cta = brand ? text.nav.cta : bookingCopy[language].contact;
+  const ctaHref = brand ? "/creator#contact" : booking ? "#booking-contact" : "/booking";
+  const links = brand ? [
+    {label:text.nav.overview,href:"/creator#overview"}, {label:text.nav.work,href:"/creator#work"},
+    {label:text.nav.audience,href:"/creator#audience"}, {label:text.nav.services,href:"/creator#services"},
+    {label:"DJ Booking",href:"/booking"},
+  ] : [
+    {label:t("nav.experience"),href:"#experience"}, {label:t("nav.music"),href:booking?"#promo-mix":"#music"},
+    {label:t("nav.mediaKit"),href:"#mediakit"}, {label:"Creator",href:"/creator"},
+  ];
+  useEffect(() => { const onScroll=()=>setScrolled(window.scrollY>35); onScroll(); window.addEventListener("scroll",onScroll,{passive:true}); return()=>window.removeEventListener("scroll",onScroll); },[]);
   useEffect(() => {
-    let frame = 0;
-    const handleScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        setScrolled(window.scrollY > 60);
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const previousOverflow = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", handleEscape);
-    return () => {
-      document.documentElement.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, [menuOpen]);
-
-  const handleLink = (href: string) => {
-    setMenuOpen(false);
-
-    const [destinationPath, hash] = href.split("#");
-    if (hash && (destinationPath === "" || destinationPath === currentPath)) {
-      const el = document.querySelector(`#${hash}`);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
+    if(!menuOpen) return;
+    const old=document.documentElement.style.overflow;
+    document.documentElement.style.overflow="hidden";
+    menu.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    const key=(e:KeyboardEvent)=>{
+      if(e.key==="Escape") {setMenuOpen(false);toggle.current?.focus();}
+      if(e.key==="Tab") {
+        const items=[toggle.current,...Array.from(menu.current?.querySelectorAll<HTMLAnchorElement>("a")||[])].filter(Boolean) as HTMLElement[];
+        const first=items[0],last=items[items.length-1];
+        if(e.shiftKey && document.activeElement===first){e.preventDefault();last?.focus();}
+        else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first?.focus();}
       }
-    }
-
-    if (href.startsWith("/")) {
-      if (currentPath === href) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-      window.location.href = href;
-      return;
-    }
-
-    if (window.location.pathname !== "/") {
-      window.location.href = `/${href}`;
-      return;
-    }
-
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleLogoClick = () => {
-    if (isBrandContext) {
-      handleLink("/creator#overview");
-      return;
-    }
-
-    if (window.location.pathname !== "/") {
-      window.location.href = "/";
-      return;
-    }
-    handleLink("#hero");
-  };
-
-  return (
-    <>
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 px-5 md:px-12 py-4 md:py-5 flex items-center justify-between"
-        style={{
-          background: scrolled ? "rgba(11,11,11,0.9)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,176,0,0.1)" : "none",
-          transition: "all 0.4s ease",
-        }}
-      >
-        {/* Logo / Name */}
-        <button
-          type="button"
-          onClick={handleLogoClick}
-          style={{ 
-            background: "none", 
-            border: "none", 
-            cursor: "pointer", 
-            padding: 0, 
-            display: "flex", 
-            flexDirection: "column",
-            alignItems: "center"
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "1.1rem",
-              letterSpacing: "0.22em",
-              marginRight: "-0.22em",
-              color: "#ffffff",
-              lineHeight: 1,
-              marginBottom: "-0.4rem",
-              transition: "opacity 0.4s",
-            }}
-          >
-            WILLIAN
-          </span>
-          <ToszanLogo
-            logoHeight={24}
-            gold={false}
-          />
-        </button>
-
-        {/* Desktop Links */}
-        <div className="hidden xl:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8">
-          {navLinks.map((link) => (
-            <button
-              type="button"
-              key={link.href}
-              onClick={() => handleLink(link.href)}
-              className="relative group"
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "0.68rem",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.55)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "4px 0",
-                transition: "color 0.3s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#FFB000")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}
-            >
-              {link.label}
-              <span
-                className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full"
-                style={{ background: "linear-gradient(90deg, #FFB000, #FF8C00)", transition: "width 0.3s ease" }}
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Desktop CTA & Language - RIGHT */}
-        <div className="hidden xl:flex items-center gap-6 ml-auto">
-          <button
-            type="button"
-            onClick={() => handleLink(ctaHref)}
-            className="px-6 py-2"
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "0.62rem",
-              fontWeight: 600,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              color: "#0B0B0B",
-              background: "linear-gradient(135deg, #FFB000, #FF8C00)",
-              border: "none",
-              cursor: "pointer",
-              boxShadow: "0 0 20px rgba(255,176,0,0.25)",
-              transition: "opacity 0.3s, transform 0.3s, box-shadow 0.3s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = "0.88";
-              e.currentTarget.style.transform = "scale(1.03)";
-              e.currentTarget.style.boxShadow = "0 0 35px rgba(255,176,0,0.45)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = "1";
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 0 20px rgba(255,176,0,0.25)";
-            }}
-          >
-            {isAnalyticsPage ? creatorText.nav.analyticsCta : isCreatorPage ? creatorText.nav.cta : bookingCta}
-          </button>
-
-          {/* Language Selector */}
-          <LanguageSelector creatorLanguagesOnly={isBrandContext} />
-        </div>
-
-        {/* Mobile: Language + hamburger */}
-        <div className="xl:hidden flex items-center gap-4">
-          <LanguageSelector creatorLanguagesOnly={isBrandContext} />
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-controls="toszan-mobile-menu"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center"
-            style={{ color: "#FFB000", background: "none", border: "none", cursor: "pointer" }}
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </motion.nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            id="toszan-mobile-menu"
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
-            style={{ background: "rgba(11,11,11,0.97)", backdropFilter: "blur(30px)" }}
-          >
-            {/* Warm ambient */}
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(255,176,0,0.06) 0%, transparent 70%)" }} />
-
-            {navLinks.map((link, i) => (
-              <motion.button
-                type="button"
-                key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07 + 0.1 }}
-                onClick={() => handleLink(link.href)}
-                style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
-                  fontSize: "2rem",
-                  letterSpacing: "0.25em",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.8)",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#FFB000")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.8)")}
-              >
-                {link.label}
-              </motion.button>
-            ))}
-
-            <motion.button
-              type="button"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.48 }}
-              onClick={() => handleLink(ctaHref)}
-              className="mt-4 px-10 py-4"
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "0.7rem",
-                fontWeight: 600,
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "#0B0B0B",
-                background: "linear-gradient(135deg, #FFB000, #FF8C00)",
-                border: "none",
-                cursor: "pointer",
-                boxShadow: "0 0 40px rgba(255,176,0,0.3)",
-              }}
-            >
-              {isBrandContext ? creatorText.nav.cta : bookingCta}
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+    };
+    window.addEventListener("keydown",key);
+    const resize=()=>{if(window.innerWidth>=1100)setMenuOpen(false);};
+    window.addEventListener("resize",resize);
+    return()=>{document.documentElement.style.overflow=old;window.removeEventListener("keydown",key);window.removeEventListener("resize",resize);};
+  },[menuOpen]);
+  const close=()=>setMenuOpen(false);
+  return <>
+    <a href="#main-content" className="cine-skip">{language==="it"?"Vai al contenuto":language==="pt"?"Ir para o conteúdo":"Skip to content"}</a>
+    <nav className={`cine-navigation ${scrolled||menuOpen?"is-scrolled":""}`} aria-label={language==="it"?"Navigazione principale":language==="pt"?"Navegação principal":"Main navigation"}>
+      <a href={brand?"/creator":"/"} className="cine-nav-logo" aria-label="TOSZAN home" onClick={close}><ToszanLogo logoHeight={24} gold={false}/></a>
+      <div className="cine-nav-links">{links.map(l=><a href={l.href} key={l.href}>{l.label}</a>)}</div>
+      <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector creatorLanguagesOnly={brand}/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
+    </nav>
+    {menuOpen&&<div ref={menu} id="toszan-mobile-menu" className="cine-menu">{links.map(l=><a key={l.href} href={l.href} onClick={close}>{l.label}</a>)}<a className="cine-menu-cta" href={ctaHref} onClick={close}>{cta} ↗</a></div>}
+  </>;
 }
