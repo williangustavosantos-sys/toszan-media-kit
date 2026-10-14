@@ -30,7 +30,7 @@ function updateMeta(copy: BookingCopy) {
   meta("property", "og:description", copy.metaDescription);
   meta("property", "og:type", "website");
   meta("property", "og:url", "https://toszan-media-kit.vercel.app/booking");
-  meta("property", "og:image", "https://toszan-media-kit.vercel.app/optimized/dj/foto_dj4.webp");
+  meta("property", "og:image", "https://toszan-media-kit.vercel.app/optimized/brand/toszan-dourado-capa-oficial.webp");
   meta("name", "twitter:card", "summary_large_image");
   let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
   if (!canonical) {
@@ -54,7 +54,7 @@ function updateMeta(copy: BookingCopy) {
     jobTitle: "DJ",
     description: copy.metaDescription,
     url: "https://toszan-media-kit.vercel.app/booking",
-    image: "https://toszan-media-kit.vercel.app/optimized/dj/foto_dj4.webp",
+    image: "https://toszan-media-kit.vercel.app/optimized/brand/toszan-dourado-capa-oficial.webp",
     sameAs: [media.instagram, media.soundcloud, "https://open.spotify.com/artist/27FuT8olmWQ5g51OEwMkWt"],
   });
 }
@@ -106,11 +106,17 @@ export function BookingPage() {
             <Action href="#booking-contact" secondary icon={<Mail size={17}/>} >{copy.contact}</Action>
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-xl border border-[#FFB000]/20 bg-[#141414] shadow-[0_35px_90px_rgba(0,0,0,0.44)]">
-          <div className="relative aspect-[5/4] lg:aspect-[4/4.3]">
-            <img src="/optimized/dj/foto_dj4.webp" alt={copy.visualAlt[2]} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"/>
-            <p className="absolute bottom-5 left-5 right-5 text-[0.66rem] font-bold uppercase tracking-[0.22em] text-[#FFB000]">{copy.musicFirst}</p>
+        <div className="relative overflow-hidden rounded-xl border border-[#FFB000]/25 bg-[#0B0B0B] shadow-[0_35px_90px_rgba(0,0,0,0.44)]">
+          <div className="relative aspect-[4/5] w-full">
+            <img
+              src="/optimized/brand/toszan-dourado-capa-oficial.webp"
+              alt={`TOSZAN — ${copy.location}`}
+              fetchPriority="high"
+              decoding="async"
+              width={1200}
+              height={1500}
+              className="absolute inset-0 h-full w-full object-contain"
+            />
           </div>
         </div>
       </div>

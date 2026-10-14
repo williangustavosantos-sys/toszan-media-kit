@@ -27,7 +27,6 @@ import {
   type AudienceBar,
 } from "../../data/creatorStats";
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
-import creatorPortrait from "../../imports/creator-portrait-transparent.png";
 import { useLanguage } from "../context/LanguageContext";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
@@ -57,7 +56,7 @@ function setCreatorMeta(copy: CreatorCopy) {
   upsertMeta("property", "og:description", copy.meta.description);
   upsertMeta("property", "og:type", "website");
   upsertMeta("property", "og:url", "https://toszan-media-kit.vercel.app/creator");
-  upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/creator/posters/lifestyle-dj-day.jpg");
+  upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/optimized/brand/toszan-dourado-capa-oficial.webp");
   upsertMeta("name", "twitter:card", "summary_large_image");
   upsertMeta("name", "theme-color", "#0B0B0B");
   upsertCanonical("https://toszan-media-kit.vercel.app/creator");
@@ -595,42 +594,18 @@ export function CreatorPage() {
 
           <div className="order-2 mx-auto w-full max-w-[520px] lg:max-w-none">
             <div
-              className="relative mx-auto aspect-[4/5] max-h-[720px] overflow-hidden rounded-[10px]"
-              style={{
-                border: "1px solid rgba(255,176,0,0.18)",
-                background:
-                  "radial-gradient(circle at 55% 32%, rgba(255,176,0,0.12), transparent 42%), linear-gradient(180deg, #171717 0%, #0d0d0d 100%)",
-                boxShadow: "0 40px 100px rgba(0,0,0,0.5)",
-              }}
+              className="relative mx-auto aspect-[4/5] max-h-[720px] overflow-hidden rounded-[10px] border border-[#FFB000]/25 bg-[#0B0B0B] shadow-[0_35px_90px_rgba(0,0,0,0.42)]"
             >
               <img
-                className="absolute inset-0 h-full w-full object-contain object-bottom"
-                src={creatorPortrait}
-                alt={copy.hero.alt}
+                className="absolute inset-0 h-full w-full object-contain"
+                src="/optimized/brand/toszan-dourado-capa-oficial.webp"
+                alt={`TOSZAN — ${copy.hero.alt}`}
                 loading="eager"
+                decoding="async"
+                width={1200}
+                height={1500}
                 fetchPriority="high"
               />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 56%, rgba(11,11,11,0.92) 100%)" }} />
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
-                <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                  {copy.hero.roles}
-                </div>
-                <div className="mt-2 flex items-center justify-between gap-4">
-                  <span style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.08em" }}>
-                    {copy.hero.region}
-                  </span>
-                  <a
-                    href={creatorLinks.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${copy.contact.open} Instagram`}
-                    className="flex h-11 w-11 items-center justify-center rounded-full"
-                    style={{ background: "#FFB000", color: "#0B0B0B" }}
-                  >
-                    <Instagram size={18} />
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
