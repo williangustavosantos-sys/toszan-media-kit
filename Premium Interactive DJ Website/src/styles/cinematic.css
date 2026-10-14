@@ -93,19 +93,28 @@ a,button { -webkit-tap-highlight-color:transparent; }
 .cine-navigation { position:fixed; inset:0 0 auto; z-index:100; height:88px; display:flex; justify-content:space-between; align-items:center; padding-inline:56px; gap:24px; transition:background .25s,border-color .25s; border-bottom:1px solid transparent; }
 .cine-navigation.is-scrolled { background:rgba(8,9,9,.94); border-color:var(--cine-rule); backdrop-filter:blur(16px); }
 .cine-nav-logo { display:flex; align-items:center; color:var(--cine-paper); text-decoration:none; }
-.cine-nav-links { display:flex; align-items:center; justify-content:center; gap:28px; margin-left:auto; }
+.cine-nav-links,.cine-nav-routes,.cine-nav-local { display:flex; align-items:center; justify-content:center; }
+.cine-nav-links { gap:20px; margin-left:auto; }
+.cine-nav-routes,.cine-nav-local { gap:22px; }
+.cine-nav-local { border-left:1px solid var(--cine-rule); padding-left:20px; }
 .cine-nav-links a,.cine-nav-cta { text-transform:uppercase; font-size:9px; font-weight:500; color:#c6c4bd; text-decoration:none; letter-spacing:.14em; padding:14px 0; white-space:nowrap; transition:color .2s; }
 .cine-nav-links a:hover { color:var(--cine-gold); }
+.cine-nav-links a[aria-current="page"] { color:var(--cine-paper); box-shadow:inset 0 -1px var(--cine-gold); }
 .cine-nav-tools { display:flex; gap:24px; align-items:center; margin-left:24px; }
 .cine-nav-cta { color:var(--cine-paper); border-bottom:1px solid var(--cine-gold); }
 .cine-menu-toggle { display:none; width:44px; height:44px; place-items:center; border:0; background:transparent; color:var(--cine-paper); cursor:pointer; }
-.cine-menu { position:fixed; inset:0; background:#080909; z-index:90; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:20px; padding:100px 8%; }
+.cine-menu { position:fixed; inset:0; background:#080909; z-index:90; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:22px; padding:100px 8%; overflow-y:auto; }
+.cine-menu-routes,.cine-menu-local { display:flex; flex-direction:column; align-items:flex-start; gap:14px; width:100%; }
+.cine-menu-local { border-top:1px solid var(--cine-rule); padding-top:18px; }
 .cine-menu a { color:var(--cine-paper); font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,7vw,56px); text-decoration:none; letter-spacing:.03em; }
+.cine-menu-local a { color:#aaa9a3; font-size:clamp(21px,5vw,36px); }
+.cine-menu a[aria-current="page"] { color:var(--cine-gold); }
 .cine-menu .cine-menu-cta { color:var(--cine-gold); margin-top:20px; }
 .cine-skip { position:fixed; top:6px; left:6px; z-index:200; transform:translateY(-200%); background:var(--cine-paper); color:#080909; padding:12px; }
 .cine-skip:focus { transform:none; }
 @media(min-width:1700px) { .cine-hero-photo { left:36%; } .cine-hero-shade { background:linear-gradient(90deg,#080909 0%,#080909 26%,rgba(8,9,9,.6) 45%,transparent 70%),linear-gradient(0deg,#080909,transparent 40%); } }
-@media(max-width:1200px) { .cine-nav-links { gap:18px; } .cine-nav-tools { margin-left:0; gap:16px; } .cine-navigation { padding-inline:36px; } .cine-wrap { width:calc(100% - 72px); } .cine-hero-index { right:36px; } .cine-sound-grid,.cine-press-grid { gap:60px; } }
+@media(max-width:1299px) { .cine-nav-local { display:none; } }
+@media(max-width:1200px) { .cine-nav-links { gap:18px; } .cine-nav-routes { gap:18px; } .cine-nav-tools { margin-left:0; gap:16px; } .cine-navigation { padding-inline:36px; } .cine-wrap { width:calc(100% - 72px); } .cine-hero-index { right:36px; } .cine-sound-grid,.cine-press-grid { gap:60px; } }
 @media(max-width:1099px) { .cine-nav-links,.cine-nav-cta { display:none; } .cine-menu-toggle { display:grid; } .cine-nav-tools { margin-left:auto; } .cine-hero { min-height:810px; } .cine-hero h1 { font-size:22vw; } .cine-hero-photo { left:23%; } .cine-hero-shade { background:linear-gradient(90deg,#080909,rgba(8,9,9,.7) 30%,transparent 85%),linear-gradient(0deg,#080909,transparent 70%); } }
 @media(max-width:767px) {
   html { scroll-padding-top:86px; } .cine-wrap { width:calc(100% - 40px); } .cine-navigation { height:76px; padding-inline:20px; } .cine-nav-tools { gap:9px; } .cine-section { padding-block:72px; } .cine-kicker { font-size:9px; letter-spacing:.16em; } .cine-intro { font-size:14px; line-height:1.8; }

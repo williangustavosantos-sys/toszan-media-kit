@@ -79,8 +79,8 @@ export default function App() {
           ) : (
             <>
               <HeroSection />
-              <LiveExperience />
-              <MusicSection />
+              <MusicSection context="general" />
+              <LiveExperience context="general" />
               <BrandExperience />
               <MediaKit />
               <ContactSection />

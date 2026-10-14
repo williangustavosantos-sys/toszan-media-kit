@@ -1,41 +1,50 @@
-# TOSZAN WEBSITE — CURRENT HANDOFF / USER STOP
+# TOSZAN WEBSITE — PROJECT STATE
 
-Date:2026-10-14 Europe/Rome. User requested stopping implementation and saving all work because credits are ending.
+Date: 2026-10-14 Europe/Rome.
 
 ## Binding status
-NOT FINISHED. FIRST VISUAL CANDIDATE REJECTED BY USER. Do not promote prior green layout checks into artistic/commercial acceptance. No production deployment, main push or merge authorized.
 
-## Workspace and identity
-Repository:https://github.com/williangustavosantos-sys/toszan-media-kit
-Workspace:/Users/williandossantos/Documents/Codex/2026-10-14/crie-um-novo-site-com-sites-3/work/toszan-media-kit
-Application subdirectory:Premium Interactive DJ Website
-Branch:redesign/cinematic-toszan-20261014
-Remote main/base verified:e2b3449652e0b64bd3f947402d4c89ca02a91711
-Rejected first candidate commit:65cd2ee258f7349ed56006d5240f57d643c81918
-Most recent deployed Preview (REJECTED candidate, NOT new WIP):
-https://toszan-media-61mc70q2f-williangustavosantos-sys-projects.vercel.app
-Deployment:dpl_2pDiusy5wiMuecjSHrGjdfnhJwNw
-Project:prj_WUvb9Q4dKWL9ZbDIP33ZgXoJU3Pe
-Owner/scope:williangustavosantos-sys-projects
+The rejected candidate `65cd2ee258f7349ed56006d5240f57d643c81918` remains rejected and is not evidence of approval. A materially revised candidate is implemented and locally validated on `redesign/cinematic-toszan-20261014`; hosted Preview QA and publication are the next gates.
 
-## Latest user correction — highest priority
-- Music/catalog and live party videos are the core promoter decision material. The redesign demoted them to small links to the old general page. Integrate their FULL functional components directly into Booking and keep them prominent in General.
-- Preserve/restore meaningful animated numbers, data, buttons, charts and media interactions. Current stripped/static appearance was rejected as not premium.
-- Remove meaningless giant decorative arrow at Creator contact.
-- Site starts on General /; users navigate General→Booking→Creator and can return to General by clicking the logo from ANY page.
-- iPhone is primary; iPad/Safari/Chrome/computers must be solid.
+The user has now explicitly authorized updating `main` and Vercel after final validation. This supersedes the prior publication prohibition, but it does not convert automated QA into a claim of owner visual approval.
 
-## Saved in-progress correction
-CreatorPage.tsx and AnalyticsPage.tsx contain new Motion/counters/interaction work after65cd2ee. It compiles but is INCOMPLETE and not browser-tested. CSS was not yet updated: finish .creator-paths footer layout and new .analytics-metric BUTTON reset/.analytics-metric-open styles. Services now actual contact links; Analytics metrics open original evidence; giant Creator contact arrow removed; retain focus logic.
-MusicSection.tsx/LiveExperience.tsx unchanged in revision. music-live.css NOT created. Parent has NOT yet integrated these components into Booking, revised General Hero, or corrected global nav/logo.
+## Identity
 
-## Exact next step
-Read outputs/CONTINUAR_TOSZAN.md and outputs/CONTRATO_DA_REVISAO.md, inspect live Git, finish partial Creator/Analytics CSS, then integrate the existing FULL MusicSection (10 real SoundCloud tracks+Spotify) and LiveExperience (9 real clips) once per page into Booking. Fix Nav logo always/, global General/Booking/Creator navigation, and General Hero logo sizing. Validate all interactions and re-present new Preview for user visual approval. Do not reuse the rejected Preview as completed result.
+- Repository: `https://github.com/williangustavosantos-sys/toszan-media-kit`
+- Workspace: `/Users/williandossantos/Documents/Codex/2026-10-14/crie-um-novo-site-com-sites-3/work/toszan-media-kit`
+- Application: `Premium Interactive DJ Website`
+- Working branch: `redesign/cinematic-toszan-20261014`
+- Saved WIP base: `21a5d067535306ca42548d6de3d087bd38afb465`
+- Remote main/base before this publication: `e2b3449652e0b64bd3f947402d4c89ca02a91711`
+- Vercel project: `prj_WUvb9Q4dKWL9ZbDIP33ZgXoJU3Pe`
+- Vercel scope: `williangustavosantos-sys-projects`
+
+## Revised implementation
+
+- General `/` now leads with the corrected hero, then the complete music catalog and complete live archive.
+- Booking embeds the complete reusable music experience: 10 real selectable SoundCloud tracks, Spotify artist player, real previous/next controls, swipe, semantic selected states and direct platform fallbacks.
+- Booking embeds the complete reusable live experience once: 9 real MP4 clips, 3 featured clips, 6 supporting clips, visible touch controls, one audio owner, mute and retry behavior.
+- Live autoplay now obeys reduced-motion and Save Data while preserving explicit manual playback.
+- General, Booking and Creator remain permanently connected in desktop/mobile navigation; the official logo always returns to `/`.
+- The General hero logo respects the official `874/199` crop ratio and no longer overlaps `WILLIAN`.
+- Creator/Analytics motion, counters, bars, interactive evidence metrics, footer paths and button resets are complete; the rejected giant contact arrow is removed.
+
+## Current evidence
+
+- `npm run build`: PASS after the final audio-owner race fix.
+- Local Playwright matrix: 24/24 PASS across General, Booking, Creator and Analytics at 390×844, 768×1024 and 1440×1000 in Chrome and WebKit.
+- Local functional flows: 9/9 PASS for global/logo navigation, all 10 track selections, previous/next/swipe/Spotify, five Booking languages and persistence, all 9 videos with one audio owner, reduced-motion manual playback, Save Data gating, Creator counters/bars and Analytics 6 metric + 14 evidence modals.
+- Visual section captures are stored under `outputs/final-redesign/` and were optically reviewed during implementation.
+- Detailed machine-readable evidence: `outputs/final-redesign-qa.json`.
 
 ## Evidence limits
-Historical first candidate:30 layout cases +48 touch-emulation cases and8 functional flows passed. Those do not verify latest WIP or user acceptance. SoundCloud actual play/progress verified locally in Chrome and mobileWebKit. PhysicaliPhone/iPad/nativeSafari app/hardwareaudio NOT verified. Hosted test was PARTIAL:Booking/Creator390 passed, Analytics capture found3 images not yet decoded; no complete hostedPASS. Diagnose loading/wait before calling missing assets.
 
-## Runtime
-Owned Vite dev and built-preview sessions were stopped for handoff. No local preview should be assumed running. Follow~/.willian-ai-hub/RUNTIME_POLICY.md and will-run; all start options, including--cwd, must precede project/label positionals.
+- Browser emulation is not a physical iPhone or iPad.
+- Automated media state proves browser playback/progress/mute behavior, not sound perceived through physical speakers.
+- Automated and implementer visual review do not constitute the owner's final aesthetic approval.
 
-Full continuation packet is in parent workspace outputs. This website is distinct from the registered TOSZAN music-production workspace:do not touch REAPER or switch to that registry project's nextstep.
+## Exact next step
+
+Commit and push the revised branch, deploy a new protected Vercel Preview, run hosted Chrome/WebKit QA against that exact deployment, then fast-forward `main`, push it and deploy Vercel Production as explicitly authorized. Open the final General `/` URL for the user.
+
+This website remains distinct from the registered TOSZAN music-production/REAPER workspace.

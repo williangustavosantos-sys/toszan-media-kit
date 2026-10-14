@@ -1,9 +1,11 @@
 import { useEffect, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import "../../styles/cinematic.css";
-import { ArrowRight, ArrowUpRight, Check, ExternalLink, Headphones, Instagram, Mail, MapPin, MessageCircle, Music2, Download } from "lucide-react";
+import { ArrowUpRight, Check, Headphones, Instagram, Mail, MapPin, MessageCircle, Music2, Download } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy, type BookingCopy } from "../../data/bookingCopy";
+import { MusicSection } from "./MusicSection";
+import { LiveExperience } from "./LiveExperience";
 
 const media = {
   mix: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
@@ -11,11 +13,6 @@ const media = {
   instagram: "https://www.instagram.com/toszan.willian/",
   soundcloud: "https://soundcloud.com/dj-willian-toszan",
 };
-const liveImages = [
-  "/reels/posters/09-wide-crowd-room-proof.webp",
-  "/optimized/dj/foto_dj2.webp",
-  "/optimized/dj/foto_dj1.webp",
-];
 function updateMeta(copy: BookingCopy) {
   document.title = copy.metaTitle;
   const meta = (attribute: "name" | "property", name: string, content: string) => {
@@ -103,38 +100,13 @@ export function BookingPage() {
         <h1 id="booking-title">TOSZAN<span className="sr-only"> — {copy.location}</span></h1>
         <p className="cine-hero-location">{copy.location}</p>
         <p className="cine-hero-intro">{copy.heroIntro}</p>
-        <div className="cine-actions"><Action href="#promo-mix" icon={<Headphones size={17}/>}>{copy.listen}</Action><Action href="#booking-contact" secondary>{copy.contact}</Action></div>
+        <div className="cine-actions"><Action href="#music" icon={<Headphones size={17}/>}>{copy.listen}</Action><Action href="#booking-contact" secondary>{copy.contact}</Action></div>
       </motion.div>
       <div className="cine-hero-bottom cine-wrap"><p>{copy.genre}</p><a href="#experience"><span>{copy.watchLive}</span><span aria-hidden="true">↓</span></a></div>
     </section>
 
-    <section id="music" className="cine-section cine-sound">
-      <div id="promo-mix" className="cine-anchor"/>
-      <motion.div {...reveal} className="cine-wrap cine-sound-grid">
-        <SectionTitle label={copy.soundLabel} title={copy.soundTitle} intro={copy.soundIntro}/>
-        <div className="cine-player">
-          <div className="cine-player-heading"><span className="cine-kicker">{copy.setLabel}</span><Headphones size={22} strokeWidth={1}/></div>
-          <h3>{copy.setTitle}</h3>
-          <iframe title={copy.playerTitle} width="100%" height="166" loading="lazy" allow="autoplay" src={media.embed.replace("%23FFB000","%23bd9c6a")} className="cine-soundcloud"/>
-          <a href={media.mix} target="_blank" rel="noopener noreferrer" className="cine-text-link">{copy.openSoundcloud}<ArrowUpRight size={17}/></a>
-        </div>
-      </motion.div>
-      <div className="cine-wrap cine-sound-note"><span>{copy.musicFirst}</span><p>{copy.musicFirstDesc}</p><a href="/#music" className="cine-text-link">{copy.musicLink}<ArrowRight size={17}/></a></div>
-    </section>
-
-    <section id="experience" className="cine-section cine-experience">
-      <motion.div {...reveal} className="cine-wrap">
-        <div className="cine-heading-row"><SectionTitle label={copy.experienceLabel} title={copy.experienceTitle}/><p className="cine-intro">{copy.experienceIntro}</p></div>
-        <div className="cine-live-spread">
-          <figure className="cine-stage-wide"><img src="/optimized/foto_2.webp" alt={copy.visualAlt[2]} width={1600} height={896} loading="lazy" decoding="async"/><figcaption><span>01 / {copy.visualLabels[2]}</span><span>TOSZAN</span></figcaption></figure>
-          <div className="cine-live-film"><video controls playsInline preload="none" poster="/reels/posters/09-wide-crowd-room-proof.webp" aria-label={copy.watchLive}><source src="/reels/videos/09-wide-crowd-room-proof.mp4" type="video/mp4"/></video><span className="cine-film-caption">02 / {copy.visualLabels[0]}</span></div>
-        </div>
-        <div className="cine-live-foot"><span className="cine-kicker">{copy.genre}</span><a className="cine-text-link" href="/#experience">{copy.watchLive}<ArrowUpRight size={18}/></a></div>
-        <div className="cine-photo-story">
-          {liveImages.slice(1).map((src,i)=><figure key={src}><img src={src} alt={copy.visualAlt[i+1]} loading="lazy" width={1600} height={1300}/><figcaption>0{i+3} / {copy.visualLabels[i+1]}</figcaption></figure>)}
-        </div>
-      </motion.div>
-    </section>
+    <MusicSection context="booking" />
+    <LiveExperience context="booking" />
 
     <section className="cine-section cine-journey">
       <motion.div {...reveal} className="cine-wrap cine-journey-grid">

@@ -5,5 +5,6 @@
 - General/Booking/Creator are one connected experience. Logo ALWAYS routes toGeneral/.
 - Full10track music and9liveclips must have direct in-page prominence inBooking; no tiny oldpage delegation.
 - Keep the good photographic assets; revise hierarchy/interaction rather than restarting all work.
-- Latest stop is for saving/handoff, not acceptance. Finish partial interactiveCSS, navigation, sharedmedia integration, then real QA and new Preview.
-- No production or main publication without owner explicit visual approval.
+- The saved stop was for continuity, not acceptance. The revised interactive CSS, navigation and shared-media integration are now implemented and locally validated.
+- The user subsequently gave explicit publication authority: after final validation, update `main` and Vercel and return the ready link. This supersedes the earlier main/Production prohibition.
+- Automated green checks prove implementation behavior only; they do not retroactively approve the rejected candidate or manufacture owner visual acceptance.

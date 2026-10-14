@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { ParticlesCanvas } from "./ParticlesCanvas";
 import { useLanguage } from "../context/LanguageContext";
 import { ToszanLogo } from "./ToszanLogo";
 const heroBg = "/optimized/foto_2.webp";
@@ -66,8 +65,6 @@ export function HeroSection() {
         }}
       />
 
-      <ParticlesCanvas />
-
       {/* TOP BAR — location + genre */}
       <motion.div
         className="absolute top-28 left-0 right-0 flex flex-wrap items-center justify-center gap-3 px-6"
@@ -133,8 +130,8 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ scale: 1.05, y: -6 }}
-          className="relative cursor-pointer"
+          whileHover={{ scale: 1.015, y: -3 }}
+          className="relative"
         >
           <h1
             style={{
@@ -148,9 +145,9 @@ export function HeroSection() {
               opacity: 0.85,
             }}
           >WILLIAN</h1>
-          <div style={{ display: "flex", justifyContent: "center", filter: "drop-shadow(0 0 50px rgba(255,255,255,0.15))", marginTop: "-2.5rem" }}>
+          <div style={{ display: "flex", justifyContent: "center", filter: "drop-shadow(0 0 50px rgba(255,255,255,0.15))", marginTop: "0.55rem" }}>
             <ToszanLogo
-              cssHeight="clamp(5rem, 21vw, 15.5rem)"
+              cssHeight="min(11rem, calc((100vw - 3rem) / 4.392))"
               gold={false}
             />
           </div>
