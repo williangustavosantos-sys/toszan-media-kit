@@ -5,6 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
 import { ToszanLogo } from "./ToszanLogo";
 import { creatorCopy, getCreatorLanguage } from "../../data/creatorCopy";
+import { bookingCopy } from "../../data/bookingCopy";
 
 export function Navigation() {
   const { t, language } = useLanguage();
@@ -15,6 +16,8 @@ export function Navigation() {
   const isCreatorPage = currentPath === "/creator";
   const isAnalyticsPage = currentPath === "/analytics";
   const isBrandContext = isCreatorPage || isAnalyticsPage;
+  const bookingCta = currentPath === "/booking" ? bookingCopy[language].contact : `${t("nav.booking")} TOSZAN`;
+  const ctaHref = isBrandContext ? "/creator#contact" : currentPath === "/booking" ? "#booking-contact" : "/booking";
 
   const navLinks = isBrandContext
     ? [
@@ -29,7 +32,6 @@ export function Navigation() {
         { label: t("nav.music"), href: "#music" },
         { label: t("nav.mediaKit"), href: "#mediakit" },
         { label: "Creator", href: "/creator" },
-        { label: "Book TOSZAN", href: "/booking" },
       ];
 
   useEffect(() => {
@@ -113,7 +115,7 @@ export function Navigation() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className={`${isBrandContext ? "fixed" : "absolute"} top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex items-center justify-between`}
+        className="fixed top-0 left-0 right-0 z-50 px-5 md:px-12 py-4 md:py-5 flex items-center justify-between"
         style={{
           background: scrolled ? "rgba(11,11,11,0.9)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
@@ -191,7 +193,7 @@ export function Navigation() {
         <div className="hidden xl:flex items-center gap-6 ml-auto">
           <button
             type="button"
-            onClick={() => handleLink(isBrandContext ? "/creator#contact" : "/booking")}
+            onClick={() => handleLink(ctaHref)}
             className="px-6 py-2"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
@@ -217,7 +219,7 @@ export function Navigation() {
               e.currentTarget.style.boxShadow = "0 0 20px rgba(255,176,0,0.25)";
             }}
           >
-            {isAnalyticsPage ? creatorText.nav.analyticsCta : isCreatorPage ? creatorText.nav.cta : "Book TOSZAN"}
+            {isAnalyticsPage ? creatorText.nav.analyticsCta : isCreatorPage ? creatorText.nav.cta : bookingCta}
           </button>
 
           {/* Language Selector */}
@@ -287,7 +289,7 @@ export function Navigation() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.48 }}
-              onClick={() => handleLink(isBrandContext ? "/creator#contact" : "/booking")}
+              onClick={() => handleLink(ctaHref)}
               className="mt-4 px-10 py-4"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -302,7 +304,7 @@ export function Navigation() {
                 boxShadow: "0 0 40px rgba(255,176,0,0.3)",
               }}
             >
-              {isBrandContext ? creatorText.nav.cta : "Book TOSZAN"}
+              {isBrandContext ? creatorText.nav.cta : bookingCta}
             </motion.button>
           </motion.div>
         )}

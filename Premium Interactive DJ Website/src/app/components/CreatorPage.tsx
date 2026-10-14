@@ -429,7 +429,7 @@ export function CreatorPage() {
         />
 
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
-          <div className="order-2 lg:order-1">
+          <div className="order-1">
             <div className="flex flex-wrap items-center gap-3">
               <span
                 className="inline-flex min-h-9 items-center gap-2 rounded-full px-3"
@@ -528,7 +528,7 @@ export function CreatorPage() {
             </div>
           </div>
 
-          <div className="order-1 mx-auto w-full max-w-[520px] lg:order-2 lg:max-w-none">
+          <div className="order-2 mx-auto w-full max-w-[520px] lg:max-w-none">
             <div
               className="relative mx-auto aspect-[4/5] max-h-[720px] overflow-hidden rounded-[10px]"
               style={{

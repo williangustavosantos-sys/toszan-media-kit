@@ -39,7 +39,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof document !== "undefined") {
-      document.documentElement.lang = language;
+      // Creator/Analytics have approved EN/PT/IT copy only. Their visible
+      // fallback is English when a visitor arrived from ES/FR Booking.
+      const isCreatorRoute = window.location.pathname.startsWith("/creator") || window.location.pathname.startsWith("/analytics");
+      document.documentElement.lang = isCreatorRoute && (language === "es" || language === "fr") ? "en" : language;
     }
   }, [language]);
 
