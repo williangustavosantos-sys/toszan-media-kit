@@ -4,7 +4,7 @@ Date: 2026-10-14 Europe/Rome.
 
 ## Binding status
 
-The rejected candidate `65cd2ee258f7349ed56006d5240f57d643c81918` remains rejected and is not evidence of approval. A materially revised candidate is implemented and has passed local plus hosted Preview QA on `redesign/cinematic-toszan-20261014`; main/Production publication is the remaining gate.
+The rejected candidate `65cd2ee258f7349ed56006d5240f57d643c81918` remains rejected and is not evidence of approval. The materially revised site is now published on `main` and Vercel Production after local, Preview and Production QA. The remaining decision is the owner's visual/commercial review of the new result.
 
 The user has now explicitly authorized updating `main` and Vercel after final validation. This supersedes the prior publication prohibition, but it does not convert automated QA into a claim of owner visual approval.
 
@@ -21,6 +21,9 @@ The user has now explicitly authorized updating `main` and Vercel after final va
 - Vercel scope: `williangustavosantos-sys-projects`
 - Validated Preview: `https://toszan-media-c3g8bviig-williangustavosantos-sys-projects.vercel.app`
 - Preview deployment: `dpl_AM72TGH4PfEDPePoiM99kn8V5Aju`
+- Production URL: `https://toszan-media-kit.vercel.app`
+- Validated Production deployment: `dpl_98tbkqRGooPVkH5YBCApbHXQuG85`
+- Main at publication: `7a0327d9fb755f02a41e1cdf292346e089936bfe`
 
 ## Revised implementation
 
@@ -41,6 +44,8 @@ The user has now explicitly authorized updating `main` and Vercel after final va
 - Detailed machine-readable evidence: `outputs/final-redesign-qa.json`.
 - Hosted Preview matrix: 24/24 PASS and 9/9 functional flows against deployment `dpl_AM72TGH4PfEDPePoiM99kn8V5Aju`; evidence in `outputs/hosted-preview-qa.json`.
 - Hosted SoundCloud UI entered real `playing` state in Chrome and WebKit mobile contexts; evidence in `outputs/hosted-soundcloud-qa.json`.
+- Production matrix: 24/24 PASS and 9/9 functional flows against the canonical alias; evidence in `outputs/production-qa.json`.
+- Production SoundCloud UI entered real `playing` state in Chrome and WebKit mobile contexts; evidence in `outputs/production-soundcloud-qa.json`.
 
 ## Evidence limits
 
@@ -50,6 +55,6 @@ The user has now explicitly authorized updating `main` and Vercel after final va
 
 ## Exact next step
 
-Fast-forward `main`, push it and deploy Vercel Production as explicitly authorized. Run a focused hosted Production smoke against General `/`, Booking media and global navigation, then open the final General `/` URL for the user.
+Open `https://toszan-media-kit.vercel.app/` on General for owner visual/commercial review. Do not reinterpret automated PASS results as that approval. Apply only new feedback from the owner; no further publication action is pending.
 
 This website remains distinct from the registered TOSZAN music-production/REAPER workspace.

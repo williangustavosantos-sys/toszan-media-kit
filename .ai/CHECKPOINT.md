@@ -29,13 +29,22 @@ Date: 2026-10-14 Europe/Rome.
 - Real SoundCloud embedded UI entered `playing` state in Chrome and WebKit mobile contexts.
 - Evidence: `outputs/hosted-preview-qa.json` and `outputs/hosted-soundcloud-qa.json`.
 
+## Published and verified Production
+
+- `main` was fast-forwarded without force and pushed at `7a0327d9fb755f02a41e1cdf292346e089936bfe`.
+- Canonical URL: `https://toszan-media-kit.vercel.app`.
+- Validated deployment: `dpl_98tbkqRGooPVkH5YBCApbHXQuG85` (`READY`, target `production`).
+- Production matrix: 24/24 PASS; Production functional flows: 9/9 PASS.
+- Real SoundCloud embedded UI entered `playing` state in Chrome and WebKit mobile contexts on Production.
+- Evidence: `outputs/production-qa.json` and `outputs/production-soundcloud-qa.json`.
+- Physical iPhone/iPad, native Safari application and perceived speaker output remain unverified and must not be claimed.
+
 ## User authority
 
 The user explicitly requested: when finished, update `main` and Vercel and send the ready link. Main/Production publication is therefore authorized after hosted validation. Do not describe the prior rejected candidate as approved.
 
 ## Next action
 
-1. Commit this hosted checkpoint and push `redesign/cinematic-toszan-20261014`.
-2. Fast-forward and push `main` without force.
-3. Deploy Vercel Production from the final main commit and verify General `/` plus core media/navigation flows.
-4. Stop the managed local Vite session and report the production link with physical-device/audio limits.
+1. Commit this final continuity-only checkpoint on `main`; it does not change the application subdirectory.
+2. Stop the managed local Vite session.
+3. Send `https://toszan-media-kit.vercel.app/` to the owner for visual/commercial review, with physical-device/audio limits stated explicitly.
