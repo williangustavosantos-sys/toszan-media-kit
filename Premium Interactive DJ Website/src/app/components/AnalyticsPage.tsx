@@ -3,6 +3,7 @@ import { ArrowLeft, Mail, X } from "lucide-react";
 import {
   analyticsScreenshots,
   analyticsSnapshot,
+  formatVerifiedMetric,
   type AnalyticsScreenshot,
 } from "../../data/creatorStats";
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
@@ -94,6 +95,7 @@ export function AnalyticsPage() {
   const [selected, setSelected] = useState<AnalyticsScreenshot | null>(null);
   const localizedSnapshot = analyticsSnapshot.map((metric, index) => ({
     ...metric,
+    value: formatVerifiedMetric(metric.value, getCreatorLanguage(language)),
     label: copy.analyticsPage.metricLabels[index],
     detail: copy.analyticsPage.metricDetails[index],
   }));
@@ -166,7 +168,7 @@ export function AnalyticsPage() {
         </div>
       </section>
 
-      <section className="px-5 py-10 md:px-10 md:py-14">
+      <section id="verified-metrics" className="px-5 py-10 md:px-10 md:py-14">
         <div className="mx-auto max-w-7xl">
           <div className="mb-7">
             <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.26em", textTransform: "uppercase" }}>
@@ -195,12 +197,12 @@ export function AnalyticsPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-5">
             {localizedScreenshots.map((item) => (
               <button
                 key={item.src}
                 onClick={() => setSelected(item)}
-                className="group overflow-hidden text-left"
+                className="group w-full overflow-hidden text-left transition-colors hover:border-[#FFB000]/45 focus-visible:outline-2 focus-visible:outline-[#FFB000] sm:w-[calc(50%-10px)] lg:w-[calc((100%-40px)/3)]"
                 style={{
                   background: "rgba(255,255,255,0.035)",
                   border: "1px solid rgba(255,255,255,0.1)",
@@ -215,7 +217,7 @@ export function AnalyticsPage() {
                     src={item.src}
                     alt={item.title}
                     loading="lazy"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                     style={{ transition: "transform 0.45s ease" }}
                     onMouseEnter={(event) => {
                       event.currentTarget.style.transform = "scale(1.04)";
@@ -244,6 +246,9 @@ export function AnalyticsPage() {
 
       {selected ? (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.title}
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
           style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(18px)" }}
           onClick={() => setSelected(null)}
@@ -253,6 +258,7 @@ export function AnalyticsPage() {
               type="button"
               onClick={() => setSelected(null)}
               aria-label={copy.analyticsPage.close}
+              autoFocus
               className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full"
               style={{
                 background: "rgba(11,11,11,0.78)",

@@ -16,6 +16,8 @@ import {
 import {
   creatorLinks,
   creatorSnapshot,
+  creatorStats,
+  formatVerifiedMetric,
   creatorVideos,
   followerAge,
   followerGender,
@@ -91,18 +93,18 @@ function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="px-5 py-16 md:px-10 md:py-24">
+    <section id={id} className="px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8 max-w-3xl">
+        <div className="mb-7 max-w-4xl">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2
             className="mt-3"
             style={{
               color: "#ffffff",
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(2.5rem, 8vw, 5.8rem)",
-              letterSpacing: "0.08em",
-              lineHeight: 0.95,
+              fontSize: "clamp(2.6rem, 5.4vw, 4.6rem)",
+              letterSpacing: "0.055em",
+              lineHeight: 1.02,
             }}
           >
             {title}
@@ -197,15 +199,46 @@ function SecondaryLink({
   );
 }
 
+// Animate only verified integer statistics once they enter view.
+// Preserve exact values in accessible text and respect reduced-motion settings.
+function MetricValue({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState(value);
+  const animated = useRef(false);
+  useEffect(() => {
+    const match = value.match(/^(\+?)([0-9][0-9,.]*)$/);
+    if (!match || !ref.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(value);
+      return;
+    }
+    const amount = Number(match[2].replace(/[,.]/g, ""));
+    let frame = 0;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0]?.isIntersecting || animated.current) return;
+      animated.current = true;
+      const started = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - started) / 650);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(match[1] + Math.round(amount * eased).toLocaleString(value.includes(".") ? "it-IT" : "en-US"));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+        else setDisplay(value);
+      };
+      frame = requestAnimationFrame(tick);
+      observer.disconnect();
+    }, { threshold: 0.25 });
+    observer.observe(ref.current);
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); };
+  }, [value]);
+  return <span ref={ref} aria-hidden="true">{display}</span>;
+}
+
 function MetricCard({ label, value, detail }: { label: string; value: string; detail: string }) {
   return (
-    <div
-      className="min-h-[138px] p-5"
-      style={{
-        background: "rgba(255,255,255,0.035)",
-        border: "1px solid rgba(255,255,255,0.1)",
-        borderRadius: "8px",
-      }}
+    <a
+      href="/analytics#verified-metrics"
+      aria-label={`${label}: ${value}. ${detail}`}
+      className="group flex min-h-[135px] flex-col justify-between rounded-lg border border-white/10 bg-white/[0.035] p-5 transition-colors duration-200 hover:border-[#FFB000]/55 hover:bg-white/[0.075] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFB000]"
     >
       <div
         style={{
@@ -220,16 +253,16 @@ function MetricCard({ label, value, detail }: { label: string; value: string; de
         {label}
       </div>
       <div
-        className="mt-4"
+        className="mt-3"
         style={{
           color: "#ffffff",
           fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: "2.8rem",
+          fontSize: "clamp(2rem, 2.9vw, 2.5rem)",
           letterSpacing: "0.06em",
           lineHeight: 0.9,
         }}
       >
-        {value}
+        <MetricValue value={value} />
       </div>
       <div
         className="mt-3"
@@ -240,8 +273,9 @@ function MetricCard({ label, value, detail }: { label: string; value: string; de
         }}
       >
         {detail}
+        <span className="ml-2 inline-block align-middle text-[#FFB000] opacity-55 transition-opacity group-hover:opacity-100"><ArrowRight size={16}/></span>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -301,15 +335,18 @@ export function CreatorPage() {
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
+  const [soundVideo, setSoundVideo] = useState<string | null>(null);
 
   useEffect(() => {
     setCreatorMeta(copy);
   }, [copy]);
 
+  const exactMetrics = [creatorStats.followersExact, creatorStats.monthlyViewsExact, creatorStats.accountsReachedExact, creatorStats.interactionsExact];
   const localizedSnapshot = creatorSnapshot.map((metric, index) => ({
     ...metric,
+    value: formatVerifiedMetric(exactMetrics[index] ?? metric.value, getCreatorLanguage(language)),
     label: copy.metricLabels[index],
-    detail: copy.metricDetails[index],
+    detail: index < 4 ? copy.analyticsPage.month : copy.metricDetails[index],
   }));
   const localizedVideos = creatorVideos.map((video, index) => ({
     ...video,
@@ -345,6 +382,7 @@ export function CreatorPage() {
     });
     setActiveVideo((current) => (current && current !== activeSource ? null : current));
     setBlockedVideo((current) => (current && current !== activeSource ? null : current));
+    setSoundVideo((current) => (current && current !== activeSource ? null : current));
   };
 
   const handlePortfolioPlay = async (source: string, hasAudio: boolean) => {
@@ -355,13 +393,14 @@ export function CreatorPage() {
     video.currentTime = video.currentTime || 0;
 
     if (!hasAudio) {
+      setSoundVideo(null);
       video.muted = true;
       video.defaultMuted = true;
       video.volume = 0;
-      setActiveVideo(source);
       setBlockedVideo(null);
       try {
         await video.play();
+        setActiveVideo(source);
       } catch {
         if (video.paused) {
           setActiveVideo(null);
@@ -387,8 +426,10 @@ export function CreatorPage() {
       video.muted = false;
       video.volume = 1;
       setActiveVideo(source);
+      setSoundVideo(source);
     } catch {
       setActiveVideo(null);
+      setSoundVideo(null);
       setBlockedVideo(source);
     }
   };
@@ -397,6 +438,7 @@ export function CreatorPage() {
     const video = videoRefs.current[source];
     if (video && !video.ended && video.error === null && activeVideo !== source) return;
     setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
   };
 
   const handlePortfolioEnded = (source: string) => {
@@ -411,7 +453,28 @@ export function CreatorPage() {
   const pausePortfolioVideo = (source: string) => {
     videoRefs.current[source]?.pause();
     setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          const video = entry.target as HTMLVideoElement;
+          video.pause();
+          const source = video.getAttribute("src");
+          if (source) {
+            setActiveVideo((current) => current === source ? null : current);
+            setSoundVideo((current) => current === source ? null : current);
+          }
+        }
+      });
+    }, { threshold: 0.12 });
+    Object.values(videoRefs.current).forEach((video) => { if (video) observer.observe(video); });
+    const pauseHidden = () => { if (document.hidden) Object.values(videoRefs.current).forEach((video) => video?.pause()); };
+    document.addEventListener("visibilitychange", pauseHidden);
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", pauseHidden); };
+  }, []);
 
   return (
     <div style={{ background: "#0B0B0B", minHeight: "100vh" }}>
@@ -516,16 +579,17 @@ export function CreatorPage() {
 
             <div className="mt-9 grid grid-cols-2 gap-x-6 gap-y-5 border-t pt-6 sm:grid-cols-4" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
               {localizedSnapshot.slice(0, 4).map((metric) => (
-                <div key={metric.label}>
+                <a key={metric.label} href="/analytics#verified-metrics" className="group transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-[#FFB000]">
                   <div style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.2rem", letterSpacing: "0.07em", lineHeight: 1 }}>
-                    {metric.value}
+                    <MetricValue value={metric.value}/><span className="sr-only">{metric.value}</span>
                   </div>
                   <div className="mt-1" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.56rem", fontWeight: 800, letterSpacing: "0.17em", textTransform: "uppercase" }}>
                     {metric.label}
                   </div>
-                </div>
+                </a>
               ))}
             </div>
+            <p className="mt-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/45">{copy.analyticsPage.month}</p>
           </div>
 
           <div className="order-2 mx-auto w-full max-w-[520px] lg:max-w-none">
@@ -606,18 +670,20 @@ export function CreatorPage() {
                 return (
               <div
                 className="relative aspect-[9/16] overflow-hidden"
-                onClick={() => {
-                  if (isPlaying) {
-                    pausePortfolioVideo(video.source);
+                onMouseEnter={() => {
+                  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !soundVideo) {
+                    void handlePortfolioPlay(video.source, false);
                   }
                 }}
-                style={{ cursor: isPlaying ? "pointer" : "default" }}
+                onMouseLeave={() => {
+                  if (soundVideo !== video.source) pausePortfolioVideo(video.source);
+                }}
               >
                 <video
                   className="h-full w-full object-cover"
                   src={video.source}
                   poster={video.poster}
-                  muted={!video.hasAudio}
+                  muted
                   playsInline
                   preload="metadata"
                   ref={(node) => {
@@ -626,6 +692,13 @@ export function CreatorPage() {
                   onPause={() => handlePortfolioPause(video.source)}
                   onEnded={() => handlePortfolioEnded(video.source)}
                   onError={() => handlePortfolioError(video.source)}
+                />
+                <img
+                  src={video.poster}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${isPlaying ? "opacity-0" : "opacity-100"}`}
                 />
                 <div
                   className="absolute inset-0 pointer-events-none"
@@ -653,26 +726,26 @@ export function CreatorPage() {
                     {video.hasAudio ? copy.work.contentSample : copy.work.visualSample}
                   </span>
                 </div>
-                {!isPlaying ? (
+                {!isPlaying || soundVideo !== video.source ? (
                   <button
                     type="button"
                     onClick={(event) => {
                       event.stopPropagation();
                       handlePortfolioPlay(video.source, video.hasAudio);
                     }}
-                    className="absolute left-4 right-4 top-1/2 flex min-h-12 -translate-y-1/2 items-center justify-center gap-2 px-4"
+                    className="absolute bottom-4 left-4 right-4 flex min-h-11 items-center justify-center gap-2 rounded-md border px-3 py-2 text-center opacity-95 transition-all duration-200 hover:bg-[#FFB000] hover:text-black focus-visible:outline-2 focus-visible:outline-[#FFB000]"
                     style={{
-                      background: video.hasAudio ? "linear-gradient(135deg, #FFB000, #FF8C00)" : "rgba(255,255,255,0.88)",
-                      border: "1px solid rgba(255,176,0,0.7)",
+                      background: "rgba(9,9,9,0.82)",
+                      border: "1px solid rgba(255,176,0,0.62)",
                       borderRadius: "8px",
-                      color: "#0B0B0B",
+                      color: "#ffffff",
                       cursor: "pointer",
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: "0.68rem",
                       fontWeight: 900,
                       letterSpacing: "0.16em",
                       textTransform: "uppercase",
-                      boxShadow: "0 18px 42px rgba(0,0,0,0.28)",
+                      boxShadow: "0 12px 32px rgba(0,0,0,0.28)",
                     }}
                   >
                     <Play size={15} fill="currentColor" />
@@ -730,15 +803,15 @@ export function CreatorPage() {
           {copy.pillars.items.map((pillar) => (
             <div
               key={pillar}
-              className="min-h-[108px] p-5"
+              className="flex min-h-[62px] items-center justify-center p-3 text-center transition-colors hover:border-[#FFB000]/40"
               style={{
                 background: "linear-gradient(180deg, rgba(255,176,0,0.08), rgba(255,255,255,0.025))",
                 border: "1px solid rgba(255,176,0,0.18)",
                 borderRadius: "8px",
                 color: "#ffffff",
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "0.92rem",
-                fontWeight: 800,
+                fontSize: "0.85rem",
+                fontWeight: 700,
                 letterSpacing: "0.05em",
               }}
             >
@@ -832,72 +905,35 @@ export function CreatorPage() {
         </div>
       </Section>
 
-      <Section
-        id="contact"
-        eyebrow={copy.contact.eyebrow}
-        title={copy.contact.title}
-        intro={copy.contact.intro}
-      >
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {[
-            { icon: <Mail size={18} />, label: copy.contact.partnershipEmail, value: "dj@toszan.com.br", href: creatorLinks.email, external: false },
-            { icon: <MessageCircle size={18} />, label: "WhatsApp", value: "+39 342 836 9444", href: creatorLinks.whatsapp, external: true },
-            { icon: <Instagram size={18} />, label: "Instagram", value: "@toszan.willian", href: creatorLinks.instagram, external: true },
-            { icon: <BarChart3 size={18} />, label: copy.contact.analytics, value: copy.contact.verified, href: creatorLinks.analytics, external: false },
-          ].map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              target={item.external ? "_blank" : undefined}
-              rel={item.external ? "noopener noreferrer" : undefined}
-              className="group flex min-h-[184px] flex-col justify-between p-5"
-              style={{
-                background: "rgba(255,255,255,0.035)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "8px",
-                color: "#ffffff",
-                textDecoration: "none",
-              }}
-            >
-              <div>
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full" style={{ background: "rgba(255,176,0,0.12)", color: "#FFB000" }}>
-                  {item.icon}
-                </div>
-                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.09em", lineHeight: 1 }}>
-                  {item.label}
-                </div>
-                <div className="mt-3" style={{ color: "rgba(255,255,255,0.54)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.84rem", lineHeight: 1.55 }}>
-                  {item.value}
-                </div>
-              </div>
-              <div className="mt-8 flex items-center gap-2" style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                {copy.contact.open}
-                <ExternalLink size={13} />
-              </div>
+      <section id="contact" className="relative overflow-hidden border-t border-[#FFB000]/20 bg-[#11100e] px-5 py-16 text-center md:px-10 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,176,0,0.11),transparent_60%)]" />
+        <div className="relative mx-auto max-w-5xl">
+          <Eyebrow>{copy.contact.eyebrow}</Eyebrow>
+          <h2 className="mx-auto mt-4 max-w-3xl break-words font-['Bebas_Neue'] text-[clamp(2.7rem,5.5vw,4.7rem)] leading-[1.03] tracking-[0.045em] text-white">
+            {copy.contact.title}
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-[0.95rem] leading-[1.8] text-white/70 md:text-base">
+            {copy.contact.intro}
+          </p>
+          <div className="mx-auto mt-9 grid max-w-3xl gap-4 sm:grid-cols-2">
+            <a href={creatorLinks.email} className="group flex min-h-[115px] items-center justify-between gap-4 rounded-lg border border-[#FFB000]/70 bg-[#FFB000] p-5 text-left text-[#0B0B0B] transition-transform duration-200 hover:-translate-y-1 hover:bg-[#FFD063] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#FFB000] md:p-6">
+              <span className="min-w-0"><span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider"><Mail size={18}/>{copy.contact.partnershipEmail}</span><span className="mt-2 block break-all text-sm font-semibold">dj@toszan.com.br</span></span>
+              <ArrowRight size={22} className="shrink-0 transition-transform group-hover:translate-x-1" />
             </a>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <PrimaryLink href={creatorLinks.email} icon={<ArrowRight size={15} />}>
-            {copy.contact.sendBrief}
-          </PrimaryLink>
-          <SecondaryLink href={creatorLinks.instagram} external icon={<Instagram size={15} />}>
-            {copy.contact.instagram}
-          </SecondaryLink>
-        </div>
-
-        <div className="mt-16 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <span style={{ color: "rgba(255,255,255,0.36)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-              {copy.contact.footerLocation}
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.36)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-              {copy.contact.footerRoles}
-            </span>
+            <a href={creatorLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="group flex min-h-[115px] items-center justify-between gap-4 rounded-lg border border-white/25 bg-white/[0.055] p-5 text-left text-white transition-transform duration-200 hover:-translate-y-1 hover:border-[#FFB000]/60 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#FFB000] md:p-6">
+              <span className="min-w-0"><span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FFB000]"><MessageCircle size={18}/>WhatsApp</span><span className="mt-2 block text-sm font-semibold">+39 342 836 9444</span></span>
+              <ArrowRight size={22} className="shrink-0 text-[#FFB000] transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs font-bold uppercase tracking-[0.12em] text-white/65">
+            <a href={creatorLinks.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-[#FFB000] focus-visible:outline-2 focus-visible:outline-[#FFB000]"><Instagram size={16}/>{copy.contact.instagram}<ExternalLink size={13}/></a>
+            <a href={creatorLinks.analytics} className="inline-flex min-h-11 items-center gap-2 transition-colors hover:text-[#FFB000] focus-visible:outline-2 focus-visible:outline-[#FFB000]"><BarChart3 size={16}/>{copy.contact.analytics}<ArrowRight size={14}/></a>
+          </div>
+          <footer className="mt-14 border-t border-white/10 pt-6 text-[0.69rem] uppercase tracking-[0.08em] text-white/45">
+            <div className="flex flex-col items-center justify-between gap-2 sm:flex-row"><span>{copy.contact.footerLocation}</span><span>{copy.contact.footerRoles}</span></div>
+          </footer>
         </div>
-      </Section>
+      </section>
     </div>
   );
 }

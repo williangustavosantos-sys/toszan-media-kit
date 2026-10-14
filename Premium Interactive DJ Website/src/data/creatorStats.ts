@@ -25,6 +25,18 @@ export type AnalyticsScreenshot = {
   src: string;
 };
 
+// Format the same archived Instagram values for each supported Creator language.
+// Formatting never changes the measured amount.
+export function formatVerifiedMetric(value: string, language: "en" | "it" | "pt"): string {
+  const thousands = value.match(/^(\+?)([0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)$/);
+  if (thousands) {
+    const locale = language === "en" ? "en-US" : language === "it" ? "it-IT" : "pt-BR";
+    return thousands[1] + new Intl.NumberFormat(locale).format(Number(thousands[2].replaceAll(",", "")));
+  }
+  if (language !== "en" && /^\d+\.\d+%$/.test(value)) return value.replace(".", ",");
+  return value;
+}
+
 export const creatorStats = {
   updatedAt: "July 2026",
   period: "Last 30 days",
