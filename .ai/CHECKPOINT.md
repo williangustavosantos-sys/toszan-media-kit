@@ -20,15 +20,22 @@ Date: 2026-10-14 Europe/Rome.
 - No horizontal overflow, duplicate IDs, broken local images, local HTTP failures or page errors in the recorded matrix.
 - Evidence: `outputs/final-redesign-qa.json` and `outputs/final-redesign/*.png`.
 
+## Verified Preview
+
+- Source implementation commit: `5c35192659c031451af740e738dcd66d0424a264`.
+- URL: `https://toszan-media-c3g8bviig-williangustavosantos-sys-projects.vercel.app`.
+- Deployment: `dpl_AM72TGH4PfEDPePoiM99kn8V5Aju` (`READY`).
+- Hosted matrix: 24/24 PASS; hosted functional flows: 9/9 PASS.
+- Real SoundCloud embedded UI entered `playing` state in Chrome and WebKit mobile contexts.
+- Evidence: `outputs/hosted-preview-qa.json` and `outputs/hosted-soundcloud-qa.json`.
+
 ## User authority
 
 The user explicitly requested: when finished, update `main` and Vercel and send the ready link. Main/Production publication is therefore authorized after hosted validation. Do not describe the prior rejected candidate as approved.
 
 ## Next action
 
-1. Commit and push `redesign/cinematic-toszan-20261014`.
-2. Create a new Vercel Preview and record its URL/deployment identity.
-3. Run hosted Chrome/WebKit QA against the exact Preview.
-4. Record hosted results, fast-forward and push `main` without force.
-5. Deploy Vercel Production from the final main commit and verify General `/` plus core media/navigation flows.
-6. Stop the managed local Vite session and report the production link with physical-device/audio limits.
+1. Commit this hosted checkpoint and push `redesign/cinematic-toszan-20261014`.
+2. Fast-forward and push `main` without force.
+3. Deploy Vercel Production from the final main commit and verify General `/` plus core media/navigation flows.
+4. Stop the managed local Vite session and report the production link with physical-device/audio limits.

@@ -4,7 +4,7 @@ Date: 2026-10-14 Europe/Rome.
 
 ## Binding status
 
-The rejected candidate `65cd2ee258f7349ed56006d5240f57d643c81918` remains rejected and is not evidence of approval. A materially revised candidate is implemented and locally validated on `redesign/cinematic-toszan-20261014`; hosted Preview QA and publication are the next gates.
+The rejected candidate `65cd2ee258f7349ed56006d5240f57d643c81918` remains rejected and is not evidence of approval. A materially revised candidate is implemented and has passed local plus hosted Preview QA on `redesign/cinematic-toszan-20261014`; main/Production publication is the remaining gate.
 
 The user has now explicitly authorized updating `main` and Vercel after final validation. This supersedes the prior publication prohibition, but it does not convert automated QA into a claim of owner visual approval.
 
@@ -14,10 +14,13 @@ The user has now explicitly authorized updating `main` and Vercel after final va
 - Workspace: `/Users/williandossantos/Documents/Codex/2026-10-14/crie-um-novo-site-com-sites-3/work/toszan-media-kit`
 - Application: `Premium Interactive DJ Website`
 - Working branch: `redesign/cinematic-toszan-20261014`
+- Revised implementation commit: `5c35192659c031451af740e738dcd66d0424a264`
 - Saved WIP base: `21a5d067535306ca42548d6de3d087bd38afb465`
 - Remote main/base before this publication: `e2b3449652e0b64bd3f947402d4c89ca02a91711`
 - Vercel project: `prj_WUvb9Q4dKWL9ZbDIP33ZgXoJU3Pe`
 - Vercel scope: `williangustavosantos-sys-projects`
+- Validated Preview: `https://toszan-media-c3g8bviig-williangustavosantos-sys-projects.vercel.app`
+- Preview deployment: `dpl_AM72TGH4PfEDPePoiM99kn8V5Aju`
 
 ## Revised implementation
 
@@ -36,6 +39,8 @@ The user has now explicitly authorized updating `main` and Vercel after final va
 - Local functional flows: 9/9 PASS for global/logo navigation, all 10 track selections, previous/next/swipe/Spotify, five Booking languages and persistence, all 9 videos with one audio owner, reduced-motion manual playback, Save Data gating, Creator counters/bars and Analytics 6 metric + 14 evidence modals.
 - Visual section captures are stored under `outputs/final-redesign/` and were optically reviewed during implementation.
 - Detailed machine-readable evidence: `outputs/final-redesign-qa.json`.
+- Hosted Preview matrix: 24/24 PASS and 9/9 functional flows against deployment `dpl_AM72TGH4PfEDPePoiM99kn8V5Aju`; evidence in `outputs/hosted-preview-qa.json`.
+- Hosted SoundCloud UI entered real `playing` state in Chrome and WebKit mobile contexts; evidence in `outputs/hosted-soundcloud-qa.json`.
 
 ## Evidence limits
 
@@ -45,6 +50,6 @@ The user has now explicitly authorized updating `main` and Vercel after final va
 
 ## Exact next step
 
-Commit and push the revised branch, deploy a new protected Vercel Preview, run hosted Chrome/WebKit QA against that exact deployment, then fast-forward `main`, push it and deploy Vercel Production as explicitly authorized. Open the final General `/` URL for the user.
+Fast-forward `main`, push it and deploy Vercel Production as explicitly authorized. Run a focused hosted Production smoke against General `/`, Booking media and global navigation, then open the final General `/` URL for the user.
 
 This website remains distinct from the registered TOSZAN music-production/REAPER workspace.
