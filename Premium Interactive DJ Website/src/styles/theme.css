@@ -126,11 +126,11 @@
 
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /**
@@ -208,6 +208,17 @@
 .mask-fade-right {
   mask-image: linear-gradient(to right, black 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+/* Keep deep-linked sections visible below the fixed creator navigation. */
+main [id] {
+  scroll-margin-top: 88px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
 }
 
 .autoplay-video::-webkit-media-controls,

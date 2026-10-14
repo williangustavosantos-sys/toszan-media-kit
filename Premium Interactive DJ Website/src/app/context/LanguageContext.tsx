@@ -137,7 +137,7 @@ const translations: Record<Language, any> = {
         followers: "Followers",
         interactions: "Interactions / mo",
         growth: "New Followers / mo",
-        organic: "Organic Audience",
+        reach: "Accounts Reached",
         based: "Based in",
         milan: "Milan"
       },
@@ -324,7 +324,7 @@ const translations: Record<Language, any> = {
         followers: "Seguidores",
         interactions: "Interações / mês",
         growth: "Novos seguidores / mês",
-        organic: "Público Orgânico",
+        reach: "Contas alcançadas",
         based: "Baseado em",
         milan: "Milão"
       },
@@ -511,7 +511,7 @@ const translations: Record<Language, any> = {
         followers: "Follower",
         interactions: "Interazioni / mese",
         growth: "Nuovi follower / mese",
-        organic: "Pubblico Organico",
+        reach: "Account raggiunti",
         based: "Basato a",
         milan: "Milano"
       },
@@ -698,7 +698,7 @@ const translations: Record<Language, any> = {
         followers: "Seguidores",
         interactions: "Interacciones / mes",
         growth: "Nuevos seguidores / mes",
-        organic: "Audiencia Orgánica",
+        reach: "Cuentas alcanzadas",
         based: "Basado en",
         milan: "Milán"
       },
@@ -885,7 +885,7 @@ const translations: Record<Language, any> = {
         followers: "Abonnés",
         interactions: "Interactions / mois",
         growth: "Nouveaux abonnés / mois",
-        organic: "Audience Organique",
+        reach: "Comptes touchés",
         based: "Basé à",
         milan: "Milan"
       },

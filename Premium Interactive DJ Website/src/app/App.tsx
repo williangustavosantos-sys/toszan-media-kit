@@ -21,7 +21,6 @@ export default function App() {
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
     document.body.style.background = "#0B0B0B";
-    document.body.style.overflowX = "hidden";
     document.body.style.color = "#ffffff";
     return () => {
       document.documentElement.style.scrollBehavior = "";
@@ -33,6 +32,25 @@ export default function App() {
     window.addEventListener("popstate", handleRoute);
     return () => window.removeEventListener("popstate", handleRoute);
   }, []);
+
+  // Deep links may arrive before React has mounted their target section.
+  // Re-apply anchor navigation after route content is present.
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      const target = document.getElementById(decodeURIComponent(hash));
+      target?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
+    };
+    const frame = window.requestAnimationFrame(scrollToHash);
+    const retry = window.setTimeout(scrollToHash, 350);
+    window.addEventListener("hashchange", scrollToHash);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(retry);
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, [routePath]);
 
   const isBookingRoute = routePath === "/booking";
   const isCreatorRoute = routePath === "/creator";

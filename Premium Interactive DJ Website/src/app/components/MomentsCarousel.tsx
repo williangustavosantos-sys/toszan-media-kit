@@ -26,7 +26,7 @@ function InstagramCard({ moment, index }: { moment: typeof moments[0]; index: nu
       animate={inView ? { opacity: 1, y: 0 } : {}}
       whileHover={{ scale: 1.04, y: -6, zIndex: 10 }}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full cursor-pointer group overflow-hidden"
+      className="relative w-full group overflow-hidden"
       style={{
         aspectRatio: "4/5",
         borderRadius: "16px",

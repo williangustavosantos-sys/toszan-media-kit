@@ -59,7 +59,7 @@ const english = {
     eyebrow: "Audience snapshot",
     title: "Performance That Earns Attention",
     intro:
-      "Official Instagram Professional Insights for June 5 – July 4, 2026. Updated monthly and available with screenshot verification.",
+      "Official Instagram Professional Insights for June 5 – July 4, 2026, preserved with supporting screenshots.",
   },
   work: {
     eyebrow: "Selected content",
@@ -172,12 +172,12 @@ const english = {
   analyticsPage: {
     eyebrow: "Verified analytics",
     title: "Verified Instagram Insights",
-    intro: "Updated monthly with official Instagram screenshots. Current period: June 5 – July 4, 2026.",
+    intro: "Verified Instagram snapshot from June 5 – July 4, 2026. Screenshots available below.",
     creatorPage: "Creator page",
     startProject: "Start a project",
     verification:
       "All analytics displayed on this page come directly from Instagram Professional Insights. These screenshots are taken directly from Instagram Professional Dashboard. Full live verification is available upon request.",
-    snapshot: "Current snapshot",
+    snapshot: "July 2026 snapshot",
     month: "July 2026",
     metricLabels: ["Followers", "Monthly views", "Accounts reached", "Interactions", "New followers", "Link clicks"],
     metricDetails: [
@@ -267,7 +267,7 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       eyebrow: "Resumo do público",
       title: "Performance que gera atenção",
       intro:
-        "Dados oficiais do Instagram Professional Insights de 5 de junho a 4 de julho de 2026. Atualizados mensalmente e disponíveis com capturas de tela para verificação.",
+        "Dados oficiais do Instagram Professional Insights de 5 de junho a 4 de julho de 2026, preservados com capturas de tela para verificação.",
     },
     work: {
       eyebrow: "Conteúdo selecionado",
@@ -380,12 +380,12 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     analyticsPage: {
       eyebrow: "Métricas verificadas",
       title: "Dados verificados do Instagram",
-      intro: "Atualizados mensalmente com capturas oficiais do Instagram. Período atual: 5 de junho a 4 de julho de 2026.",
+      intro: "Registro verificado do Instagram de 5 de junho a 4 de julho de 2026. Capturas oficiais disponíveis abaixo.",
       creatorPage: "Página do creator",
       startProject: "Iniciar projeto",
       verification:
         "Todas as métricas desta página vêm diretamente do Instagram Professional Insights. As capturas foram feitas no Painel Profissional do Instagram. A verificação completa ao vivo está disponível mediante solicitação.",
-      snapshot: "Resumo atual",
+      snapshot: "Resumo de julho de 2026",
       month: "Julho de 2026",
       metricLabels: ["Seguidores", "Visualizações mensais", "Contas alcançadas", "Interações", "Novos seguidores", "Cliques no link"],
       metricDetails: [
@@ -470,7 +470,7 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       eyebrow: "Dati sul pubblico",
       title: "Performance che conquista l'attenzione",
       intro:
-        "Dati ufficiali di Instagram Professional Insights dal 5 giugno al 4 luglio 2026. Aggiornati ogni mese e disponibili con screenshot di verifica.",
+        "Dati ufficiali di Instagram Professional Insights dal 5 giugno al 4 luglio 2026, conservati con screenshot di verifica.",
     },
     work: {
       eyebrow: "Contenuti selezionati",
@@ -583,12 +583,12 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     analyticsPage: {
       eyebrow: "Dati verificati",
       title: "Instagram Insights verificati",
-      intro: "Aggiornati ogni mese con screenshot ufficiali di Instagram. Periodo attuale: 5 giugno – 4 luglio 2026.",
+      intro: "Dati verificati di Instagram dal 5 giugno al 4 luglio 2026. Screenshot ufficiali disponibili qui sotto.",
       creatorPage: "Pagina creator",
       startProject: "Avvia un progetto",
       verification:
         "Tutti i dati mostrati in questa pagina provengono direttamente da Instagram Professional Insights. Gli screenshot sono stati acquisiti dal Pannello professionale di Instagram. La verifica completa dal vivo è disponibile su richiesta.",
-      snapshot: "Dati attuali",
+      snapshot: "Dati di luglio 2026",
       month: "Luglio 2026",
       metricLabels: ["Follower", "Visualizzazioni mensili", "Account raggiunti", "Interazioni", "Nuovi follower", "Clic sul link"],
       metricDetails: [

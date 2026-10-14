@@ -401,13 +401,13 @@ export function BookingPage() {
                 <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                   <div>
                     <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.28em", textTransform: "uppercase" }}>
-                      Lightweight player
+                      Official promo mix
                     </div>
                     <h3 style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2rem, 5vw, 3.4rem)", letterSpacing: "0.08em", lineHeight: 1, marginTop: "8px" }}>
                       {promoMix.title}
                     </h3>
                     <p className="mt-3 max-w-xl" style={{ color: "rgba(255,255,255,0.52)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.9rem", lineHeight: 1.75 }}>
-                      The SoundCloud iframe is not loaded on initial page load. Promoters get the page instantly, then can open the player only when they want to listen.
+                      Press play to hear the promotional mix, or open the full set on SoundCloud.
                     </p>
                   </div>
                   <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
@@ -459,7 +459,7 @@ export function BookingPage() {
                     <div className="flex min-h-[166px] flex-col items-center justify-center px-5 text-center">
                       <Music size={26} color="#FFB000" />
                       <p className="mt-3" style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.82rem", lineHeight: 1.6 }}>
-                        Player held for performance. Click Load Player or open SoundCloud in a new tab.
+                        Listen to the promotional mix here, or open it directly on SoundCloud.
                       </p>
                     </div>
                   )}
@@ -471,10 +471,10 @@ export function BookingPage() {
                   <div>
                     <ShieldCheck color="#FFB000" size={28} />
                     <h3 className="mt-4" style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.4rem", letterSpacing: "0.08em", lineHeight: 1 }}>
-                      Buyer signal
+                      Hear the energy
                     </h3>
                     <p className="mt-3" style={{ color: "rgba(255,255,255,0.52)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.88rem", lineHeight: 1.75 }}>
-                      Start with the live set. Originals and remixes support the brand, but a promoter first needs to hear whether the DJ can hold a room.
+                      Start with the live set to experience TOSZAN's sound and dancefloor energy, then explore the original releases and remixes.
                     </p>
                   </div>
                   <a
@@ -513,7 +513,7 @@ export function BookingPage() {
                 <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.78))" }} />
                 <div className="absolute bottom-5 left-5 right-5">
                   <span style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.58rem", fontWeight: 800, letterSpacing: "0.28em", textTransform: "uppercase" }}>
-                    No Instagram embed loaded
+                    Live performance
                   </span>
                   <h3 className="mt-2" style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 8vw, 4.8rem)", letterSpacing: "0.08em", lineHeight: 0.95 }}>
                     Room Proof
@@ -523,7 +523,7 @@ export function BookingPage() {
               <div className="flex flex-col justify-between gap-10 p-5 md:p-7">
                 <div>
                   <p style={{ color: "rgba(255,255,255,0.58)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.92rem", lineHeight: 1.8 }}>
-                    Lightweight poster link to the Live Experience section. It gives promoters a fast path to the reels without forcing Instagram or local video download on `/booking`.
+                    Watch live performance clips from the dancefloor and DJ booth to experience the energy of a TOSZAN set.
                   </p>
                   <div className="mt-6 grid grid-cols-2 gap-3">
                     {["Crowd", "Booth", "Stage", "Pride"].map((item) => (
@@ -668,42 +668,12 @@ export function BookingPage() {
               <SecondaryLink href={contactLinks.soundcloud} external icon={<Music size={16} />}>
                 SoundCloud
               </SecondaryLink>
-              <button
-                type="button"
-                disabled
-                className="inline-flex min-h-12 items-center justify-center gap-2 px-5 text-center disabled:cursor-not-allowed"
-                style={{
-                  background: "rgba(255,255,255,0.035)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "rgba(255,255,255,0.42)",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: "0.62rem",
-                  fontWeight: 800,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                }}
-              >
-                <Download size={15} />
-                EPK PDF Coming Soon
-              </button>
+              <SecondaryLink href="/#mediakit" icon={<FileText size={16} />}>
+                View Online Media Kit
+              </SecondaryLink>
             </div>
 
-            <div className="mt-6 rounded-xl p-5" style={{ background: "rgba(255,176,0,0.04)", border: "1px solid rgba(255,176,0,0.14)" }}>
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <div style={{ color: "#FFB000", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.56rem", fontWeight: 800, letterSpacing: "0.28em", textTransform: "uppercase" }}>
-                    Download EPK PDF
-                  </div>
-                  <p className="mt-2" style={{ color: "rgba(255,255,255,0.52)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.86rem", lineHeight: 1.65 }}>
-                    PDF structure is ready. Add the final file later and this slot becomes the direct download button.
-                  </p>
-                </div>
-                <div className="inline-flex items-center gap-2" style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.66rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                  <FileText size={16} color="#FFB000" />
-                  EPK PDF coming soon
-                </div>
-              </div>
-            </div>
+
           </SectionShell>
         </div>
       </main>

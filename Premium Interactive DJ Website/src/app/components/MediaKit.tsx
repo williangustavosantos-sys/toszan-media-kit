@@ -3,6 +3,7 @@ import { motion, useInView } from "motion/react";
 import { Download, ExternalLink, Instagram, Music, Mail } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { MomentsCarousel } from "./MomentsCarousel";
+import { creatorStats } from "../../data/creatorStats";
 
 export function MediaKit() {
   const { t } = useLanguage();
@@ -10,11 +11,11 @@ export function MediaKit() {
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
 
   const stats = [
-    { value: 131, suffix: "K+", label: t("media.stats.views"), accent: "#FFB000" },
-    { value: 10, suffix: "K+", label: t("media.stats.followers"), accent: "#00A86B" },
-    { value: 6.8, suffix: "K", label: t("media.stats.interactions"), accent: "#FFB000", isFloat: true },
-    { value: 521, suffix: "+", label: t("media.stats.growth"), accent: "#1E90FF" },
-    { value: 100, suffix: "%", label: t("media.stats.organic"), accent: "#FFB000" },
+    { value: Math.floor(Number(creatorStats.monthlyViewsExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.views"), accent: "#FFB000" },
+    { value: Math.floor(Number(creatorStats.followersExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.followers"), accent: "#00A86B" },
+    { value: Math.floor(Number(creatorStats.interactionsExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.interactions"), accent: "#FFB000" },
+    { value: Number(creatorStats.newFollowersExact.replace(/,/g, "")), suffix: "", label: t("media.stats.growth"), accent: "#1E90FF" },
+    { value: Math.floor(Number(creatorStats.accountsReachedExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.reach"), accent: "#FFB000" },
     { value: 0, suffix: t("media.stats.milan"), label: t("media.stats.based"), accent: "#00A86B", isStatic: true },
   ];
 
@@ -130,7 +131,7 @@ export function MediaKit() {
                 whileHover={{ scale: 1.05, y: -6, zIndex: 10, transition: { duration: 0.3, ease: "easeOut" } }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="relative group flex flex-col items-center justify-center text-center py-7 px-4 rounded-xl cursor-pointer transition-colors duration-500 hover:border-white/20"
+                className="relative group flex flex-col items-center justify-center text-center py-7 px-4 rounded-xl transition-colors duration-500 hover:border-white/20"
                 style={{
                   background: "rgba(255,255,255,0.02)",
                   border: "1px solid rgba(255,176,0,0.12)",
@@ -147,6 +148,9 @@ export function MediaKit() {
               </motion.div>
             ))}
           </motion.div>
+          <p className="mt-4 text-center text-xs tracking-wide text-white/50">
+            Instagram Insights · {creatorStats.dateRange}
+          </p>
         </div>
 
         {/* Final Phrase / Quote */}

@@ -629,7 +629,7 @@ export function LiveExperience() {
             {t("experience.title")}
           </h2>
           <p className="mt-5 max-w-2xl" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.92rem", lineHeight: 1.85, color: "rgba(255,255,255,0.55)", letterSpacing: "0.03em" }}>
-            Fast live proof for buyers: short local previews, instant posters and one active muted video to protect mobile FPS.
+            Watch selected moments from the DJ booth, stage and dancefloor — a closer look at the energy of a TOSZAN performance.
           </p>
         </motion.div>
 

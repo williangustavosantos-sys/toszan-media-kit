@@ -50,6 +50,20 @@ export function Navigation() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      document.documentElement.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [menuOpen]);
+
   const handleLink = (href: string) => {
     setMenuOpen(false);
 
@@ -142,7 +156,7 @@ export function Navigation() {
         </button>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8">
+        <div className="hidden xl:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8">
           {navLinks.map((link) => (
             <button
               type="button"
@@ -174,7 +188,7 @@ export function Navigation() {
         </div>
 
         {/* Desktop CTA & Language - RIGHT */}
-        <div className="hidden lg:flex items-center gap-6 ml-auto">
+        <div className="hidden xl:flex items-center gap-6 ml-auto">
           <button
             type="button"
             onClick={() => handleLink(isBrandContext ? "/creator#contact" : "/booking")}
@@ -211,12 +225,15 @@ export function Navigation() {
         </div>
 
         {/* Mobile: Language + hamburger */}
-        <div className="lg:hidden flex items-center gap-4">
+        <div className="xl:hidden flex items-center gap-4">
           <LanguageSelector creatorLanguagesOnly={isBrandContext} />
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="toszan-mobile-menu"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center"
             style={{ color: "#FFB000", background: "none", border: "none", cursor: "pointer" }}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -232,6 +249,7 @@ export function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            id="toszan-mobile-menu"
             className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
             style={{ background: "rgba(11,11,11,0.97)", backdropFilter: "blur(30px)" }}
           >
