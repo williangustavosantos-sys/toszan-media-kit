@@ -26,7 +26,6 @@ import {
 } from "../../data/creatorStats";
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
 import { useLanguage } from "../context/LanguageContext";
-import { CreatorEvidence } from "./CreatorEvidence";
 
 import creatorPortrait from "../../imports/creator-portrait-editorial-clean.webp";
 import "../../styles/creator-editorial.css";
@@ -148,10 +147,10 @@ export function MetricValue({ value, delay = 0 }: { value: string; delay?: numbe
   return <span ref={ref} aria-hidden="true" className="creator-count" data-final-value={value}>{display}</span>;
 }
 
-function MetricCard({ label, value, detail, index, onOpen }: { label: string; value: string; detail: string; index: number; onOpen: () => void }) {
+function MetricCard({ label, value, detail, index, onOpen }: { label: string; value: string; detail: string; index: number; onOpen?: () => void }) {
   const reduced = useReducedMotion();
   return (
-    <motion.a href="#verified-metrics" onClick={onOpen} aria-label={`${label}: ${value}. ${detail}`} className="creator-metric" initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.55, delay: reduced ? 0 : index % 4 * 0.07 }} whileHover={reduced ? undefined : { y: -5 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
+    <motion.a href="/analytics" aria-label={`${label}: ${value}. ${detail}`} className="creator-metric" initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.55, delay: reduced ? 0 : index % 4 * 0.07 }} whileHover={reduced ? undefined : { y: -5 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
       <span className="creator-metric-label">{label}<ArrowRight size={15} aria-hidden="true" /></span>
       <span className="creator-metric-value"><MetricValue value={value} delay={index % 4 * 0.08} /></span>
       <span className="creator-metric-detail">{detail}</span>
@@ -186,11 +185,10 @@ export function CreatorPage() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
   const [soundVideo, setSoundVideo] = useState<string | null>(null);
-  const [evidenceOpen, setEvidenceOpen] = useState(() => window.location.hash === "#verified-metrics");
-  const [previewVideo, setPreviewVideo] = useState<string | null>(null);
+  const [previewVideos, setPreviewVideos] = useState<string[]>([]);
 
   useEffect(() => {
-    setCreatorMeta(copy);
+    if (window.location.pathname === "/creator") setCreatorMeta(copy);
   }, [copy]);
 
   const exactMetrics = [creatorStats.followersExact, creatorStats.monthlyViewsExact, creatorStats.accountsReachedExact, creatorStats.interactionsExact];
@@ -246,7 +244,7 @@ export function CreatorPage() {
 
     const requestVersion = ++playRequestVersion.current;
     intendedVideo.current = source;
-    setPreviewVideo(null);
+    setPreviewVideos([]);
     stopOtherVideos(source);
     video.currentTime = video.currentTime || 0;
 
@@ -388,39 +386,38 @@ export function CreatorPage() {
     return () => { observer.disconnect(); document.removeEventListener("visibilitychange", pauseHidden); };
   }, []);
 
-  // Silent, single-video previews in view. Sound is only enabled by an explicit tap.
+  // Each visible reel plays as a silent preview; one explicit sound playback at a time.
   useEffect(() => {
     if (reduced || (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return;
-    let visible: HTMLVideoElement | null = null;
-    const observer = new IntersectionObserver((entries) => {
-      if (intendedVideo.current) return;
-      const candidates = entries.filter(entry => entry.isIntersecting && entry.intersectionRatio > 0.45)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      const next = candidates[0]?.target as HTMLVideoElement | undefined;
-      if (next === visible) return;
-      if (visible) { visible.pause(); visible.currentTime = 0; }
-      visible = next || null;
-      if (next) {
-        next.muted = true;
-        next.defaultMuted = true;
-        next.volume = 0;
-        next.loop = true;
-        setPreviewVideo(next.getAttribute("src"));
-        void next.play().catch(() => setPreviewVideo(null));
-      } else setPreviewVideo(null);
-    }, { threshold: [0, 0.45, 0.7, 0.95] });
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement;
+        const source = video.getAttribute("src");
+        if (!source || intendedVideo.current) continue;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+          video.muted = true; video.defaultMuted = true; video.volume = 0;
+          video.loop = true;
+          void video.play().then(() => {
+            setPreviewVideos(current => current.includes(source) ? current : [...current, source]);
+          }).catch(() => undefined);
+        } else {
+          video.pause();
+          setPreviewVideos(current => current.filter(item => item !== source));
+        }
+      }
+    }, { threshold: [0, 0.2, 0.6], rootMargin: "60px 0px" });
     Object.values(videoRefs.current).forEach(video => { if (video) observer.observe(video); });
-    return () => { observer.disconnect(); if (visible && !intendedVideo.current) visible.pause(); };
+    return () => observer.disconnect();
   }, [reduced]);
 
   return (
     <div className="cinematic-creator">
-      <section id="overview" className="creator-hero">
+      <section id="creator-overview" className="creator-hero">
         <div className="creator-hero-ambient" aria-hidden="true" />
         <div className="creator-container creator-hero-grid">
           <motion.div className="creator-hero-copy" initial={reduced ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
             <div className="creator-hero-topline"><Eyebrow>{copy.hero.eyebrow}</Eyebrow><span className="creator-location"><MapPin size={12} />{copy.hero.location}</span></div>
-            <h1 className="creator-hero-name"><span>WILLIAN</span><span>TOSZAN<span className="creator-name-period">.</span></span></h1>
+            <h2 className="creator-hero-name"><span>WILLIAN</span><span>TOSZAN<span className="creator-name-period">.</span></span></h2>
             <div className="creator-hero-statement">
               <h2>{copy.hero.headline}</h2>
               <p>{copy.hero.description}</p>
@@ -439,20 +436,11 @@ export function CreatorPage() {
           </motion.figure>
           <div className="creator-hero-foot">
             <span className="creator-availability"><i aria-hidden="true" />{copy.hero.availability}</span>
-            <span className="creator-hero-edition">{copy.analyticsPage.month}</span>
+
             <a href="#performance" className="creator-scroll-cue" aria-label={copy.performance.eyebrow}><span aria-hidden="true">↓</span></a>
           </div>
         </div>
       </section>
-
-      <div className="creator-quick-stats creator-container">
-        {localizedSnapshot.slice(0, 4).map((metric, index) => (
-          <motion.a key={metric.label} href="#performance" className="creator-quick-stat" initial={reduced ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.09 }} whileHover={reduced ? undefined : { y: -4 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
-            <span className="creator-quick-stat-value"><MetricValue value={metric.value} delay={index * 0.09} /><span className="sr-only">{metric.value}</span></span>
-            <span>{metric.label}<ArrowRight size={13} aria-hidden="true" /></span>
-          </motion.a>
-        ))}
-      </div>
 
       <Section id="work" number="01" eyebrow={copy.work.eyebrow} title={copy.work.title} intro={copy.work.intro} className="creator-work-section">
         <div className="creator-portfolio">
@@ -462,8 +450,8 @@ export function CreatorPage() {
                 const isPlaying = activeVideo === video.source && blockedVideo !== video.source;
                 return (
                   <div className="creator-work-media">
-                    <video className="creator-work-video" src={video.source} poster={video.poster} muted playsInline preload="metadata" ref={(node) => { videoRefs.current[video.source] = node; }} onPause={() => handlePortfolioPause(video.source)} onEnded={() => handlePortfolioEnded(video.source)} onError={() => handlePortfolioError(video.source)} />
-                    <img src={video.poster} alt="" aria-hidden="true" loading="lazy" className={`creator-work-poster ${isPlaying || previewVideo === video.source ? "is-playing" : ""}`} />
+                    <video className="creator-work-video" src={video.source} poster={video.poster} muted autoPlay loop playsInline preload="metadata" ref={(node) => { videoRefs.current[video.source] = node; }} onPause={() => handlePortfolioPause(video.source)} onEnded={() => handlePortfolioEnded(video.source)} onError={() => handlePortfolioError(video.source)} />
+                    <img src={video.poster} alt="" aria-hidden="true" loading="lazy" className={`creator-work-poster ${isPlaying || previewVideos.includes(video.source) ? "is-playing" : ""}`} />
                     <div className="creator-work-scrim" aria-hidden="true" />
                     <div className="creator-work-media-heading"><span>{String(index + 1).padStart(2, "0")}</span><span>{video.hasAudio ? copy.work.contentSample : copy.work.visualSample}</span></div>
                     {!isPlaying || soundVideo !== video.source ? (
@@ -484,8 +472,8 @@ export function CreatorPage() {
       </Section>
 
       <Section id="performance" number="02" eyebrow={copy.performance.eyebrow} title={copy.performance.title} intro={copy.performance.intro} className="creator-performance-section">
-        <div className="creator-metrics-grid">{localizedSnapshot.map((metric, index) => <MetricCard key={metric.label} {...metric} index={index} onOpen={() => setEvidenceOpen(true)} />)}</div>
-        <CreatorEvidence open={evidenceOpen} onToggle={setEvidenceOpen} />
+        <div className="creator-metrics-grid">{localizedSnapshot.map((metric, index) => <MetricCard key={metric.label} {...metric} index={index} />)}</div>
+        <div className="creator-evidence-link"><a href="/analytics">{copy.hero.analytics}<ArrowRight size={18}/></a></div>
       </Section>
 
       <Section number="03" eyebrow={copy.pillars.eyebrow} title={copy.pillars.title} intro={copy.pillars.intro} className="creator-pillars-section">
@@ -514,8 +502,8 @@ export function CreatorPage() {
               <a href="https://soundcloud.com/dj-willian-toszan" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud"><Music2 size={36}/><strong>SoundCloud</strong></a>
             </div>
           </EditorialReveal>
-          <PortfolioPaths language={language} current="creator" />
-          <footer className="creator-footer"><span>{copy.contact.footerLocation}</span><span>{copy.contact.footerRoles}</span></footer>
+
+
         </div>
       </section>
     </div>

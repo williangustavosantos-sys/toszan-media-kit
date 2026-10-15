@@ -85,7 +85,7 @@ export function BookingPage() {
   const fields = details.fields.map((label) => `${label}:`).join("\n");
   const email = `mailto:dj@toszan.com.br?subject=${encodeURIComponent(details.subject)}&body=${encodeURIComponent(fields)}`;
   const whatsapp = `https://wa.me/393428369444?text=${encodeURIComponent(`${details.whatsappIntro}\n${fields}`)}`;
-  useEffect(() => { updateMeta(copy); }, [copy]);
+  useEffect(() => { if (window.location.pathname === "/booking") updateMeta(copy); }, [copy]);
 
   const reveal = { initial: { opacity: 0, y: reduced ? 0 : 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.12 }, transition: { duration: reduced ? 0 : 0.65 } };
   return <div className="cinematic-booking">
@@ -94,7 +94,7 @@ export function BookingPage() {
         <picture><source media="(max-width: 600px)" srcSet="/editorial/booking-hero-800.webp"/><img src="/editorial/booking-hero.webp" alt={`TOSZAN — ${copy.location}`} decoding="async" width={1200} height={1200}/></picture>
       </div>
       <div className="cine-hero-shade"/>
-      <div className="cine-hero-index" aria-hidden="true">45°27′51″ N · 09°11′25″ E</div>
+
       <motion.div className="cine-hero-copy cine-wrap" initial={{opacity:0,y:reduced?0:20}} animate={{opacity:1,y:0}} transition={{duration:reduced?0:0.8,delay:reduced?0:0.12}}>
         <p className="cine-kicker"><span className="cine-dot"/>{copy.eyebrow}</p>
         <h1 id="booking-title">TOSZAN<span className="sr-only"> — {copy.location}</span></h1>
@@ -123,10 +123,10 @@ export function BookingPage() {
         <div className="cine-heading-row"><SectionTitle label={copy.pressLabel} title={copy.mediaKit}/><p className="cine-intro">{copy.technicalItems[2]}</p></div>
         <div className="cine-press-grid">
           <div><h3>{copy.technical}</h3><ul className="cine-tech-list">{copy.technicalItems.map(item=><li key={item}><Check size={15}/>{item}</li>)}</ul>
-            <a className="cine-text-link" href="/foto_dj4.JPG" download="TOSZAN-official-live-photo.jpg">{t("media.label")} · JPG<Download size={17}/></a>
+            <a className="cine-text-link" href="/pdf/TOSZAN-BOOK-DJ.pdf" download="TOSZAN-BOOK-DJ.pdf">{language === "pt" ? "BAIXAR BOOK COMPLETO · PDF" : language === "it" ? "SCARICA IL BOOK · PDF" : language === "es" ? "DESCARGAR BOOK · PDF" : language === "fr" ? "TÉLÉCHARGER LE BOOK · PDF" : "DOWNLOAD DJ BOOK · PDF"}<Download size={17}/></a>
 
           </div>
-          <div><h3>{copy.extraTitle}</h3><p className="cine-intro">{copy.extraDesc}</p><a className="cine-text-link" href="/creator">{copy.creator}<ArrowUpRight size={17}/></a></div>
+          <div><h3>{copy.extraTitle}</h3><p className="cine-intro">{copy.extraDesc}</p><a className="cine-text-link" href="/#creator">{copy.creator}<ArrowUpRight size={17}/></a></div>
         </div>
       </motion.div>
     </section>
@@ -143,6 +143,6 @@ export function BookingPage() {
         </div>
       </motion.div>
     </section>
-    <footer className="cine-footer cine-wrap"><span>{copy.footer}</span><a href="#booking-title">TOSZAN ↑</a></footer>
+
   </div>;
 }

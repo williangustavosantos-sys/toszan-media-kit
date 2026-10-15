@@ -1,0 +1,81 @@
+/* Single continuous journey; #dj-booking and #creator are in-page anchors. */
+html{scroll-padding-top:calc(var(--site-nav-height) + env(safe-area-inset-top,0px) + 18px)}
+#top,#dj-booking,#creator,#booking-contact,#music,#experience,#performance,#work,#contact{scroll-margin-top:calc(var(--site-nav-height) + env(safe-area-inset-top,0px) + 18px)}
+.single-page-section{position:relative;isolation:isolate}
+#dj-booking{border-top:1px solid rgba(189,156,106,.35)}
+#creator{border-top:1px solid rgba(189,156,106,.4)}
+#dj-booking .cine-hero{min-height:min(790px,93svh)}
+#dj-booking .cine-hero-photo{inset:0 0 0 11%}
+#dj-booking .cine-hero-shade{background:linear-gradient(90deg,#080909 0%,rgba(8,9,9,.86) 13%,rgba(8,9,9,.14) 48%,rgba(8,9,9,0) 75%),linear-gradient(0deg,#080909,transparent 36%,rgba(8,9,9,.2))}
+#dj-booking .cine-hero h1{font-size:clamp(112px,17vw,240px)}
+.single-page-downloads{background:linear-gradient(100deg,#141512,#090a09);padding:80px max(30px,7vw);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;border-top:1px solid rgba(189,156,106,.35)}
+.single-page-downloads a{display:flex;align-items:center;justify-content:center;min-height:110px;border:1px solid #bb9b6e;color:#f6f1e6;background:#1a1a16;text-align:center;text-decoration:none;font-size:clamp(17px,2vw,27px);font-weight:700;letter-spacing:.04em}
+.single-page-downloads a:hover{color:#121211;background:#d6b780}
+.creator-evidence-link{display:flex;justify-content:flex-start;margin-top:38px}
+.creator-evidence-link a{display:flex;align-items:center;gap:25px;min-height:56px;padding:14px 22px;color:#10100f;background:#c3a677;text-decoration:none;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.creator-metric-value .creator-count{font-size:clamp(48px,5.5vw,84px)!important;color:#f5f1e8!important}
+.creator-metric-detail{color:#b4afa2!important;font-size:13px!important}
+.creator-metric-label{color:#d4d2ca!important;font-size:12px!important}
+.creator-metric-label svg{color:#c3a677!important}
+.creator-hero-portrait{overflow:visible}
+.creator-hero-portrait img{filter:saturate(.93) contrast(1.03) brightness(.97) drop-shadow(0 0 25px rgba(221,211,198,.2));width:155%!important;height:138%!important;right:-16%!important;bottom:-1%!important;mask-image:linear-gradient(to bottom,#000 93%,transparent 100%)}
+.creator-hero-grid{grid-template-columns:48% 52%!important}
+.creator-hero-copy{z-index:4}
+.creator-hero-portrait figcaption{display:none}
+.creator-hero-ambient{background:radial-gradient(ellipse at 76% 37%,#3c3933 0%,#191a18 40%,#080909 70%)}
+.creator-hero{min-height:850px}
+.creator-hero .creator-hero-grid{min-height:850px}
+.creator-hero-name{font-size:clamp(98px,10.3vw,170px)!important}
+/* Circular DJ filmstrip. Three visible cards only, always recentered. */
+.live-infinite-window{position:relative;overflow:hidden;padding:20px 0 30px;touch-action:pan-y;user-select:none;cursor:grab;outline-offset:4px}
+.live-infinite-window:active{cursor:grabbing}
+.live-infinite-track{display:flex;gap:24px;align-items:center;width:max-content;margin-left:50%;transform:translateX(-50%);animation:livefilm-in .35s ease both}
+.live-infinite-slide{flex:0 0 clamp(340px,54vw,650px);width:clamp(340px,54vw,650px);transition:opacity .3s,transform .3s}
+.live-infinite-slide.is-center{opacity:1;transform:scale(1)}
+.live-infinite-slide.is-side{opacity:.5;transform:scale(.95);cursor:pointer}
+.live-infinite-slide.is-side:hover{opacity:.83}
+.live-infinite-slide .live-card{aspect-ratio:4/5!important}
+.live-infinite-slide .live-card-copy h3{font-size:clamp(27px,4vw,54px)}
+.live-infinite-slide.is-side .live-card-video{pointer-events:none}
+.live-facts,.live-unified-gallery{display:none!important}
+@keyframes livefilm-in{from{opacity:.72;transform:translateX(-50%) scale(.97)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+.live-swipe-hint{color:#dbd4c9!important;font-size:13px!important;letter-spacing:0!important}
+.music-platform-row,.music-platform-tabs,.music-track-controls,.music-player-nav{display:none!important}
+.music-album-carousel{padding:18px 0 24px}
+.music-listen-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px}
+.music-selected-track{display:flex;gap:22px;align-items:center;padding:25px;border:1px solid rgba(243,239,229,.2);background:#151614;min-width:0}
+.music-selected-track>img{width:min(40%,210px);aspect-ratio:1;object-fit:cover;flex-shrink:0}
+.music-selected-track>div{min-width:0}
+.music-selected-eyebrow{display:block;color:#c8a878;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.music-selected-track h3{font-size:clamp(25px,3vw,44px);line-height:1.05;margin:18px 0 25px;font-family:'Bebas Neue',sans-serif;font-weight:400}
+.music-selected-open{display:inline-flex;align-items:center;gap:12px;min-height:51px;padding:12px 14px;background:#c4a574;color:#10110f;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.03em}
+.music-selected-open img{height:22px;width:22px}
+.music-selected-open svg{margin-left:auto}
+.music-spotify-embedded{background:#151614;border:1px solid rgba(243,239,229,.2);padding:20px;min-width:0}
+.music-spotify-embedded h3{display:flex;align-items:center;gap:12px;font-size:17px;color:#f0ede6;margin:0 0 14px}
+.music-spotify-embedded iframe{display:block;border:0;border-radius:10px;max-width:100%;background:#1e1e1e}
+.music-services>div{grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:1100px){
+ .creator-hero-name{font-size:clamp(85px,10vw,123px)!important}
+ .creator-hero-portrait img{width:173%!important;height:150%!important;right:-27%!important}
+ .music-listen-layout{grid-template-columns:1fr}
+ .music-services>div{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:767px){
+ .single-page-downloads{grid-template-columns:1fr;padding:45px 20px}
+ .single-page-downloads a{min-height:90px}
+ #dj-booking .cine-hero-photo{inset:0}
+ #dj-booking .cine-hero h1{font-size:29vw}
+ .creator-hero-grid{display:block!important;min-height:780px!important}
+ .creator-hero-portrait img{width:135%!important;height:122%!important;right:-11%!important}
+ .creator-hero-name{font-size:clamp(86px,22vw,140px)!important}
+ .live-infinite-track{gap:18px}
+ .live-infinite-slide{flex-basis:78vw;width:78vw}
+ .live-infinite-slide .live-card{aspect-ratio:4/5!important}
+ .music-selected-track{padding:16px;gap:15px}
+ .music-selected-track>img{width:36%}
+ .music-selected-track h3{font-size:31px;margin:10px 0 16px}
+ .music-selected-open{min-height:44px;font-size:9px;padding:9px}
+ .music-services>div{grid-template-columns:repeat(2,1fr)}
+}
+@media(prefers-reduced-motion:reduce){.live-infinite-track{animation:none}}

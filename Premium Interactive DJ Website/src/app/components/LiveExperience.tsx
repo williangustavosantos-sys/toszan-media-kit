@@ -302,6 +302,9 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const [activeId, setActiveId] = useState<string | null>(reels[0].id);
   const [soundEnabledForId, setSoundEnabledForId] = useState<string | null>(null);
   const [saveData, setSaveData] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const touchStart = useRef<number | null>(null);
+  const mouseStart = useRef<number | null>(null);
   const localizedReels = reels.map((reel, index) => ({ ...reel, ...reelTranslations[language][index] }));
   const heading = context === "booking" ? bookingCopy[language].experienceTitle : t("experience.title");
   const eyebrow = context === "booking" ? bookingCopy[language].experienceLabel : t("experience.label");
@@ -323,45 +326,12 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
     setActiveId(id);
   }, [updateSoundOwner]);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || !("IntersectionObserver" in window)) return;
-
-    const visibility = new Map<string, { ratio: number; rect: DOMRectReadOnly; featured: boolean }>();
-    let frame = 0;
-
-    const selectActive = () => {
-      frame = 0;
-      if (soundOwnerRef.current) return;
-      const viewportCenter = window.innerHeight * 0.5;
-      let bestId: string | null = null;
-      let bestScore = -Infinity;
-
-      visibility.forEach((entry, id) => {
-        if (entry.ratio < 0.12) return;
-        const center = entry.rect.top + entry.rect.height / 2;
-        const centerPenalty = Math.abs(center - viewportCenter) / Math.max(window.innerHeight, 1);
-        const wideBonus = entry.rect.width > entry.rect.height ? 0.05 : 0;
-        const featuredBonus = entry.featured ? 0.04 : 0;
-        const score = entry.ratio + wideBonus + featuredBonus - centerPenalty * 0.32;
-        if (score > bestScore) { bestScore = score; bestId = id; }
-      });
-
-      if (bestId && activeIdRef.current !== bestId) activateReel(bestId);
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const target = entry.target as HTMLElement;
-        const id = target.dataset.reelId;
-        if (!id) return;
-        visibility.set(id, { ratio: entry.intersectionRatio, rect: entry.boundingClientRect, featured: target.dataset.featured === "true" });
-      });
-      if (!frame) frame = window.requestAnimationFrame(selectActive);
-    }, { rootMargin: "180px 0px 180px 0px", threshold: [0, 0.12, 0.25, 0.45, 0.65, 0.85, 1] });
-
-    section.querySelectorAll<HTMLElement>("[data-reel-id]").forEach((card) => observer.observe(card));
-    return () => { if (frame) window.cancelAnimationFrame(frame); observer.disconnect(); };
+  const moveCarousel = useCallback((step: number) => {
+    setCarouselIndex(current => {
+      const next = (current + step + reels.length) % reels.length;
+      activateReel(reels[next].id);
+      return next;
+    });
   }, [activateReel]);
 
   useEffect(() => {
@@ -388,16 +358,26 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
           <p>{intro}</p>
         </motion.div>
 
-        <div className="live-facts" aria-label={copy.inventory}>
-          {[{ value: "09", label: copy.clips }, { value: "03", label: copy.featured }, { value: "01", label: copy.audio }].map((fact, index) => (
-            <motion.div key={fact.label} initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.45, delay: reducedMotion ? 0 : index * 0.06 }}><strong>{fact.value}</strong><span>{fact.label}</span></motion.div>
-          ))}
+        <div className="live-infinite-window" role="region" aria-label={copy.inventory} aria-roledescription="carousel"
+          tabIndex={0}
+          onKeyDown={event => { if (event.key === "ArrowLeft") { event.preventDefault(); moveCarousel(-1); } if (event.key === "ArrowRight") { event.preventDefault(); moveCarousel(1); } }}
+          onTouchStart={event => { touchStart.current = event.touches[0]?.clientX ?? null; }}
+          onTouchEnd={event => { if (touchStart.current === null) return; const distance = event.changedTouches[0].clientX - touchStart.current; if (Math.abs(distance) > 35) moveCarousel(distance < 0 ? 1 : -1); touchStart.current = null; }}
+          onMouseDown={event => { mouseStart.current = event.clientX; }}
+          onMouseUp={event => { if (mouseStart.current === null) return; const distance = event.clientX - mouseStart.current; if (Math.abs(distance) > 50) moveCarousel(distance < 0 ? 1 : -1); mouseStart.current = null; }}>
+          <div className="live-infinite-track" key={carouselIndex}>
+            {[-1, 0, 1].map(offset => {
+              const index = (carouselIndex + offset + localizedReels.length) % localizedReels.length;
+              const reel = localizedReels[index];
+              return <div key={reel.id} className={`live-infinite-slide ${offset === 0 ? "is-center" : "is-side"}`}
+                aria-label={`${reel.title}`}
+                onClick={offset === 0 ? undefined : () => moveCarousel(offset)}>
+                <AutoplayVideoCard reel={reel} active={offset === 0 && activeId === reel.id} index={index} variant="feature" {...cardProps} />
+              </div>;
+            })}
+          </div>
         </div>
-
-        <div className="live-unified-gallery" aria-label={copy.inventory}>
-          {localizedReels.map((reel, index) => <div key={reel.id} className="live-unified-item"><AutoplayVideoCard reel={reel} active={activeId === reel.id} index={index} variant="feature" {...cardProps} /></div>)}
-        </div>
-        <p className="live-swipe-hint">{language === "pt" ? "Deslize para ver os 9 vídeos" : language === "it" ? "Scorri per vedere tutti i 9 video" : language === "es" ? "Desliza para ver los 9 vídeos" : language === "fr" ? "Faites défiler les 9 vidéos" : "Swipe to explore all 9 videos"}</p>
+        <p className="live-swipe-hint">{language === "pt" ? "Deslize para a esquerda ou direita • reprodução contínua" : language === "it" ? "Scorri a sinistra o a destra • galleria continua" : language === "es" ? "Desliza a izquierda o derecha • galería continua" : language === "fr" ? "Balayez vers la gauche ou la droite • galerie continue" : "Swipe left or right • continuous gallery"}</p>
 
         <motion.div className="live-booking-cta" initial={reducedMotion ? false : { opacity: 0, y: 22 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.55 }}>
           <div><span>{copy.ready}</span><p>{copy.readyBody}</p></div>

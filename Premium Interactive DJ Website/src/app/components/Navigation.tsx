@@ -27,11 +27,23 @@ export function Navigation() {
   };
   const labels = navUi[effectiveLanguage];
   const cta = brand ? text.nav.cta : bookingCopy[language].contact;
-  const ctaHref = brand ? "/creator#contact" : booking ? "#booking-contact" : "/booking";
+  const ctaHref = brand ? "/#contact" : booking ? "/#booking-contact" : "/#booking-contact";
+  const [activeSection, setActiveSection] = useState("top");
+  useEffect(() => {
+    if (path === "/analytics") return;
+    const sections = ["top", "dj-booking", "creator"].map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const current = () => {
+      const line = window.scrollY + 220;
+      const hit = [...sections].reverse().find(el => el.offsetTop <= line);
+      setActiveSection(hit?.id || "top");
+    };
+    current(); window.addEventListener("scroll", current, { passive: true });
+    return () => window.removeEventListener("scroll", current);
+  }, [path]);
   const routeLinks = [
-    { label: labels.general, href: "/", current: path === "/" },
-    { label: labels.booking, href: "/booking", current: booking },
-    { label: labels.creator, href: "/creator", current: path === "/creator" },
+    { label: labels.general, href: "/#top", current: path !== "/analytics" && activeSection === "top" },
+    { label: labels.booking, href: "/#dj-booking", current: path !== "/analytics" && activeSection === "dj-booking" },
+    { label: labels.creator, href: "/#creator", current: path !== "/analytics" && activeSection === "creator" },
   ];
   const localLinks: {label:string;href:string}[] = [];
   useEffect(() => { const onScroll=()=>setScrolled(window.scrollY>35); onScroll(); window.addEventListener("scroll",onScroll,{passive:true}); return()=>window.removeEventListener("scroll",onScroll); },[]);

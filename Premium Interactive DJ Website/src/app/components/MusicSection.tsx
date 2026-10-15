@@ -162,7 +162,6 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
   const railRef = useRef<HTMLDivElement | null>(null);
   const interacted = useRef(false);
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
-  const [platform, setPlatform] = useState<Platform>("soundcloud");
   const [activeTrackId, setActiveTrackId] = useState<(typeof soundcloudTracks)[number]["id"]>("promo-set-2026");
   const activeIndex = soundcloudTracks.findIndex((track) => track.id === activeTrackId);
   const activeTrack = soundcloudTracks[activeIndex];
@@ -197,47 +196,31 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
           <div className="music-heading-side"><p>{intro}</p><span><Music2 size={15} aria-hidden="true" />{copy.catalog}</span></div>
         </motion.div>
 
-        <div className="music-platform-row">
-          <div className="music-platform-tabs" role="tablist" aria-label={copy.platformLabel}>
-            {(["soundcloud", "spotify"] as Platform[]).map((item) => (
-              <button key={item} type="button" role="tab" aria-selected={platform === item} aria-controls={`music-panel-${item}`} onClick={() => setPlatform(item)}>{item}</button>
-            ))}
-          </div>
-
+        <div ref={railRef} className="music-cover-rail music-album-carousel" aria-label={copy.catalog}>
+          {soundcloudTracks.map(track => <MusicCoverCard key={track.id} track={track} active={activeTrackId === track.id} selectedLabel={copy.selected} typeLabel={copy.types[track.type]} onSelect={() => selectTrack(track.id)} reducedMotion={reducedMotion} />)}
         </div>
-
-        <AnimatePresence mode="wait" initial={!reducedMotion}>
-          {platform === "soundcloud" ? (
-            <motion.div key="soundcloud" id="music-panel-soundcloud" role="tabpanel" className="music-platform-panel" initial={reducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -10 }} transition={{ duration: reducedMotion ? 0 : 0.38 }}>
-              <div ref={railRef} className="music-cover-rail" aria-label={copy.catalog}>
-                {soundcloudTracks.map((track) => <MusicCoverCard key={track.id} track={track} active={activeTrackId === track.id} selectedLabel={copy.selected} typeLabel={copy.types[track.type]} onSelect={() => selectTrack(track.id)} reducedMotion={reducedMotion} />)}
-              </div>
-              <p className="music-swipe-note">{language === "pt" ? "Deslize pelas capas e toque na música para ouvir" : language === "it" ? "Scorri le copertine e tocca per ascoltare" : language === "es" ? "Desliza las portadas y toca para escuchar" : language === "fr" ? "Faites défiler les pochettes et touchez pour écouter" : "Swipe covers and tap a track to listen"}</p>
-              <div className="music-player-stage">
-                <div className="music-player-meta">
-                  <span className="music-player-count">{String(activeIndex + 1).padStart(2, "0")}</span>
-                  <div aria-live="polite"><span>{copy.types[activeTrack.type]}</span><h3>{activeTrack.title}</h3></div>
-
-                  <a href={activeTrack.url} target="_blank" rel="noopener noreferrer" className="music-fallback-link">{copy.openTrack}<ExternalLink size={15} aria-hidden="true" /></a>
-                </div>
-                <AnimatePresence mode="wait" initial={!reducedMotion}>
-                  <motion.div key={activeTrackId} className="music-player-frame" initial={reducedMotion ? false : { opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} exit={reducedMotion ? undefined : { opacity: 0, scale: 0.985 }} transition={{ duration: reducedMotion ? 0 : 0.32 }}>
-                    <iframe title={`${copy.soundcloudTitle} — ${activeTrack.title}`} width="100%" height="166" scrolling="no" frameBorder="0" allow="autoplay; encrypted-media" src={activeTrack.embedUrl} />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div key="spotify" id="music-panel-spotify" role="tabpanel" className="music-platform-panel music-spotify-panel" initial={reducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -10 }} transition={{ duration: reducedMotion ? 0 : 0.38 }}>
-              <div className="music-spotify-heading"><Headphones size={20} aria-hidden="true" /><span>TOSZAN / Spotify</span></div>
-              <div className="music-player-frame"><iframe title={copy.spotifyTitle} src={SPOTIFY_EMBED} width="100%" height="450" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" /></div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <p className="music-swipe-note">{language === "pt" ? "Arraste as capas e toque para selecionar" : language === "it" ? "Scorri le copertine e scegli il brano" : language === "es" ? "Desliza las portadas y elige una canción" : language === "fr" ? "Faites défiler les pochettes et choisissez un titre" : "Swipe covers and select a track"}</p>
+        <div className="music-listen-layout">
+          <div className="music-selected-track" aria-live="polite">
+            <img src={activeTrack.cover} alt="" loading="lazy" />
+            <div>
+              <span className="music-selected-eyebrow">{copy.selected} / {copy.types[activeTrack.type]}</span>
+              <h3>{activeTrack.title}</h3>
+              <a className="music-selected-open" href={activeTrack.url} target="_blank" rel="noopener noreferrer">
+                <img src="/platform-icons/soundcloud.svg" alt="" />
+                {language === "pt" ? "OUVIR FAIXA COMPLETA" : language === "it" ? "ASCOLTA IL BRANO" : language === "es" ? "ESCUCHAR TEMA COMPLETO" : language === "fr" ? "ÉCOUTER LE TITRE" : "LISTEN TO FULL TRACK"}<ExternalLink size={18} aria-hidden="true"/>
+              </a>
+            </div>
+          </div>
+          <div className="music-spotify-embedded">
+            <h3><Headphones size={20} aria-hidden="true" /> TOSZAN / Spotify</h3>
+            <iframe title={copy.spotifyTitle} src={SPOTIFY_EMBED} width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
+          </div>
+        </div>
 
         <div className="music-services" aria-label={copy.services}>
           <strong className="music-services-heading">{copy.services}</strong>
-          <div>{serviceLinks.map((service) => <motion.a key={service.label} href={service.href} aria-label={`${service.label} — ${copy.services}`} target="_blank" rel="noopener noreferrer" whileHover={reducedMotion ? undefined : { y: -3 }} whileTap={reducedMotion ? undefined : { scale: 0.97 }}>
+          <div>{[...serviceLinks, {label:"SoundCloud", href:"https://soundcloud.com/dj-willian-toszan"}].map((service) => <motion.a key={service.label} href={service.href} aria-label={`${service.label} — ${copy.services}`} target="_blank" rel="noopener noreferrer" whileHover={reducedMotion ? undefined : { y: -3 }} whileTap={reducedMotion ? undefined : { scale: 0.97 }}>
             <img src={`/platform-icons/${service.label === "Apple Music" ? "applemusic" : service.label === "Amazon Music" ? "amazonmusic" : service.label.toLowerCase()}.svg`} alt="" aria-hidden="true" />
             <span>{service.label}</span><ExternalLink size={14} aria-hidden="true" />
           </motion.a>)}</div>
