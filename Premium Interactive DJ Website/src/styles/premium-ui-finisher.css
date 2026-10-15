@@ -100,3 +100,56 @@
                 linear-gradient(0deg, #080909 0%, rgba(8,9,9,.40) 8%, transparent 27%) !important;
   }
 }
+
+/* Small screens: portrait occupies its own stage, never overlaps copy. */
+@media (max-width: 767px) {
+  .cinematic-creator .creator-hero,
+  .cinematic-creator .creator-hero .creator-hero-grid {
+    min-height: 0 !important;
+  }
+  .cinematic-creator .creator-hero-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding-top: 78px !important;
+    padding-bottom: 74px !important;
+    gap: 12px;
+  }
+  .cinematic-creator .creator-hero-copy {
+    flex: none;
+    position: relative;
+    z-index: 3;
+    width: 100%;
+  }
+  .cinematic-creator .creator-hero-statement {
+    max-width: 100% !important;
+  }
+  .cinematic-creator .creator-hero-statement h2 {
+    max-width: 350px !important;
+  }
+  .cinematic-creator .creator-hero-statement p {
+    max-width: 350px !important;
+  }
+  .cinematic-creator .creator-hero-actions {
+    max-width: 100% !important;
+  }
+  .cinematic-creator .creator-hero-portrait {
+    position: relative !important;
+    inset: auto !important;
+    align-self: center !important;
+    width: 100% !important;
+    height: clamp(510px, 69svh, 635px) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+  .cinematic-creator .creator-hero-portrait img {
+    inset: 0 !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .cinematic-creator .creator-hero-foot {
+    bottom: 0 !important;
+  }
+}
