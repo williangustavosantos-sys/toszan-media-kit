@@ -15,9 +15,7 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
   const { language, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const visibleLanguages = creatorLanguagesOnly
-    ? languages.filter((item) => item.code === "en" || item.code === "pt" || item.code === "it")
-    : languages;
+  const visibleLanguages = languages;
   const selectedLanguage = visibleLanguages.some((item) => item.code === language)
     ? language
     : "en";

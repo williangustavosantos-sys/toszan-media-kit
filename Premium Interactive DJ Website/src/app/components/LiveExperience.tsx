@@ -296,17 +296,13 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const reducedMotion = Boolean(useReducedMotion());
   const sectionRef = useRef<HTMLElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
-  const supportRailRef = useRef<HTMLDivElement | null>(null);
   const activeIdRef = useRef<string | null>(reels[0].id);
   const soundOwnerRef = useRef<string | null>(null);
   const headingInView = useInView(headingRef, { once: true, margin: "-80px" });
   const [activeId, setActiveId] = useState<string | null>(reels[0].id);
   const [soundEnabledForId, setSoundEnabledForId] = useState<string | null>(null);
   const [saveData, setSaveData] = useState(false);
-  const [supportIndex, setSupportIndex] = useState(0);
   const localizedReels = reels.map((reel, index) => ({ ...reel, ...reelTranslations[language][index] }));
-  const featuredReels = localizedReels.slice(0, 3);
-  const supportingReels = localizedReels.slice(3);
   const heading = context === "booking" ? bookingCopy[language].experienceTitle : t("experience.title");
   const eyebrow = context === "booking" ? bookingCopy[language].experienceLabel : t("experience.label");
   const intro = context === "booking" ? bookingCopy[language].experienceIntro : copy.intro;
@@ -383,28 +379,6 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const cardProps = { soundEnabledForId, setSoundEnabledForId: updateSoundOwner, onActivate: activateReel, saveData, reduceMotion: reducedMotion, copy };
   const contactHref = context === "booking" ? "#booking-contact" : "/booking";
   const contactLabel = context === "booking" ? bookingCopy[language].contact : copy.openBooking;
-  const scrollSupporting = (offset: number) => {
-    const rail = supportRailRef.current;
-    if (!rail) return;
-    const nextIndex = Math.max(0, Math.min(supportingReels.length - 1, supportIndex + offset));
-    const target = rail.children.item(nextIndex) as HTMLElement | null;
-    if (!target) return;
-    rail.scrollTo({ left: target.offsetLeft - rail.offsetLeft, behavior: reducedMotion ? "auto" : "smooth" });
-    setSupportIndex(nextIndex);
-  };
-  const updateSupportIndex = () => {
-    const rail = supportRailRef.current;
-    if (!rail) return;
-    const children = Array.from(rail.children) as HTMLElement[];
-    let nearestIndex = 0;
-    let nearestDistance = Infinity;
-    children.forEach((child, index) => {
-      const distance = Math.abs(child.offsetLeft - rail.offsetLeft - rail.scrollLeft);
-      if (distance < nearestDistance) { nearestDistance = distance; nearestIndex = index; }
-    });
-    setSupportIndex(nearestIndex);
-  };
-
   return (
     <section ref={sectionRef} id="experience" className="live-editorial" data-context={context} aria-labelledby={`live-title-${context}`}>
       <div className="live-ambient" aria-hidden="true" />
@@ -420,14 +394,10 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
           ))}
         </div>
 
-        <div className="live-featured-grid">
-          {featuredReels.map((reel, index) => <div key={reel.id} className={`live-featured-item live-featured-${index + 1}`}><AutoplayVideoCard reel={reel} active={activeId === reel.id} index={index} variant="feature" {...cardProps} /></div>)}
+        <div className="live-unified-gallery" aria-label={copy.inventory}>
+          {localizedReels.map((reel, index) => <div key={reel.id} className="live-unified-item"><AutoplayVideoCard reel={reel} active={activeId === reel.id} index={index} variant="feature" {...cardProps} /></div>)}
         </div>
-
-        <div className="live-support-heading"><div><span>04—09</span><p>{copy.supporting}</p></div><div className="live-support-controls"><span aria-live="polite">{String(supportIndex + 4).padStart(2, "0")} / 09</span><button type="button" onClick={() => scrollSupporting(-1)} disabled={supportIndex === 0} aria-label={copy.previous}><ChevronLeft size={18} /></button><button type="button" onClick={() => scrollSupporting(1)} disabled={supportIndex === supportingReels.length - 1} aria-label={copy.next}><ChevronRight size={18} /></button></div></div>
-        <div ref={supportRailRef} className="live-support-grid" onScroll={updateSupportIndex}>
-          {supportingReels.map((reel, index) => <div key={reel.id} className="live-support-item"><AutoplayVideoCard reel={reel} active={activeId === reel.id} index={index + 3} {...cardProps} /></div>)}
-        </div>
+        <p className="live-swipe-hint">{language === "pt" ? "Deslize para ver os 9 vídeos" : language === "it" ? "Scorri per vedere tutti i 9 video" : language === "es" ? "Desliza para ver los 9 vídeos" : language === "fr" ? "Faites défiler les 9 vidéos" : "Swipe to explore all 9 videos"}</p>
 
         <motion.div className="live-booking-cta" initial={reducedMotion ? false : { opacity: 0, y: 22 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.55 }}>
           <div><span>{copy.ready}</span><p>{copy.readyBody}</p></div>

@@ -61,9 +61,9 @@ export function ContactSection() {
           {contacts.map((contact, index) => {
             const Icon = contact.icon;
             return (
-              <motion.a key={contact.label} href={contact.href} target={contact.external ? "_blank" : undefined} rel={contact.external ? "noopener noreferrer" : undefined} initial={reducedMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.45, delay: reducedMotion ? 0 : index * 0.04 }}>
+              <motion.a key={contact.label} href={contact.href} aria-label={contact.action} target={contact.external ? "_blank" : undefined} rel={contact.external ? "noopener noreferrer" : undefined} initial={reducedMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.45, delay: reducedMotion ? 0 : index * 0.04 }}>
                 <span className="general-contact-icon"><Icon size={17} aria-hidden="true" /></span>
-                <span className="general-contact-name"><small>{contact.label}</small><strong>{contact.value}</strong></span>
+                <span className="general-contact-name"><strong>{index === 0 ? (language === "pt" ? "E-mail" : "Email") : contact.label}</strong></span>
                 <span className="general-contact-action">{contact.action}<ArrowRight size={15} aria-hidden="true" /></span>
               </motion.a>
             );

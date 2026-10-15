@@ -9,6 +9,7 @@ import {
   MapPin,
   MessageCircle,
   Pause,
+  Music2,
   Play,
 } from "lucide-react";
 import {
@@ -25,8 +26,9 @@ import {
 } from "../../data/creatorStats";
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
 import { useLanguage } from "../context/LanguageContext";
+import { CreatorEvidence } from "./CreatorEvidence";
 
-import creatorPortrait from "../../imports/creator-portrait-editorial.webp";
+import creatorPortrait from "../../imports/creator-portrait-editorial-clean.webp";
 import "../../styles/creator-editorial.css";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
@@ -68,10 +70,14 @@ export function EditorialReveal({ children, className, delay = 0 }: { children: 
 }
 
 export function PortfolioPaths({ language, current }: { language: string; current?: "creator" | "booking" }) {
-  const general = language === "pt" ? "Visão geral" : language === "it" ? "Generale" : "General";
-  const label = language === "pt" ? "Explore TOSZAN" : language === "it" ? "Esplora TOSZAN" : "Explore TOSZAN";
-  const booking = language === "pt" ? "DJ / Contratação" : language === "it" ? "DJ / Ingaggi" : "DJ / Booking";
-  const creator = language === "pt" ? "Criador" : language === "it" ? "Creatore" : "Creator";
+  const labels = {
+    en: ["Explore TOSZAN", "General", "DJ / Booking", "Creator"],
+    pt: ["Explore TOSZAN", "Visão geral", "DJ / Contratação", "Criador"],
+    it: ["Esplora TOSZAN", "Generale", "DJ / Ingaggi", "Creator"],
+    es: ["Explora TOSZAN", "General", "DJ / Contratación", "Creador"],
+    fr: ["Découvrez TOSZAN", "Accueil", "DJ / Booking", "Créateur"]
+  };
+  const [label, general, booking, creator] = labels[language as keyof typeof labels] || labels.en;
   return <nav className="creator-paths" aria-label={label}><span>{label}</span><a href="/">{general}<ArrowRight size={16} /></a><a href="/booking" aria-current={current === "booking" ? "page" : undefined}>{booking}<ArrowRight size={16} /></a><a href="/creator" aria-current={current === "creator" ? "page" : undefined}>{creator}<ArrowRight size={16} /></a></nav>;
 }
 
@@ -142,10 +148,10 @@ export function MetricValue({ value, delay = 0 }: { value: string; delay?: numbe
   return <span ref={ref} aria-hidden="true" className="creator-count" data-final-value={value}>{display}</span>;
 }
 
-function MetricCard({ label, value, detail, index }: { label: string; value: string; detail: string; index: number }) {
+function MetricCard({ label, value, detail, index, onOpen }: { label: string; value: string; detail: string; index: number; onOpen: () => void }) {
   const reduced = useReducedMotion();
   return (
-    <motion.a href="/analytics#verified-metrics" aria-label={`${label}: ${value}. ${detail}`} className="creator-metric" initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.55, delay: reduced ? 0 : index % 4 * 0.07 }} whileHover={reduced ? undefined : { y: -5 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
+    <motion.a href="#verified-metrics" onClick={onOpen} aria-label={`${label}: ${value}. ${detail}`} className="creator-metric" initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.55, delay: reduced ? 0 : index % 4 * 0.07 }} whileHover={reduced ? undefined : { y: -5 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
       <span className="creator-metric-label">{label}<ArrowRight size={15} aria-hidden="true" /></span>
       <span className="creator-metric-value"><MetricValue value={value} delay={index % 4 * 0.08} /></span>
       <span className="creator-metric-detail">{detail}</span>
@@ -180,6 +186,8 @@ export function CreatorPage() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
   const [soundVideo, setSoundVideo] = useState<string | null>(null);
+  const [evidenceOpen, setEvidenceOpen] = useState(() => window.location.hash === "#verified-metrics");
+  const [previewVideo, setPreviewVideo] = useState<string | null>(null);
 
   useEffect(() => {
     setCreatorMeta(copy);
@@ -238,6 +246,7 @@ export function CreatorPage() {
 
     const requestVersion = ++playRequestVersion.current;
     intendedVideo.current = source;
+    setPreviewVideo(null);
     stopOtherVideos(source);
     video.currentTime = video.currentTime || 0;
 
@@ -379,6 +388,31 @@ export function CreatorPage() {
     return () => { observer.disconnect(); document.removeEventListener("visibilitychange", pauseHidden); };
   }, []);
 
+  // Silent, single-video previews in view. Sound is only enabled by an explicit tap.
+  useEffect(() => {
+    if (reduced || (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return;
+    let visible: HTMLVideoElement | null = null;
+    const observer = new IntersectionObserver((entries) => {
+      if (intendedVideo.current) return;
+      const candidates = entries.filter(entry => entry.isIntersecting && entry.intersectionRatio > 0.45)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      const next = candidates[0]?.target as HTMLVideoElement | undefined;
+      if (next === visible) return;
+      if (visible) { visible.pause(); visible.currentTime = 0; }
+      visible = next || null;
+      if (next) {
+        next.muted = true;
+        next.defaultMuted = true;
+        next.volume = 0;
+        next.loop = true;
+        setPreviewVideo(next.getAttribute("src"));
+        void next.play().catch(() => setPreviewVideo(null));
+      } else setPreviewVideo(null);
+    }, { threshold: [0, 0.45, 0.7, 0.95] });
+    Object.values(videoRefs.current).forEach(video => { if (video) observer.observe(video); });
+    return () => { observer.disconnect(); if (visible && !intendedVideo.current) visible.pause(); };
+  }, [reduced]);
+
   return (
     <div className="cinematic-creator">
       <section id="overview" className="creator-hero">
@@ -394,7 +428,7 @@ export function CreatorPage() {
             <div className="creator-hero-actions">
               <PrimaryLink href="#work" icon={<ArrowRight size={16} />}>{copy.hero.work}</PrimaryLink>
               <a href="#contact" className="creator-text-link creator-hero-inline-link"><Mail size={14} />{copy.hero.collaboration}</a>
-              <a href="/analytics" className="creator-text-link creator-hero-inline-link"><BarChart3 size={14} />{copy.hero.analytics}</a>
+              <a href="#performance" className="creator-text-link creator-hero-inline-link"><BarChart3 size={14} />{copy.hero.analytics}</a>
             </div>
           </motion.div>
           <motion.figure className="creator-hero-portrait" initial={reduced ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.15, delay: reduced ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}>
@@ -413,7 +447,7 @@ export function CreatorPage() {
 
       <div className="creator-quick-stats creator-container">
         {localizedSnapshot.slice(0, 4).map((metric, index) => (
-          <motion.a key={metric.label} href="/analytics#verified-metrics" className="creator-quick-stat" initial={reduced ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.09 }} whileHover={reduced ? undefined : { y: -4 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
+          <motion.a key={metric.label} href="#performance" className="creator-quick-stat" initial={reduced ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.09 }} whileHover={reduced ? undefined : { y: -4 }} whileTap={reduced ? undefined : { scale: 0.97 }}>
             <span className="creator-quick-stat-value"><MetricValue value={metric.value} delay={index * 0.09} /><span className="sr-only">{metric.value}</span></span>
             <span>{metric.label}<ArrowRight size={13} aria-hidden="true" /></span>
           </motion.a>
@@ -429,7 +463,7 @@ export function CreatorPage() {
                 return (
                   <div className="creator-work-media">
                     <video className="creator-work-video" src={video.source} poster={video.poster} muted playsInline preload="metadata" ref={(node) => { videoRefs.current[video.source] = node; }} onPause={() => handlePortfolioPause(video.source)} onEnded={() => handlePortfolioEnded(video.source)} onError={() => handlePortfolioError(video.source)} />
-                    <img src={video.poster} alt="" aria-hidden="true" loading="lazy" className={`creator-work-poster ${isPlaying ? "is-playing" : ""}`} />
+                    <img src={video.poster} alt="" aria-hidden="true" loading="lazy" className={`creator-work-poster ${isPlaying || previewVideo === video.source ? "is-playing" : ""}`} />
                     <div className="creator-work-scrim" aria-hidden="true" />
                     <div className="creator-work-media-heading"><span>{String(index + 1).padStart(2, "0")}</span><span>{video.hasAudio ? copy.work.contentSample : copy.work.visualSample}</span></div>
                     {!isPlaying || soundVideo !== video.source ? (
@@ -450,11 +484,12 @@ export function CreatorPage() {
       </Section>
 
       <Section id="performance" number="02" eyebrow={copy.performance.eyebrow} title={copy.performance.title} intro={copy.performance.intro} className="creator-performance-section">
-        <div className="creator-metrics-grid">{localizedSnapshot.map((metric, index) => <MetricCard key={metric.label} {...metric} index={index} />)}</div>
+        <div className="creator-metrics-grid">{localizedSnapshot.map((metric, index) => <MetricCard key={metric.label} {...metric} index={index} onOpen={() => setEvidenceOpen(true)} />)}</div>
+        <CreatorEvidence open={evidenceOpen} onToggle={setEvidenceOpen} />
       </Section>
 
       <Section number="03" eyebrow={copy.pillars.eyebrow} title={copy.pillars.title} intro={copy.pillars.intro} className="creator-pillars-section">
-        <div className="creator-pillars">{copy.pillars.items.map((pillar, index) => <motion.div key={pillar} className="creator-pillar" initial={reduced ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: reduced ? 0 : index % 2 * 0.1 }}><span className="creator-pillar-number">{String(index + 1).padStart(2, "0")}</span><span>{pillar}</span><ArrowRight size={20} aria-hidden="true" /></motion.div>)}</div>
+        <div className="creator-pillars">{copy.pillars.items.map((pillar, index) => <motion.div key={pillar} className="creator-pillar" initial={reduced ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: reduced ? 0 : index % 2 * 0.1 }}><span className="creator-pillar-number">{String(index + 1).padStart(2, "0")}</span><span>{pillar}</span></motion.div>)}</div>
       </Section>
 
       <Section id="audience" number="04" eyebrow={copy.audience.eyebrow} title={copy.audience.title} intro={copy.audience.intro}>
@@ -472,10 +507,11 @@ export function CreatorPage() {
           <EditorialReveal><h2>{copy.contact.title}</h2></EditorialReveal>
           <EditorialReveal className="creator-contact-content" delay={0.08}>
             <p>{copy.contact.intro}</p>
-            <div className="creator-contact-links">
-              <a href={creatorLinks.email} className="creator-contact-link"><span><span className="creator-contact-link-label"><Mail size={14} />{copy.contact.partnershipEmail}</span><span>dj@toszan.com.br</span></span><ArrowRight size={24} /></a>
-              <a href={creatorLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="creator-contact-link"><span><span className="creator-contact-link-label"><MessageCircle size={14} />WhatsApp</span><span>+39 342 836 9444</span></span><ArrowRight size={24} /></a>
-              <div className="creator-contact-socials"><a href={creatorLinks.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={15} />{copy.contact.instagram}<ExternalLink size={12} /></a><a href={creatorLinks.analytics}><BarChart3 size={15} />{copy.contact.analytics}<ArrowRight size={13} /></a></div>
+            <div className="premium-contact-buttons">
+              <a href={creatorLinks.email} aria-label={copy.contact.partnershipEmail}><Mail size={36}/><strong>E-mail</strong></a>
+              <a href={creatorLinks.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={36}/><strong>WhatsApp</strong></a>
+              <a href={creatorLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={36}/><strong>Instagram</strong></a>
+              <a href="https://soundcloud.com/dj-willian-toszan" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud"><Music2 size={36}/><strong>SoundCloud</strong></a>
             </div>
           </EditorialReveal>
           <PortfolioPaths language={language} current="creator" />

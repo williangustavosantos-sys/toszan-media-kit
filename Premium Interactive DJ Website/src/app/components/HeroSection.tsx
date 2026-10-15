@@ -108,8 +108,8 @@ export function HeroSection() {
         >
           <a href="/booking" className="general-primary-link">{copy.booking}<ArrowRight size={17} aria-hidden="true" /></a>
           <div className="general-hero-text-links">
-            <a href="#music">{copy.music}<ArrowDown size={14} aria-hidden="true" /></a>
-            <a href="#experience">{copy.live}<ArrowDown size={14} aria-hidden="true" /></a>
+            <a href="/booking#music">{copy.music}<ArrowDown size={14} aria-hidden="true" /></a>
+            <a href="/booking#experience">{copy.live}<ArrowDown size={14} aria-hidden="true" /></a>
           </div>
         </motion.div>
       </div>

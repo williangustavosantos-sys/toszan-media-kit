@@ -1,0 +1,250 @@
+{
+  "meta": {
+    "title": "WILLIAN TOSZAN | Créateur brésilien basé à Milan",
+    "description": "Créateur brésilien basé à Milan. Art de vivre européen, fitness, voyages, mode masculine, vie nocturne et musique pour des collaborations avec des marques premium."
+  },
+  "nav": {
+    "overview": "Présentation générale",
+    "work": "Travail",
+    "audience": "Public",
+    "services": "Services",
+    "contact": "Contact",
+    "cta": "Collaborer avec moi",
+    "analyticsCta": "Lancer un projet"
+  },
+  "hero": {
+    "location": "Milan, Italie",
+    "availability": "Disponible dans toute l'Europe",
+    "eyebrow": "Portfolio de créateur · 2026",
+    "headline": "Énergie brésilienne. Point de vue européen.",
+    "description": "Créateur basé à Milan qui réalise des contenus crédibles et dynamiques pour des marques de mode masculine, de bien-être, de voyage et de culture.",
+    "work": "Voir une sélection de réalisations",
+    "collaboration": "Lancer une collaboration",
+    "analytics": "Analytiques vérifiées",
+    "alt": "Willian Toszan, créateur brésilien basé à Milan",
+    "roles": "Créateur · Fitness · Musique",
+    "roleWord": "CRÉATEUR",
+    "region": "Milan / Europe"
+  },
+  "metricLabels": [
+    "Abonnés",
+    "Vues mensuelles",
+    "Comptes atteints",
+    "Interactions",
+    "Croissance nette",
+    "Public masculin",
+    "Âge principal",
+    "Marchés principaux"
+  ],
+  "metricDetails": [
+    "12 033 exactement",
+    "174 189 exactement",
+    "56 062 exactement",
+    "24 039 exactement",
+    "1 967 nouveaux abonnés",
+    "Public des abonnés",
+    "75,1 % des abonnés",
+    "Brésil, Italie, États-Unis, Espagne"
+  ],
+  "performance": {
+    "eyebrow": "Aperçu de l'audience",
+    "title": "Des performances qui attirent l'attention",
+    "intro": "Statistiques professionnelles officielles d'Instagram pour la période du 5 juin au 4 juillet 2026, conservées avec des captures d'écran à l'appui."
+  },
+  "work": {
+    "eyebrow": "Contenus sélectionnés",
+    "title": "Contenu conçu pour les marques",
+    "intro": "Une sélection de formats vidéo verticaux présentant le storytelling produit, une expression assurée face caméra, le style et le contexte du lifestyle européen.",
+    "contentSample": "Exemple de contenu",
+    "visualSample": "Exemple visuel",
+    "tapAgain": "Appuyez à nouveau pour activer le son",
+    "viewSample": "Voir l'exemple",
+    "playSound": "Lire avec le son",
+    "pause": "Mettre l'extrait en pause",
+    "videos": [
+      {
+        "title": "Présentation du créateur d'UGC",
+        "category": "UGC + À l'écran",
+        "description": "Une présentation concise de mon approche du contenu de marque authentique et axé sur l'attention."
+      },
+      {
+        "title": "Campagne UGC pour la cire coiffante",
+        "category": "Soins pour hommes",
+        "description": "Un récit produit UGC complet créé pour Bottega Paesano, du problème au résultat."
+      },
+      {
+        "title": "Présentation du produit",
+        "category": "Marque / Produit",
+        "description": "Idéal pour les cadeaux, les présentations de produits, les campagnes dédiées à la mode masculine et au commerce de détail."
+      },
+      {
+        "title": "Fitness et prise de parole en public",
+        "category": "Fitness + Communication",
+        "description": "Idéal pour les campagnes liées au fitness, au bien-être, au coaching et à la motivation."
+      },
+      {
+        "title": "Lifestyle hivernal à Milan",
+        "category": "Mode homme + Milan",
+        "description": "Idéal pour les campagnes axées sur la mode masculine, le soin personnel, le style et l'art de vivre haut de gamme."
+      }
+    ]
+  },
+  "pillars": {
+    "eyebrow": "Piliers de contenu",
+    "title": "Une seule identité. Plusieurs univers de marque.",
+    "intro": "L'avantage, c'est de ne pas être cantonné à un seul créneau. Il s'agit d'une marque personnelle reconnaissable, capable d'évoluer naturellement dans différentes catégories de lifestyle haut de gamme sans paraître générique.",
+    "items": [
+      "Art de vivre européen",
+      "Fitness",
+      "Mode homme",
+      "Voyage",
+      "Vie nocturne",
+      "DJ et musique",
+      "Le Brésil en Europe",
+      "Italie vs Brésil"
+    ]
+  },
+  "audience": {
+    "eyebrow": "Profil du public",
+    "title": "Portée brésilienne, contexte européen",
+    "intro": "Un public majoritairement masculin, âgé de 25 à 44 ans, avec le Brésil comme base culturelle et l'Italie comme marché européen le plus important.",
+    "gender": "Sexe des abonnés",
+    "age": "Âge des abonnés",
+    "countries": "Principaux pays",
+    "cities": "Principales villes",
+    "men": "Hommes",
+    "women": "Femmes",
+    "brazil": "Brésil",
+    "italy": "Italie",
+    "unitedStates": "États-Unis",
+    "spain": "Espagne",
+    "saoPaulo": "São Paulo",
+    "milan": "Milan",
+    "rome": "Rome",
+    "rio": "Rio de Janeiro"
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Contenu pour les marques",
+    "intro": "Contenus courts et expériences authentiques, créés à Milan pour des marques basées dans toute l'Europe.",
+    "cta": "Discuter d'une collaboration",
+    "offers": [
+      {
+        "title": "UGC et Reels",
+        "detail": "Démonstrations de produits et vidéos courtes."
+      },
+      {
+        "title": "Lifestyle et voyages",
+        "detail": "Hôtels, mode masculine et expériences urbaines."
+      },
+      {
+        "title": "Fitness et bien-être",
+        "detail": "Contenu fondé sur une expérience professionnelle."
+      },
+      {
+        "title": "Événements et vie nocturne",
+        "detail": "Couverture d'événements et activations de marques."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Concevons ensemble la campagne idéale",
+    "intro": "Pour les marques, les agences, les hôtels, le tourisme, la mode, le fitness, la technologie, les soins personnels, le lifestyle et les événements. Indiquez votre objectif, les livrables, le calendrier et la fourchette de budget pour obtenir une réponse plus rapide.",
+    "partnershipEmail": "E-mail de partenariat",
+    "analytics": "Analytique",
+    "verified": "Captures d'écran vérifiées",
+    "open": "Ouvrir",
+    "sendBrief": "Envoyer le brief de collaboration",
+    "instagram": "Voir Instagram",
+    "footerLocation": "© 2026 Willian Toszan · Milan, Italie",
+    "footerRoles": "Créateur · Fitness · Lifestyle · Musique"
+  },
+  "analyticsPage": {
+    "eyebrow": "Analytiques vérifiées",
+    "title": "Statistiques Instagram vérifiées",
+    "intro": "Aperçu Instagram vérifié du 5 juin au 4 juillet 2026. Captures d'écran disponibles ci-dessous.",
+    "creatorPage": "Page du créateur",
+    "startProject": "Lancer un projet",
+    "verification": "Toutes les données d'analyse affichées sur cette page proviennent directement des Statistiques professionnelles d'Instagram. Ces captures d'écran proviennent directement du tableau de bord Instagram Professional. Une vérification complète en direct est disponible sur demande.",
+    "snapshot": "Aperçu de juillet 2026",
+    "month": "Juillet 2026",
+    "metricLabels": [
+      "Abonnés",
+      "Vues mensuelles",
+      "Comptes atteints",
+      "Interactions",
+      "Nouveaux abonnés",
+      "Clics sur les liens"
+    ],
+    "metricDetails": [
+      "+17,3 % par rapport au 4 juin",
+      "5 juin – 4 juillet 2026",
+      "+263,2 %",
+      "Statistiques Instagram officielles",
+      "+1 779 de croissance nette",
+      "7 848 visites du profil"
+    ],
+    "gallery": "Galerie de captures d'écran",
+    "proof": "Preuve officielle",
+    "close": "Fermer l'image",
+    "galleryItems": [
+      {
+        "title": "Aperçu des vues",
+        "metric": "174 189 vues et 56 062 comptes atteints"
+      },
+      {
+        "title": "Vues Audience Villes",
+        "metric": "São Paulo, Milan, Rome et Rio de Janeiro"
+      },
+      {
+        "title": "Aperçu des interactions",
+        "metric": "24 039 interactions"
+      },
+      {
+        "title": "Interactions par ville",
+        "metric": "Répartition géographique issue d'Instagram Insights"
+      },
+      {
+        "title": "Pays des interactions",
+        "metric": "Brésil, Italie, États-Unis et Espagne"
+      },
+      {
+        "title": "Interactions par âge",
+        "metric": "Principales tranches d'âge : 25–44 ans"
+      },
+      {
+        "title": "Détails sur l'audience des interactions",
+        "metric": "Détail de l'iPad avec les cartes d'audience"
+      },
+      {
+        "title": "Répartition des interactions sur les Reels",
+        "metric": "8 251 mentions « J'aime », 994 enregistrements et 739 partages"
+      },
+      {
+        "title": "Vues par pays",
+        "metric": "Brésil 31,0 %, Italie 13,3 %"
+      },
+      {
+        "title": "Vues par âge",
+        "metric": "Les groupes des 25–34 ans et des 35–44 ans constituent l'audience principale"
+      },
+      {
+        "title": "Vues du contenu et activité du profil",
+        "metric": "7 848 visites et 521 clics sur des liens externes"
+      },
+      {
+        "title": "Croissance du nombre d'abonnés",
+        "metric": "12 033 abonnés et +17,3 %"
+      },
+      {
+        "title": "Âge des abonnés",
+        "metric": "25–34 ans : 43,6 %, 35–44 ans : 31,5 %"
+      },
+      {
+        "title": "Sexe et activité des abonnés",
+        "metric": "65,9 % d'hommes, 34,1 % de femmes"
+      }
+    ]
+  }
+}

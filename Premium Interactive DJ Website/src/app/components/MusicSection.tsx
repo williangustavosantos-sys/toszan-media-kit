@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type TouchEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
-import { ChevronLeft, ChevronRight, ExternalLink, Headphones, Music2, Play } from "lucide-react";
+import { ExternalLink, Headphones, Music2, Play } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy } from "../../data/bookingCopy";
 import "../../styles/music-live.css";
@@ -15,7 +15,7 @@ const soundcloudTracks = [
     title: "Promo DJ Set TOSZAN — Splash Roma",
     type: "latest" as TrackType,
     url: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-XDLKMpoYPopeyXs3-YI5G2Q-t500x500.jpg",
   },
   {
@@ -23,7 +23,7 @@ const soundcloudTracks = [
     title: "BRASIL - Sente essa pressão!",
     type: "new" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/brasil",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/brasil&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/brasil&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-L5NlzlzzUIckkkFZ-3soezQ-t500x500.jpg",
   },
   {
@@ -31,7 +31,7 @@ const soundcloudTracks = [
     title: "Jamaican (Bam Bam) — TOSZAN Remix",
     type: "new" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-cnwDhLdEQTjyxQDm-Iyp7Xg-t500x500.jpg",
   },
   {
@@ -39,7 +39,7 @@ const soundcloudTracks = [
     title: "TOSZAN Live at Manicomio",
     type: "live" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-F2H6wqLJLwayfNrU-m09i1g-t500x500.jpg",
   },
   {
@@ -47,7 +47,7 @@ const soundcloudTracks = [
     title: "G-LATINA (TOSZAN Remix)",
     type: "remix" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-542RIF8EbM1nUUlq-2bMAVg-t500x500.png",
   },
   {
@@ -55,7 +55,7 @@ const soundcloudTracks = [
     title: "Sesso e Samba (Toszan Remix)",
     type: "remix" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-WjT8DtlDzkBe0QtJ-E5syGg-t500x500.jpg",
   },
   {
@@ -63,7 +63,7 @@ const soundcloudTracks = [
     title: "Solta Mais Pressão",
     type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-emfkIvI2m5iWFLse-of9TRw-t500x500.png",
   },
   {
@@ -71,7 +71,7 @@ const soundcloudTracks = [
     title: "BATTE FORTE",
     type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-batte-forte",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-batte-forte&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-batte-forte&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-ed2jJzMb6mrwA35r-EU3FuQ-t500x500.png",
   },
   {
@@ -79,7 +79,7 @@ const soundcloudTracks = [
     title: "TOSZAN - OPERA",
     type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-opera",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-opera&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-opera&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-xDLDWQ0GdZy9CIIp-k3V5fQ-t500x500.jpg",
   },
   {
@@ -87,14 +87,14 @@ const soundcloudTracks = [
     title: "THUNDR Promo Set",
     type: "promo" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set",
-    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+    embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
     cover: "https://i1.sndcdn.com/artworks-oZbHbD2A479EpjKK-uzgAfg-t500x500.png",
   },
 ] as const;
 
 const SPOTIFY_EMBED = "https://open.spotify.com/embed/artist/27FuT8olmWQ5g51OEwMkWt?utm_source=generator&theme=0";
 
-const serviceLinks = [
+export const serviceLinks = [
   { label: "Spotify", href: "https://open.spotify.com/artist/27FuT8olmWQ5g51OEwMkWt" },
   { label: "Apple Music", href: "https://geo.music.apple.com/it/album/_/1885295537?app=music&at=1000lHKX&ct=linktree_http&i=1885295538&itscg=30200&itsct=lt_m&ls=1&mt=1" },
   { label: "YouTube", href: "https://youtu.be/ShdGmmuUlGA?si=2Glk1wlQloGrysE6" },
@@ -160,7 +160,6 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
   const reducedMotion = Boolean(useReducedMotion());
   const titleRef = useRef<HTMLDivElement | null>(null);
   const railRef = useRef<HTMLDivElement | null>(null);
-  const touchStartX = useRef<number | null>(null);
   const interacted = useRef(false);
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
   const [platform, setPlatform] = useState<Platform>("soundcloud");
@@ -176,29 +175,11 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
     setActiveTrackId(id);
   };
 
-  const selectRelative = (offset: number) => {
-    const nextIndex = (activeIndex + offset + soundcloudTracks.length) % soundcloudTracks.length;
-    selectTrack(soundcloudTracks[nextIndex].id);
-  };
-
   useEffect(() => {
     if (!interacted.current) return;
     const selected = railRef.current?.querySelector<HTMLElement>(`[data-track-id="${activeTrackId}"]`);
     selected?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest", inline: "center" });
   }, [activeTrackId, reducedMotion]);
-
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = event.touches[0]?.clientX ?? null;
-  };
-
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    if (touchStartX.current === null) return;
-    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
-    const distance = endX - touchStartX.current;
-    touchStartX.current = null;
-    if (Math.abs(distance) < 48) return;
-    selectRelative(distance < 0 ? 1 : -1);
-  };
 
   return (
     <section id="music" className="music-editorial" data-context={context} aria-labelledby={`music-title-${context}`}>
@@ -222,13 +203,7 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
               <button key={item} type="button" role="tab" aria-selected={platform === item} aria-controls={`music-panel-${item}`} onClick={() => setPlatform(item)}>{item}</button>
             ))}
           </div>
-          {platform === "soundcloud" ? (
-            <div className="music-track-controls">
-              <span aria-live="polite">{String(activeIndex + 1).padStart(2, "0")} / {String(soundcloudTracks.length).padStart(2, "0")}</span>
-              <button type="button" onClick={() => selectRelative(-1)} aria-label={copy.previous}><ChevronLeft size={19} /></button>
-              <button type="button" onClick={() => selectRelative(1)} aria-label={copy.next}><ChevronRight size={19} /></button>
-            </div>
-          ) : null}
+
         </div>
 
         <AnimatePresence mode="wait" initial={!reducedMotion}>
@@ -237,20 +212,17 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
               <div ref={railRef} className="music-cover-rail" aria-label={copy.catalog}>
                 {soundcloudTracks.map((track) => <MusicCoverCard key={track.id} track={track} active={activeTrackId === track.id} selectedLabel={copy.selected} typeLabel={copy.types[track.type]} onSelect={() => selectTrack(track.id)} reducedMotion={reducedMotion} />)}
               </div>
-              <div className="music-swipe-note"><ChevronLeft size={14} aria-hidden="true" />{copy.swipe}<ChevronRight size={14} aria-hidden="true" /></div>
-              <div className="music-player-stage" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+              <p className="music-swipe-note">{language === "pt" ? "Deslize pelas capas e toque na música para ouvir" : language === "it" ? "Scorri le copertine e tocca per ascoltare" : language === "es" ? "Desliza las portadas y toca para escuchar" : language === "fr" ? "Faites défiler les pochettes et touchez pour écouter" : "Swipe covers and tap a track to listen"}</p>
+              <div className="music-player-stage">
                 <div className="music-player-meta">
                   <span className="music-player-count">{String(activeIndex + 1).padStart(2, "0")}</span>
                   <div aria-live="polite"><span>{copy.types[activeTrack.type]}</span><h3>{activeTrack.title}</h3></div>
-                  <div className="music-player-nav">
-                    <button type="button" onClick={() => selectRelative(-1)} aria-label={copy.previous}><ChevronLeft size={20} /></button>
-                    <button type="button" onClick={() => selectRelative(1)} aria-label={copy.next}><ChevronRight size={20} /></button>
-                  </div>
+
                   <a href={activeTrack.url} target="_blank" rel="noopener noreferrer" className="music-fallback-link">{copy.openTrack}<ExternalLink size={15} aria-hidden="true" /></a>
                 </div>
                 <AnimatePresence mode="wait" initial={!reducedMotion}>
                   <motion.div key={activeTrackId} className="music-player-frame" initial={reducedMotion ? false : { opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} exit={reducedMotion ? undefined : { opacity: 0, scale: 0.985 }} transition={{ duration: reducedMotion ? 0 : 0.32 }}>
-                    <iframe title={`${copy.soundcloudTitle} — ${activeTrack.title}`} width="100%" height="400" scrolling="no" frameBorder="0" allow="autoplay; encrypted-media" src={activeTrack.embedUrl} />
+                    <iframe title={`${copy.soundcloudTitle} — ${activeTrack.title}`} width="100%" height="166" scrolling="no" frameBorder="0" allow="autoplay; encrypted-media" src={activeTrack.embedUrl} />
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -264,8 +236,11 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
         </AnimatePresence>
 
         <div className="music-services" aria-label={copy.services}>
-          <span>{copy.services}</span>
-          <div>{serviceLinks.map((service) => <motion.a key={service.label} href={service.href} target="_blank" rel="noopener noreferrer" whileHover={reducedMotion ? undefined : { y: -3 }} whileTap={reducedMotion ? undefined : { scale: 0.97 }}>{service.label}<ExternalLink size={13} aria-hidden="true" /></motion.a>)}</div>
+          <strong className="music-services-heading">{copy.services}</strong>
+          <div>{serviceLinks.map((service) => <motion.a key={service.label} href={service.href} aria-label={`${service.label} — ${copy.services}`} target="_blank" rel="noopener noreferrer" whileHover={reducedMotion ? undefined : { y: -3 }} whileTap={reducedMotion ? undefined : { scale: 0.97 }}>
+            <img src={`/platform-icons/${service.label === "Apple Music" ? "applemusic" : service.label === "Amazon Music" ? "amazonmusic" : service.label.toLowerCase()}.svg`} alt="" aria-hidden="true" />
+            <span>{service.label}</span><ExternalLink size={14} aria-hidden="true" />
+          </motion.a>)}</div>
         </div>
       </div>
     </section>

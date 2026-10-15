@@ -124,7 +124,7 @@ export function BookingPage() {
         <div className="cine-press-grid">
           <div><h3>{copy.technical}</h3><ul className="cine-tech-list">{copy.technicalItems.map(item=><li key={item}><Check size={15}/>{item}</li>)}</ul>
             <a className="cine-text-link" href="/foto_dj4.JPG" download="TOSZAN-official-live-photo.jpg">{t("media.label")} · JPG<Download size={17}/></a>
-            <a className="cine-text-link" href="/#mediakit">{copy.mediaKit}<ArrowUpRight size={17}/></a>
+
           </div>
           <div><h3>{copy.extraTitle}</h3><p className="cine-intro">{copy.extraDesc}</p><a className="cine-text-link" href="/creator">{copy.creator}<ArrowUpRight size={17}/></a></div>
         </div>
@@ -135,11 +135,12 @@ export function BookingPage() {
       <div className="cine-contact-photo" aria-hidden="true"/>
       <motion.div {...reveal} className="cine-wrap">
         <p className="cine-kicker">{copy.contactLabel}</p><h2>{copy.contactTitle}</h2><p className="cine-intro">{copy.contactIntro}</p>
-        <div className="cine-contact-direct">
-          <a href={email}><span><Mail size={15}/>{copy.email}</span><strong>dj@toszan.com.br</strong><ArrowUpRight size={22}/></a>
-          <a href={whatsapp} target="_blank" rel="noopener noreferrer"><span><MessageCircle size={15}/>{copy.whatsapp}</span><strong>+39 342 836 9444</strong><ArrowUpRight size={22}/></a>
+        <div className="premium-contact-buttons">
+          <a href={email} aria-label={copy.email}><Mail size={36} /><strong>E-mail</strong></a>
+          <a href={whatsapp} aria-label={copy.whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle size={36} /><strong>WhatsApp</strong></a>
+          <a href={media.instagram} aria-label="Instagram" target="_blank" rel="noopener noreferrer"><Instagram size={36} /><strong>Instagram</strong></a>
+          <a href={media.soundcloud} aria-label="SoundCloud" target="_blank" rel="noopener noreferrer"><Music2 size={36} /><strong>SoundCloud</strong></a>
         </div>
-        <div className="cine-socials"><a href={media.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={15}/>{copy.instagram}<ArrowUpRight size={14}/></a><a href={media.soundcloud} target="_blank" rel="noopener noreferrer"><Music2 size={15}/>SoundCloud<ArrowUpRight size={14}/></a><a href="/#mediakit">{copy.mediaKit}<ArrowUpRight size={14}/></a></div>
       </motion.div>
     </section>
     <footer className="cine-footer cine-wrap"><span>{copy.footer}</span><a href="#booking-title">TOSZAN ↑</a></footer>

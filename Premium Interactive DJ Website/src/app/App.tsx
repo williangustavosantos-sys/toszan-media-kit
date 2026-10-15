@@ -3,14 +3,11 @@ import { MotionConfig } from "motion/react";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
-import { LiveExperience } from "./components/LiveExperience";
-import { BrandExperience } from "./components/BrandExperience";
-import { MusicSection } from "./components/MusicSection";
+import { PortalSection } from "./components/PortalSection";
 import { MediaKit } from "./components/MediaKit";
 import { ContactSection } from "./components/ContactSection";
 import { BookingPage } from "./components/BookingPage";
 import { CreatorPage } from "./components/CreatorPage";
-import { AnalyticsPage } from "./components/AnalyticsPage";
 
 function getRoutePath() {
   return window.location.pathname.replace(/\/+$/, "") || "/";
@@ -53,6 +50,10 @@ export default function App() {
     };
   }, [routePath]);
 
+  useEffect(() => {
+    if (routePath === "/analytics") window.location.replace("/creator#verified-metrics");
+  }, [routePath]);
+
   const isBookingRoute = routePath === "/booking";
   const isCreatorRoute = routePath === "/creator";
   const isAnalyticsRoute = routePath === "/analytics";
@@ -75,13 +76,11 @@ export default function App() {
           ) : isCreatorRoute ? (
             <CreatorPage />
           ) : isAnalyticsRoute ? (
-            <AnalyticsPage />
+            <div aria-label="Redirecting to Creator" />
           ) : (
             <>
               <HeroSection />
-              <MusicSection context="general" />
-              <LiveExperience context="general" />
-              <BrandExperience />
+              <PortalSection />
               <MediaKit />
               <ContactSection />
             </>

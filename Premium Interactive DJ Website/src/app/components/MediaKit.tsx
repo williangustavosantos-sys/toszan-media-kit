@@ -54,6 +54,7 @@ function AnimatedMetric({ value, locale, reducedMotion }: { value: string; local
 export function MediaKit() {
   const { t, language } = useLanguage();
   const reducedMotion = Boolean(useReducedMotion());
+  const [selectedProof, setSelectedProof] = useState<number | null>(null);
   const copy = mediaUi[language];
   const locale = language === "pt" ? "pt-BR" : language === "it" ? "it-IT" : language === "es" ? "es-ES" : language === "fr" ? "fr-FR" : "en-US";
   const metrics = [
@@ -75,7 +76,7 @@ export function MediaKit() {
         <div className="general-proof-rail" aria-label={t("media.title")}>
           {proofImages.map((image, index) => (
             <motion.figure key={image} initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : index * 0.05 }}>
-              <img src={image} alt={`${copy.imageAlt} ${index + 1}`} loading="lazy" decoding="async" />
+              <button type="button" className="general-proof-open" onClick={() => setSelectedProof(index)} aria-label={`${copy.imageAlt} ${index + 1}`}><img src={image} alt={`${copy.imageAlt} ${index + 1}`} loading="lazy" decoding="async" /></button>
               <figcaption>{String(index + 1).padStart(2, "0")} / 04</figcaption>
             </motion.figure>
           ))}
@@ -93,9 +94,12 @@ export function MediaKit() {
 
         <div className="general-media-source">
           <p><span>{copy.source}</span>{copy.period}</p>
-          <div><a href="/analytics">{copy.analytics}<ArrowRight size={15} aria-hidden="true" /></a><a href="/creator">{copy.creator}<ExternalLink size={14} aria-hidden="true" /></a></div>
+          <div><a href="/creator#performance">{copy.analytics}<ArrowRight size={15} aria-hidden="true" /></a><a href="/creator">{copy.creator}<ExternalLink size={14} aria-hidden="true" /></a></div>
         </div>
       </div>
+      {selectedProof !== null && <div className="creator-evidence-modal" role="dialog" aria-modal="true" aria-label={copy.imageAlt} onClick={() => setSelectedProof(null)}>
+        <div onClick={event => event.stopPropagation()}><button type="button" onClick={() => setSelectedProof(null)} aria-label="Fechar">✕</button><img src={proofImages[selectedProof]} alt={`${copy.imageAlt} ${selectedProof + 1}`} /></div>
+      </div>}
     </section>
   );
 }

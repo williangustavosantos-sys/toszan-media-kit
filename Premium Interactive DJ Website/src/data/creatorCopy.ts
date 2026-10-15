@@ -1,9 +1,11 @@
 import type { Language } from "../app/context/LanguageContext";
+import spanish from "./creator-es.json";
+import french from "./creator-fr.json";
 
-export type CreatorLanguage = "en" | "pt" | "it";
+export type CreatorLanguage = Language;
 
 export function getCreatorLanguage(language: Language): CreatorLanguage {
-  return language === "pt" || language === "it" ? language : "en";
+  return language;
 }
 
 const english = {
@@ -208,6 +210,8 @@ export type CreatorCopy = typeof english;
 
 export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
   en: english,
+  es: spanish,
+  fr: french,
   pt: {
     meta: {
       title: "WILLIAN TOSZAN | Criador brasileiro em Milão",

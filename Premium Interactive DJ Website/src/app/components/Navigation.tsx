@@ -16,7 +16,7 @@ export function Navigation() {
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
   const brand = path === "/creator" || path === "/analytics";
   const booking = path === "/booking";
-  const effectiveLanguage: Language = brand && (language === "es" || language === "fr") ? "en" : language;
+  const effectiveLanguage: Language = language;
   const text = creatorCopy[getCreatorLanguage(effectiveLanguage)];
   const navUi: Record<Language, { general: string; booking: string; creator: string; skip: string; nav: string; home: string; open: string; close: string }> = {
     en: { general: "General", booking: "DJ / Booking", creator: "Creator", skip: "Skip to content", nav: "Main navigation", home: "TOSZAN — General", open: "Open menu", close: "Close menu" },
@@ -33,15 +33,7 @@ export function Navigation() {
     { label: labels.booking, href: "/booking", current: booking },
     { label: labels.creator, href: "/creator", current: path === "/creator" },
   ];
-  const localLinks = brand ? [
-    { label: text.nav.work, href: "/creator#work" },
-    { label: text.nav.audience, href: "/creator#audience" },
-    { label: text.nav.services, href: "/creator#services" },
-  ] : [
-    { label: t("nav.music"), href: "#music" },
-    { label: t("nav.experience"), href: "#experience" },
-    { label: t("nav.mediaKit"), href: "#mediakit" },
-  ];
+  const localLinks: {label:string;href:string}[] = [];
   useEffect(() => { const onScroll=()=>setScrolled(window.scrollY>35); onScroll(); window.addEventListener("scroll",onScroll,{passive:true}); return()=>window.removeEventListener("scroll",onScroll); },[]);
   useEffect(() => {
     if(!menuOpen) return;
@@ -71,7 +63,10 @@ export function Navigation() {
         <div className="cine-nav-routes">{routeLinks.map(link=><a href={link.href} key={link.href} aria-current={link.current?"page":undefined}>{link.label}</a>)}</div>
         <div className="cine-nav-local">{localLinks.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</div>
       </div>
-      <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector creatorLanguagesOnly={brand}/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?labels.close:labels.open} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
+      <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?labels.close:labels.open} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
+    </nav>
+    <nav className="toszan-mobile-tabs" aria-label={labels.nav}>
+      {routeLinks.map(link => <a key={link.href} href={link.href} aria-current={link.current ? "page" : undefined}>{link.label}</a>)}
     </nav>
     {menuOpen&&<div ref={menu} id="toszan-mobile-menu" className="cine-menu"><div className="cine-menu-routes">{routeLinks.map(link=><a key={link.href} href={link.href} aria-current={link.current?"page":undefined} onClick={close}>{link.label}</a>)}</div><div className="cine-menu-local">{localLinks.map(link=><a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}</div><a className="cine-menu-cta" href={ctaHref} onClick={close}>{cta} ↗</a></div>}
   </>;
