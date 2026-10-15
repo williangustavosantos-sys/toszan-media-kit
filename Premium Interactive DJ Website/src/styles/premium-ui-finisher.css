@@ -10,7 +10,7 @@
 .live-card-poster { filter: saturate(.85) brightness(.86); }
 .live-card-video { filter: saturate(.9) brightness(.9) contrast(1.04); }
 .live-card-scrim { background: linear-gradient(180deg, rgba(0,0,0,.13), transparent 35%, rgba(0,0,0,.45)); }
-.live-creator-control { z-index: 8; left: 20px; right: 20px; bottom: 20px; width: auto; justify-content: flex-start; }
+.live-card .live-creator-control { position: absolute; z-index: 8; top: auto; left: 20px; right: 20px; bottom: 20px; width: auto; height: 44px; min-height: 44px; max-width: none; margin: 0; padding: 0; transform: none; display: flex; align-items: center; justify-content: flex-start; gap: 13px; border: 0; border-radius: 0; background: transparent; color: #f2f0ea; backdrop-filter: none; box-shadow: none; white-space: nowrap; }
 .live-creator-control .creator-work-play-icon { background: rgba(8,9,9,.35); color: #f2f0ea; }
 .live-creator-control:hover .creator-work-play-icon { background: #d7c5a9; color: #080909; }
 .live-carousel-caption { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 14px auto 0; max-width: 820px; text-align: center; color: #eeeae1; }
