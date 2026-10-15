@@ -6,6 +6,7 @@ import { HeroSection } from "./components/HeroSection";
 import { BookingPage } from "./components/BookingPage";
 import { CreatorPage } from "./components/CreatorPage";
 import { AnalyticsPage } from "./components/AnalyticsPage";
+import "../styles/three-path.css";
 import "../styles/single-page.css";
 
 function getRoutePath() {
