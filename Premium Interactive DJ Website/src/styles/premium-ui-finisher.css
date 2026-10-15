@@ -25,10 +25,14 @@
  .live-carousel-caption { flex-wrap: wrap; gap: 6px 16px; }
 }
 @media(max-width:767px) {
+ .live-infinite-track { gap: 12px; }
+ .live-infinite-slide { flex-basis: 68vw; width: 68vw; }
  .creator-service { grid-template-columns: 23px minmax(0,1fr); gap: 13px; }
  .creator-service p { grid-column: 2; }
- .live-creator-control { bottom: 15px; left: 15px; font-size: 9px !important; gap: 11px; }
- .live-creator-control .creator-work-play-icon { width: 44px; height: 44px; }
+ .live-card .live-creator-control { top: 50%; bottom: auto; left: 50%; right: auto; width: max-content; max-width: calc(100% - 24px); min-height: 48px; height: 48px; padding: 6px 13px 6px 6px; transform: translate(-50%,-50%); justify-content: center; gap: 10px; border: 1px solid rgba(238,237,231,.45); border-radius: 999px; background: rgba(8,9,9,.74); backdrop-filter: blur(9px); font-size: 8px !important; letter-spacing: .06em; }
+ .live-creator-control .creator-work-play-icon { width: 36px; height: 36px; }
+ .live-infinite-track { gap: 12px; }
+ .live-infinite-slide { flex-basis: 68vw; width: 68vw; }
  .live-carousel-caption { flex-direction: column; gap: 3px; padding: 0 16px; }
  .live-carousel-caption > span { font-size: 29px; }
  .live-carousel-caption > p { margin: 0; font-size: 12px; }
