@@ -99,7 +99,7 @@ def creator_cover(c,num):
  base(c,'Creator & Brands',num)
  t(c,45,H-115,'WILLIAN TOSZAN',32,WHITE,'Helvetica-Bold')
  t(c,45,H-143,'Brazilian creator based in Milan',14,GOLD)
- im=Image.open(ROOT/'src/imports/creator-portrait-editorial-clean.webp').convert('RGBA')
+ im=Image.open(ROOT/'src/imports/creator-portrait-novafoto.png').convert('RGBA')
  im.thumbnail((420,480),Image.Resampling.LANCZOS)
  b=BytesIO();im.save(b,'PNG');b.seek(0)
  c.drawImage(ImageReader(b),W-420,220,width=400,height=486,mask='auto',preserveAspectRatio=True)

@@ -42,3 +42,61 @@
  .live-carousel-caption > p { margin: 0; font-size: 12px; }
  .live-carousel-caption > a { min-height: 44px; padding: 8px; }
 }
+
+/* Creator photo replacement 2026-10-15.
+   Source: NOVAFOTO.png. Original alpha, face and body pixels remain intact.
+   Crop removes only transparent padding; all integration is non-destructive CSS. */
+.cinematic-creator .creator-hero-portrait {
+  overflow: visible !important;
+}
+.cinematic-creator .creator-hero-portrait img {
+  position: absolute !important;
+  inset: 0 0 0 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  transform: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  filter: brightness(.95) saturate(.91) contrast(1.025)
+          drop-shadow(0 20px 32px rgba(0,0,0,.52)) !important;
+}
+.cinematic-creator .creator-portrait-light {
+  background: radial-gradient(ellipse at 50% 43%,
+    rgba(201,165,125,.20) 0%,
+    rgba(132,119,100,.13) 36%,
+    rgba(12,14,13,0) 72%) !important;
+}
+.cinematic-creator .creator-hero-portrait::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, #080909 0%, rgba(8,9,9,.48) 8%, transparent 23%) !important;
+}
+@media (min-width: 768px) {
+  .cinematic-creator .creator-hero-portrait {
+    margin: -14px -28px -60px -45px;
+    min-height: 660px;
+  }
+}
+@media (max-width: 767px) {
+  .cinematic-creator .creator-hero-portrait {
+    position: absolute !important;
+    inset: auto -12px 36px 29% !important;
+    width: auto !important;
+    height: 67% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+  .cinematic-creator .creator-hero-portrait img {
+    object-position: center bottom !important;
+  }
+  .cinematic-creator .creator-hero-portrait::after {
+    background: linear-gradient(90deg, #080909 0%, transparent 41%),
+                linear-gradient(0deg, #080909 0%, rgba(8,9,9,.40) 8%, transparent 27%) !important;
+  }
+}

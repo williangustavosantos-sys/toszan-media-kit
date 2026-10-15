@@ -27,7 +27,7 @@ import {
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
 import { useLanguage } from "../context/LanguageContext";
 
-import creatorPortrait from "../../imports/creator-portrait-premium.webp";
+import creatorPortrait from "../../imports/creator-portrait-novafoto.png";
 import "../../styles/creator-editorial.css";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
@@ -431,7 +431,7 @@ export function CreatorPage() {
           <motion.figure className="creator-hero-portrait" initial={reduced ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.15, delay: reduced ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}>
             <span className="creator-portrait-word" aria-hidden="true">{copy.hero.roleWord}</span>
             <div className="creator-portrait-light" aria-hidden="true" />
-            <img src={creatorPortrait} alt={copy.hero.alt} width={960} height={1280} loading="eager" decoding="async" />
+            <img src={creatorPortrait} alt={copy.hero.alt} width={461} height={1207} loading="eager" decoding="async" />
             <figcaption><span>{copy.hero.roles}</span><span>{copy.hero.region}</span></figcaption>
           </motion.figure>
           <div className="creator-hero-foot">
