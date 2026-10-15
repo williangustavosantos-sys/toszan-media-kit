@@ -21,3 +21,12 @@
 ## 2026-10-15 — autorização de publicação
 
 O proprietário solicitou explicitamente publicar na main e enviar o link. Essa autorização substitui o bloqueio de promoção para esta versão: aplicação c8633a2, evidências 4d3a2f1, sem mudanças posteriores de código. Publicar a mesma aplicação na main e validar a URL canônica de produção.
+
+
+## Production publication completed — 2026-10-15
+
+Owner authorized publication in this conversation. Remote main is 885943390efa0f54262028fc2e3293e1350aeab2; application source remains identical to validated c8633a2.
+Canonical URL: https://toszan-media-kit.vercel.app/
+Vercel Production deployment: dpl_CnbRET2GRDKgJtwb3YBjcG6u3fxw, READY; immutable hostname toszan-media-hib8kpgx9-williangustavosantos-sys-projects.vercel.app.
+Canonical URL returned HTTP 200. Published Chrome smoke at 390x844 verified WhatsApp destination 393428369444, DJ currentTime advancing 0.217985 -> 0.724276, sound activation, Creator playback, NOVAFOTO loaded at 461x1207, centered fifth card, Brasil artwork ready, zero page errors and no horizontal overflow. Screenshots: docs/audits/2026-10-15/final-ux/production-home.png and production-creator.png. This smoke was emulated desktop Chrome; physical iPhone/iPad acceptance remains unclaimed.
+Earlier Production freeze is superseded. Current next step: send canonical public URL to owner. No further implementation pending. Context health: one compaction, one observed summary-reliance signal, deterministic assess=checkpoint; this entry is the recoverable checkpoint.
