@@ -19,11 +19,11 @@ export function Navigation() {
   const effectiveLanguage: Language = language;
   const text = creatorCopy[getCreatorLanguage(effectiveLanguage)];
   const navUi: Record<Language, { general: string; booking: string; creator: string; skip: string; nav: string; home: string; open: string; close: string }> = {
-    en: { general: "General", booking: "DJ / Booking", creator: "Creator", skip: "Skip to content", nav: "Main navigation", home: "TOSZAN — General", open: "Open menu", close: "Close menu" },
-    pt: { general: "Visão geral", booking: "DJ / Contratação", creator: "Criador", skip: "Ir para o conteúdo", nav: "Navegação principal", home: "TOSZAN — Visão geral", open: "Abrir menu", close: "Fechar menu" },
-    it: { general: "Generale", booking: "DJ / Ingaggi", creator: "Creatore", skip: "Vai al contenuto", nav: "Navigazione principale", home: "TOSZAN — Generale", open: "Apri menu", close: "Chiudi menu" },
-    es: { general: "General", booking: "DJ / Contratación", creator: "Creador", skip: "Ir al contenido", nav: "Navegación principal", home: "TOSZAN — General", open: "Abrir menú", close: "Cerrar menú" },
-    fr: { general: "Accueil", booking: "DJ / Réservation", creator: "Créateur", skip: "Aller au contenu", nav: "Navigation principale", home: "TOSZAN — Accueil", open: "Ouvrir le menu", close: "Fermer le menu" },
+    en: { general: "GENERAL", booking: "DJ / BOOKING", creator: "CREATOR", skip: "Skip to content", nav: "Main navigation", home: "TOSZAN — General", open: "Open menu", close: "Close menu" },
+    pt: { general: "GERAL", booking: "DJ / BOOKING", creator: "CREATOR", skip: "Ir para o conteúdo", nav: "Navegação principal", home: "TOSZAN — Visão geral", open: "Abrir menu", close: "Fechar menu" },
+    it: { general: "GENERALE", booking: "DJ / BOOKING", creator: "CREATOR", skip: "Vai al contenuto", nav: "Navigazione principale", home: "TOSZAN — Generale", open: "Apri menu", close: "Chiudi menu" },
+    es: { general: "GENERAL", booking: "DJ / BOOKING", creator: "CREATOR", skip: "Ir al contenido", nav: "Navegación principal", home: "TOSZAN — General", open: "Abrir menú", close: "Cerrar menú" },
+    fr: { general: "GÉNÉRAL", booking: "DJ / BOOKING", creator: "CREATOR", skip: "Aller au contenu", nav: "Navigation principale", home: "TOSZAN — Accueil", open: "Ouvrir le menu", close: "Fermer le menu" },
   };
   const labels = navUi[effectiveLanguage];
   const cta = brand ? text.nav.cta : bookingCopy[language].contact;
@@ -40,6 +40,36 @@ export function Navigation() {
     current(); window.addEventListener("scroll", current, { passive: true });
     return () => window.removeEventListener("scroll", current);
   }, [path]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (path !== "/analytics" && href.startsWith("/#")) {
+      e.preventDefault();
+      const id = href.replace("/#", "");
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", href);
+        setActiveSection(id);
+      }
+      setMenuOpen(false);
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (path !== "/analytics") {
+      e.preventDefault();
+      const target = document.getElementById("top");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", "/#top");
+        setActiveSection("top");
+      }
+      setMenuOpen(false);
+    } else {
+      close();
+    }
+  };
+
   const routeLinks = [
     { label: labels.general, href: "/#top", current: path !== "/analytics" && activeSection === "top" },
     { label: labels.booking, href: "/#dj-booking", current: path !== "/analytics" && activeSection === "dj-booking" },
@@ -70,16 +100,16 @@ export function Navigation() {
   return <>
     <a href="#main-content" className="cine-skip">{labels.skip}</a>
     <nav className={`cine-navigation ${scrolled||menuOpen?"is-scrolled":""}`} aria-label={labels.nav}>
-      <a href="/" className="cine-nav-logo" aria-label={labels.home} onClick={close}><ToszanLogo logoHeight={24} gold={false}/></a>
+      <a href="/" className="cine-nav-logo" aria-label={labels.home} onClick={handleLogoClick}><ToszanLogo logoHeight={24} gold={false}/></a>
       <div className="cine-nav-links">
-        <div className="cine-nav-routes">{routeLinks.map(link=><a href={link.href} key={link.href} aria-current={link.current?"page":undefined}>{link.label}</a>)}</div>
+        <div className="cine-nav-routes">{routeLinks.map(link=><a href={link.href} key={link.href} aria-current={link.current?"page":undefined} onClick={(e)=>handleNavClick(e, link.href)}>{link.label}</a>)}</div>
         <div className="cine-nav-local">{localLinks.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</div>
       </div>
       <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?labels.close:labels.open} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
     </nav>
     <nav className="toszan-mobile-tabs" aria-label={labels.nav}>
-      {routeLinks.map(link => <a key={link.href} href={link.href} aria-current={link.current ? "page" : undefined}>{link.label}</a>)}
+      {routeLinks.map(link => <a key={link.href} href={link.href} aria-current={link.current ? "page" : undefined} onClick={(e)=>handleNavClick(e, link.href)}>{link.label}</a>)}
     </nav>
-    {menuOpen&&<div ref={menu} id="toszan-mobile-menu" className="cine-menu"><div className="cine-menu-routes">{routeLinks.map(link=><a key={link.href} href={link.href} aria-current={link.current?"page":undefined} onClick={close}>{link.label}</a>)}</div><div className="cine-menu-local">{localLinks.map(link=><a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}</div><a className="cine-menu-cta" href={ctaHref} onClick={close}>{cta} ↗</a></div>}
+    {menuOpen&&<div ref={menu} id="toszan-mobile-menu" className="cine-menu"><div className="cine-menu-routes">{routeLinks.map(link=><a key={link.href} href={link.href} aria-current={link.current?"page":undefined} onClick={(e)=>handleNavClick(e, link.href)}>{link.label}</a>)}</div><div className="cine-menu-local">{localLinks.map(link=><a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}</div><a className="cine-menu-cta" href={ctaHref} onClick={close}>{cta} ↗</a></div>}
   </>;
 }
