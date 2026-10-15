@@ -153,3 +153,80 @@
     bottom: 0 !important;
   }
 }
+
+/* 2026-10-15: Visible carousel controls — never require discovery of a swipe gesture. */
+.live-carousel-navigation { display:flex; align-items:center; justify-content:center; gap:22px; margin:12px auto 14px; }
+.live-carousel-arrow { width:48px; height:48px; flex:0 0 48px; border:1px solid rgba(210,183,142,.7); border-radius:50%; display:grid; place-items:center; background:rgba(189,156,106,.13); color:#f1e9dc; cursor:pointer; }
+.live-carousel-arrow:hover, .live-carousel-arrow:focus-visible { background:#c7aa7d; color:#0a0a09; }
+.live-carousel-progress { display:flex; flex-direction:column; gap:12px; align-items:center; }
+.live-carousel-count { color:#e8d3b3; font-size:14px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:.18em; }
+.live-carousel-dots { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px; }
+.live-carousel-dots button { display:grid; place-items:center; width:18px; height:28px; border:0; background:transparent; cursor:pointer; padding:0; }
+.live-carousel-dots button::after { content:""; display:block; width:6px; height:6px; border-radius:50%; background:#686259; transition:background .2s, transform .2s; }
+.live-carousel-dots button.is-current::after { background:#d8b784; transform:scale(1.6); }
+.live-carousel-dots button:focus-visible { outline:2px solid #d8b784; }
+.live-infinite-slide.is-side { opacity:.68; }
+.live-infinite-slide.is-side .live-card-poster { filter:saturate(.95) brightness(1.06); }
+@media(max-width:767px) {
+ .live-infinite-slide { flex-basis:62vw; width:62vw; }
+ .live-infinite-window { padding-bottom:8px; }
+ .live-carousel-navigation { margin:8px auto 10px; gap:24px; }
+ .live-carousel-arrow { width:50px; height:50px; flex-basis:50px; }
+ .live-swipe-hint { margin-top:4px; font-size:11px!important; text-align:center; }
+}
+/* Creator samples: compact mobile portfolio rather than one screen-tall reel per row. */
+@media(max-width:767px) {
+ .cinematic-creator .creator-portfolio { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 12px; align-items:start; }
+ .cinematic-creator .creator-work-item,
+ .cinematic-creator .creator-work-featured,
+ .cinematic-creator .creator-work-item:first-child { grid-column:auto; width:auto; }
+ .cinematic-creator .creator-work-media,
+ .cinematic-creator .creator-work-featured .creator-work-media,
+ .cinematic-creator .creator-work-item:first-child .creator-work-media { aspect-ratio:9 / 13; }
+ .cinematic-creator .creator-work-caption { padding-top:10px; }
+ .cinematic-creator .creator-work-caption h3 { font-size:clamp(20px,5.3vw,27px); }
+ .cinematic-creator .creator-work-caption p { font-size:10px; line-height:1.5; margin-top:6px; }
+ .cinematic-creator .creator-work-play, .cinematic-creator .creator-work-item:first-child .creator-work-play { max-width:calc(100% - 12px); min-height:40px; height:42px; padding:3px 8px 3px 3px; font-size:7px!important; gap:6px; }
+ .cinematic-creator .creator-work-play-icon, .cinematic-creator .creator-work-item:first-child .creator-work-play-icon { width:33px; height:33px; }
+ .cinematic-creator .creator-work-media-heading { left:8px; right:8px; }
+}
+/* Single-piece Creator cover on iPhone: copy and portrait on the same stage. */
+@media(max-width:767px) {
+ .cinematic-creator .creator-hero { min-height:0!important; height:clamp(705px,91svh,825px)!important; }
+ .cinematic-creator .creator-hero .creator-hero-grid {
+   display:block!important; min-height:100%!important; height:100%!important;
+   padding:76px 0 76px!important; position:relative; isolation:isolate;
+ }
+ .cinematic-creator .creator-hero-copy { position:relative; z-index:5; width:100%; }
+ .cinematic-creator .creator-hero-name { font-size:clamp(72px,20vw,99px)!important; margin-bottom:20px; }
+ .cinematic-creator .creator-hero-statement { max-width:90%!important; }
+ .cinematic-creator .creator-hero-statement h2 { max-width:95%!important; font-size:clamp(22px,5.7vw,27px); }
+ .cinematic-creator .creator-hero-statement p { max-width:88%!important; font-size:11px; }
+ .cinematic-creator .creator-hero-actions { max-width:100%!important; }
+ .cinematic-creator .creator-hero-portrait {
+   position:absolute!important; z-index:1; left:auto!important; right:-11%!important;
+   bottom:48px!important; top:auto!important; width:77%!important;
+   height:57%!important; margin:0!important; pointer-events:none;
+ }
+ .cinematic-creator .creator-hero-portrait img { width:100%!important; height:100%!important; object-fit:contain!important; object-position:right bottom!important; }
+ .cinematic-creator .creator-hero-portrait::after { background:linear-gradient(90deg,#080909 0%,rgba(8,9,9,.25) 35%,transparent 75%),linear-gradient(0deg,#080909 0%,transparent 24%)!important; }
+ .cinematic-creator .creator-hero-foot { z-index:6; }
+}
+/* Once silent autoplay succeeds, the play control becomes an unobtrusive sound toggle. */
+@media(max-width:767px) {
+ .live-card.is-preview-playing .live-creator-control {
+   top:auto; bottom:10px; left:auto; right:10px;
+   transform:none; min-height:42px; height:42px;
+   padding:4px 10px 4px 4px; gap:8px;
+   border-color:rgba(238,237,231,.34);
+   background:rgba(8,9,9,.76); font-size:8px!important;
+ }
+ .live-card.is-preview-playing .live-creator-control .creator-work-play-icon { width:32px; height:32px; }
+}
+
+/* The cue appears before the filmstrip's bottom controls on phones. */
+.live-carousel-gesture-cue{display:none}
+@media (max-width:767px) {
+ .live-carousel-gesture-cue { display:flex; position:absolute; z-index:10; top:26px; left:50%; transform:translateX(-50%); gap:11px; align-items:center; justify-content:center; white-space:nowrap; padding:10px 14px; border:1px solid rgba(214,187,141,.4); border-radius:999px; color:#f0e4d1; background:rgba(8,9,9,.78); backdrop-filter:blur(8px); font-size:9px; font-weight:700; letter-spacing:.08em; pointer-events:none; }
+ .live-carousel-gesture-cue>span:first-child,.live-carousel-gesture-cue>span:last-child { font-size:17px; line-height:1; color:#d3b588; }
+}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ExternalLink, Play, VolumeX } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Play, VolumeX } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy } from "../../data/bookingCopy";
 import "../../styles/music-live.css";
@@ -141,6 +141,7 @@ function AutoplayVideoCard({
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [isPreviewPlaying, setIsPreviewPlaying] = useState(false);
   const [audioStatus, setAudioStatus] = useState<AudioStatus>("muted");
   const isThisVideoSoundEnabled = soundEnabledForId === reel.id;
   const shouldPlayVideo = active && !saveData && !reduceMotion;
@@ -224,7 +225,7 @@ function AutoplayVideoCard({
 
   return (
     <motion.article
-      className={`live-card ${active ? "is-active" : ""} ${isWide ? "is-wide" : "is-vertical"} ${variant === "feature" ? "is-feature" : ""}`}
+      className={`live-card ${active ? "is-active" : ""} ${isPreviewPlaying ? "is-preview-playing" : ""} ${isWide ? "is-wide" : "is-vertical"} ${variant === "feature" ? "is-feature" : ""}`}
       data-reel-id={reel.id}
       data-featured={reel.featured ? "true" : "false"}
       data-autoplay-eligible={shouldPlayVideo ? "true" : "false"}
@@ -240,6 +241,7 @@ function AutoplayVideoCard({
         key={reel.video}
         poster={reel.poster}
         muted={!isThisVideoSoundEnabled}
+        autoPlay={shouldPlayVideo}
         loop
         playsInline
         preload={saveData || reduceMotion ? "none" : active ? "auto" : "metadata"}
@@ -249,6 +251,9 @@ function AutoplayVideoCard({
         data-live-video={reel.id}
         onLoadedData={() => setVideoReady(true)}
         onCanPlay={() => setVideoReady(true)}
+        onPlay={() => setIsPreviewPlaying(true)}
+        onPause={() => setIsPreviewPlaying(false)}
+        onError={() => { setVideoReady(false); setIsPreviewPlaying(false); }}
         className="live-card-video"
         style={{ opacity: videoReady && active ? 1 : 0 }}
       >
@@ -258,10 +263,10 @@ function AutoplayVideoCard({
       <div className="live-card-scrim" aria-hidden="true" />
       <button type="button" className="creator-work-play live-creator-control"
         onClick={audioStatus === "playing" && isThisVideoSoundEnabled ? handleMuteToggle : handlePlayWithSound}
-        aria-label={`${audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : copy.play}: ${reel.title}`}
+        aria-label={`${audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : isPreviewPlaying ? copy.soundOn : copy.play}: ${reel.title}`}
         aria-pressed={audioStatus === "playing" && isThisVideoSoundEnabled}>
         <span className="creator-work-play-icon">{audioStatus === "playing" && isThisVideoSoundEnabled ? <VolumeX size={17} aria-hidden="true" /> : <Play size={16} fill="currentColor" aria-hidden="true" />}</span>
-        <span>{audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : audioStatus === "blocked" ? copy.retry : copy.play}</span>
+        <span>{audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : audioStatus === "blocked" ? copy.retry : isPreviewPlaying ? copy.soundOn : copy.play}</span>
       </button>
 
     </motion.article>
@@ -305,12 +310,10 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   }, [updateSoundOwner]);
 
   const moveCarousel = useCallback((step: number) => {
-    setCarouselIndex(current => {
-      const next = (current + step + reels.length) % reels.length;
-      activateReel(reels[next].id);
-      return next;
-    });
-  }, [activateReel]);
+    const next = (carouselIndex + step + reels.length) % reels.length;
+    activateReel(reels[next].id);
+    setCarouselIndex(next);
+  }, [activateReel, carouselIndex]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -343,6 +346,11 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
           onTouchEnd={event => { if (touchStart.current === null) return; const distance = event.changedTouches[0].clientX - touchStart.current; if (Math.abs(distance) > 35) moveCarousel(distance < 0 ? 1 : -1); touchStart.current = null; }}
           onMouseDown={event => { mouseStart.current = event.clientX; }}
           onMouseUp={event => { if (mouseStart.current === null) return; const distance = event.clientX - mouseStart.current; if (Math.abs(distance) > 50) moveCarousel(distance < 0 ? 1 : -1); mouseStart.current = null; }}>
+          <div className="live-carousel-gesture-cue" aria-hidden="true">
+            <span>←</span>
+            <span>{language === "pt" ? "DESLIZE PARA VER MAIS" : language === "it" ? "SCORRI PER VEDERE ALTRI VIDEO" : language === "es" ? "DESLIZA PARA VER MÁS" : language === "fr" ? "BALAYEZ POUR VOIR PLUS" : "SWIPE TO EXPLORE"}</span>
+            <span>→</span>
+          </div>
           <div className="live-infinite-track" key={carouselIndex}>
             {[-1, 0, 1].map(offset => {
               const index = (carouselIndex + offset + localizedReels.length) % localizedReels.length;
@@ -355,6 +363,29 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
             })}
           </div>
         </div>
+        <nav className="live-carousel-navigation" aria-label={copy.inventory}>
+          <button type="button" className="live-carousel-arrow" aria-label={copy.previous} onClick={() => moveCarousel(-1)}>
+            <ArrowLeft size={22} aria-hidden="true" />
+          </button>
+          <div className="live-carousel-progress">
+            <span className="live-carousel-count" aria-live="polite">{String(carouselIndex + 1).padStart(2, "0")} / {String(localizedReels.length).padStart(2, "0")}</span>
+            <div className="live-carousel-dots" aria-label={copy.inventory}>
+              {localizedReels.map((reel, index) => (
+                <button
+                  type="button"
+                  key={reel.id}
+                  className={index === carouselIndex ? "is-current" : ""}
+                  aria-label={`${index + 1} / ${localizedReels.length}: ${reel.title}`}
+                  aria-current={index === carouselIndex ? "true" : undefined}
+                  onClick={() => { setCarouselIndex(index); activateReel(reel.id); }}
+                />
+              ))}
+            </div>
+          </div>
+          <button type="button" className="live-carousel-arrow" aria-label={copy.next} onClick={() => moveCarousel(1)}>
+            <ArrowRight size={22} aria-hidden="true" />
+          </button>
+        </nav>
         <div className="live-carousel-caption" aria-live="polite">
           <span>{localizedReels[carouselIndex].title}</span>
           <p>{localizedReels[carouselIndex].subtitle}</p>
