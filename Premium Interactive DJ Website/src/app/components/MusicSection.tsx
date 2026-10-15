@@ -96,10 +96,10 @@ const SPOTIFY_EMBED = "https://open.spotify.com/embed/artist/27FuT8olmWQ5g51OEwM
 
 export const serviceLinks = [
   { label: "Spotify", href: "https://open.spotify.com/artist/27FuT8olmWQ5g51OEwMkWt" },
-  { label: "Apple Music", href: "https://geo.music.apple.com/it/album/_/1885295537?app=music&at=1000lHKX&ct=linktree_http&i=1885295538&itscg=30200&itsct=lt_m&ls=1&mt=1" },
-  { label: "YouTube", href: "https://youtu.be/ShdGmmuUlGA?si=2Glk1wlQloGrysE6" },
-  { label: "Amazon Music", href: "https://music.amazon.com/albums/B0GSMK1YRL?trackAsin=B0GSMPMJQM" },
-  { label: "Deezer", href: "https://www.deezer.com/us/track/3901611181" },
+  { label: "Apple Music", href: "https://music.apple.com/it/artist/toszan/1885295317" },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCrCCo8QaWMrpkCO9yzSUrPg" },
+  { label: "Amazon Music", href: "https://music.amazon.com/artists/B0GSM5H6VV/toszan" },
+  { label: "Deezer", href: "https://www.deezer.com/artist/379581851" },
 ] as const;
 
 const musicUi: Record<Language, {
