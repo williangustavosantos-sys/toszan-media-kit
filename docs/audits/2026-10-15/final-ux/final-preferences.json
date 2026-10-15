@@ -1,0 +1,31 @@
+{
+  "base": "https://toszan-media-e8w9d1mcr-williangustavosantos-sys-projects.vercel.app",
+  "results": [
+    {
+      "mode": "reduced-motion",
+      "before": {
+        "time": 0,
+        "paused": true
+      },
+      "after": {
+        "time": 0.211583,
+        "paused": false,
+        "muted": true
+      },
+      "pass": true
+    },
+    {
+      "mode": "save-data",
+      "before": {
+        "time": 0,
+        "paused": true
+      },
+      "after": {
+        "time": 0.209472,
+        "paused": false,
+        "muted": true
+      },
+      "pass": true
+    }
+  ]
+}

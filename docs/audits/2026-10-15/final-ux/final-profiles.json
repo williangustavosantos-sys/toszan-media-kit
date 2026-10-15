@@ -1,0 +1,525 @@
+{
+  "base": "https://toszan-media-e8w9d1mcr-williangustavosantos-sys-projects.vercel.app",
+  "profiles": [
+    {
+      "profile": "iphone-safari",
+      "emulated": true,
+      "clips": [
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.2195211243261013
+          },
+          "b": {
+            "t": 0.5769030833390671,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "t": 0.2107105003310904
+          },
+          "b": {
+            "t": 0.5698198329926472,
+            "frames": 11
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/03-deck-control-overhead.mp4",
+            "t": 0.2164647076661799
+          },
+          "b": {
+            "t": 0.5737545000020675,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "t": 0.22118320899377691
+          },
+          "b": {
+            "t": 0.5832565006694199,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "t": 0.2120034996693464
+          },
+          "b": {
+            "t": 0.5744760826753516,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "t": 0.21584054100229663
+          },
+          "b": {
+            "t": 0.5780323333330676,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "t": 0.21354895898815543
+          },
+          "b": {
+            "t": 0.5764746673317153,
+            "frames": 11
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "t": 0.20769724966006203
+          },
+          "b": {
+            "t": 0.5666657493354732,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "t": 0.2153060000004396
+          },
+          "b": {
+            "t": 0.5752842919955893,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.2121857079948796
+          },
+          "b": {
+            "t": 0.572797041992201,
+            "frames": 10
+          }
+        }
+      ],
+      "creator": [
+        {
+          "src": "/creator/optimized/ugc-creator-introduction.mp4",
+          "t": 0.10765462566638107
+        },
+        {
+          "src": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+          "t": 0.34610658299330377
+        },
+        {
+          "src": "/creator/videos/brand-product-showcase.mp4",
+          "t": 0.5409762500023544
+        },
+        {
+          "src": "/creator/videos/fitness-public-speaking.mp4",
+          "t": 0.1929819999968363
+        },
+        {
+          "src": "/creator/videos/winter-lifestyle-milan.mp4",
+          "t": 0.11675529233315235
+        }
+      ],
+      "whatsapp": "https://wa.me/393428369444?text=Hi%2C+TOSZAN%21+I%27d+like+information+about+bookings+or+partnerships.",
+      "overflow": false
+    },
+    {
+      "profile": "iphone-chrome",
+      "emulated": true,
+      "clips": [
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.20979037499819417
+          },
+          "b": {
+            "t": 0.5658366663296897,
+            "frames": 1
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "t": 0.20913424965418168
+          },
+          "b": {
+            "t": 0.5660516249950127,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/03-deck-control-overhead.mp4",
+            "t": 0.20653308366590423
+          },
+          "b": {
+            "t": 0.5634606666620495,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "t": 0.22095304200060537
+          },
+          "b": {
+            "t": 0.5781568753415854,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "t": 0.21235075066960343
+          },
+          "b": {
+            "t": 0.5705519590032783,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "t": 0.21036866667127144
+          },
+          "b": {
+            "t": 0.568016041656754,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "t": 0.22355341667757836
+          },
+          "b": {
+            "t": 0.5838117086599633,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "t": 0.22539979099702628
+          },
+          "b": {
+            "t": 0.5872499996611387,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "t": 0.2082863340048494
+          },
+          "b": {
+            "t": 0.5683445416535567,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.22008841666540319
+          },
+          "b": {
+            "t": 0.5797467503320459,
+            "frames": 10
+          }
+        }
+      ],
+      "creator": [
+        {
+          "src": "/creator/optimized/ugc-creator-introduction.mp4",
+          "t": 0.11845091700179
+        },
+        {
+          "src": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+          "t": 0.15499849999336807
+        },
+        {
+          "src": "/creator/videos/brand-product-showcase.mp4",
+          "t": 0.7109468753421899
+        },
+        {
+          "src": "/creator/videos/fitness-public-speaking.mp4",
+          "t": 0.7130643326696071
+        },
+        {
+          "src": "/creator/videos/winter-lifestyle-milan.mp4",
+          "t": 0.11536845867167936
+        }
+      ],
+      "whatsapp": "https://wa.me/393428369444?text=Hi%2C+TOSZAN%21+I%27d+like+information+about+bookings+or+partnerships.",
+      "overflow": false
+    },
+    {
+      "profile": "ipad-safari",
+      "emulated": true,
+      "clips": [
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.2094246253391305
+          },
+          "b": {
+            "t": 0.567305709006971,
+            "frames": 1
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "t": 0.2238930836716337
+          },
+          "b": {
+            "t": 0.5823080416664714,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/03-deck-control-overhead.mp4",
+            "t": 0.22105687433372326
+          },
+          "b": {
+            "t": 0.5775843743347235,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "t": 0.2072726246670069
+          },
+          "b": {
+            "t": 0.5658832916689794,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "t": 0.2099930000034254
+          },
+          "b": {
+            "t": 0.5679814583444781,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "t": 0.21154012467949035
+          },
+          "b": {
+            "t": 0.5724026663260724,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "t": 0.21011929133675936
+          },
+          "b": {
+            "t": 0.5674022076701939,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "t": 0.2181215420054287
+          },
+          "b": {
+            "t": 0.5796495423270996,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "t": 0.2179358746576406
+          },
+          "b": {
+            "t": 0.5721350416672742,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.21572191700332669
+          },
+          "b": {
+            "t": 0.5740230829905396,
+            "frames": 11
+          }
+        }
+      ],
+      "creator": [
+        {
+          "src": "/creator/optimized/ugc-creator-introduction.mp4",
+          "t": 0.11862149966570026
+        },
+        {
+          "src": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+          "t": 0.12616312532727292
+        },
+        {
+          "src": "/creator/videos/brand-product-showcase.mp4",
+          "t": 0.1148766666719811
+        },
+        {
+          "src": "/creator/videos/fitness-public-speaking.mp4",
+          "t": 1.4250742083264822
+        },
+        {
+          "src": "/creator/videos/winter-lifestyle-milan.mp4",
+          "t": 1.4340146669987186
+        }
+      ],
+      "whatsapp": "https://wa.me/393428369444?text=Hi%2C+TOSZAN%21+I%27d+like+information+about+bookings+or+partnerships.",
+      "overflow": false
+    },
+    {
+      "profile": "ipad-chrome",
+      "emulated": true,
+      "clips": [
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.21003362533336375
+          },
+          "b": {
+            "t": 0.5670217083286456,
+            "frames": 1
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "t": 0.20740374999934993
+          },
+          "b": {
+            "t": 0.5655734576536899,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/03-deck-control-overhead.mp4",
+            "t": 0.2057759163367277
+          },
+          "b": {
+            "t": 0.5633227913311286,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "t": 0.20939141699030306
+          },
+          "b": {
+            "t": 0.5676093756547795,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "t": 0.20867887467283233
+          },
+          "b": {
+            "t": 0.5683457910039246,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "t": 0.22277154199613966
+          },
+          "b": {
+            "t": 0.579270792001546,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "t": 0.21585416666466556
+          },
+          "b": {
+            "t": 0.5771035409973746,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "t": 0.2117432086561272
+          },
+          "b": {
+            "t": 0.5756100416638861,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "t": 0.2191961253378546
+          },
+          "b": {
+            "t": 0.5797018753291215,
+            "frames": 10
+          }
+        },
+        {
+          "a": {
+            "src": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "t": 0.2223516663356725
+          },
+          "b": {
+            "t": 0.5842475833287518,
+            "frames": 10
+          }
+        }
+      ],
+      "creator": [
+        {
+          "src": "/creator/optimized/ugc-creator-introduction.mp4",
+          "t": 0.11649774999681488
+        },
+        {
+          "src": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+          "t": 0.12446608366973289
+        },
+        {
+          "src": "/creator/videos/brand-product-showcase.mp4",
+          "t": 1.022655708331543
+        },
+        {
+          "src": "/creator/videos/fitness-public-speaking.mp4",
+          "t": 0.44817766666058917
+        },
+        {
+          "src": "/creator/videos/winter-lifestyle-milan.mp4",
+          "t": 1.0164368743291374
+        }
+      ],
+      "whatsapp": "https://wa.me/393428369444?text=Hi%2C+TOSZAN%21+I%27d+like+information+about+bookings+or+partnerships.",
+      "overflow": false
+    }
+  ]
+}

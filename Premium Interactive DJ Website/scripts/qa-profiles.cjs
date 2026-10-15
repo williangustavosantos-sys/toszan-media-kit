@@ -1,5 +1,5 @@
 async (page) => {
- const base='https://toszan-media-apm32cpox-williangustavosantos-sys-projects.vercel.app';
+ const base=new URL(page.url()).origin;
  const browser=page.context().browser();
  const cookies=await page.context().cookies(base); const results=[];
  const profiles=[

@@ -1,0 +1,197 @@
+{
+  "url": "https://toszan-media-e8w9d1mcr-williangustavosantos-sys-projects.vercel.app/#creator",
+  "result": [
+    {
+      "width": 320,
+      "id": "top",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "experience",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "creator",
+      "lift": "128px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "work",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "performance",
+      "lift": "384px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "services",
+      "lift": "128px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "contact",
+      "lift": "192px",
+      "collisions": []
+    },
+    {
+      "width": 320,
+      "id": "music",
+      "lift": "320px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "top",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "experience",
+      "lift": "384px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "creator",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "work",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "performance",
+      "lift": "448px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "services",
+      "lift": "192px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "contact",
+      "lift": "256px",
+      "collisions": []
+    },
+    {
+      "width": 390,
+      "id": "music",
+      "lift": "320px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "top",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "experience",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "creator",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "work",
+      "lift": "640px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "performance",
+      "lift": "640px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "services",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "contact",
+      "lift": "64px",
+      "collisions": []
+    },
+    {
+      "width": 820,
+      "id": "music",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "top",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "experience",
+      "lift": "576px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "creator",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "work",
+      "lift": "512px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "performance",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "services",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "contact",
+      "lift": "0px",
+      "collisions": []
+    },
+    {
+      "width": 1440,
+      "id": "music",
+      "lift": "0px",
+      "collisions": []
+    }
+  ]
+}

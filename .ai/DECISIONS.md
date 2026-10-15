@@ -8,3 +8,12 @@
 - The saved stop was for continuity, not acceptance. The revised interactive CSS, navigation and shared-media integration are now implemented and locally validated.
 - The user subsequently gave explicit publication authority: after final validation, update `main` and Vercel and return the ready link. This supersedes the earlier main/Production prohibition.
 - Automated green checks prove implementation behavior only; they do not retroactively approve the rejected candidate or manufacture owner visual acceptance.
+
+
+## 2026-10-15 final UX mission (current owner authority)
+
+- Current user instruction supersedes the historical production permission above. Only review-branch commits/pushes and Vercel Preview are authorized. main and Production remain frozen.
+- Physical iPhone rejection takes precedence over prior automated approval. Reproduction requires advancing currentTime and changing rendered frames, not merely DOM presence or build success.
+- Preserve NOVAFOTO, nine DJ clips, five Creator clips, ten track identities and professional contact 393428369444.
+- Shared visibility-based inline playback and one audio owner; manual fallback respects browser policy, data-saving and reduced-motion preferences.
+- WhatsApp remains immediately available, safe-area aware and avoids title/control/media collisions by selecting free vertical space on the fixed right edge.
