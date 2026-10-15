@@ -230,3 +230,17 @@
  .live-carousel-gesture-cue { display:flex; position:absolute; z-index:10; top:26px; left:50%; transform:translateX(-50%); gap:11px; align-items:center; justify-content:center; white-space:nowrap; padding:10px 14px; border:1px solid rgba(214,187,141,.4); border-radius:999px; color:#f0e4d1; background:rgba(8,9,9,.78); backdrop-filter:blur(8px); font-size:9px; font-weight:700; letter-spacing:.08em; pointer-events:none; }
  .live-carousel-gesture-cue>span:first-child,.live-carousel-gesture-cue>span:last-child { font-size:17px; line-height:1; color:#d3b588; }
 }
+
+/* When Creator preview is moving, sound becomes a subtle corner control.
+   If Safari blocks autoplay, keep the center play button visible as fallback. */
+@media(max-width:767px){
+ .cinematic-creator .creator-work-media.is-preview-playing .creator-work-play {
+   left:auto !important; right:9px !important; top:auto !important; bottom:10px !important;
+   transform:none !important; min-height:38px !important; height:38px !important;
+   border-color:rgba(236,230,220,.46) !important;
+   padding:3px 9px 3px 3px !important; background:rgba(8,9,9,.76) !important;
+   gap:5px !important; font-size:7px !important;
+ }
+ .cinematic-creator .creator-work-media.is-preview-playing .creator-work-play-icon { width:30px !important; height:30px !important; }
+ .cinematic-creator .creator-work-pause { left:auto !important; right:10px !important; top:auto !important; bottom:10px !important; transform:none !important; }
+}

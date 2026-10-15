@@ -450,7 +450,7 @@ export function CreatorPage() {
               {(() => {
                 const isPlaying = activeVideo === video.source && blockedVideo !== video.source;
                 return (
-                  <div className="creator-work-media">
+                  <div className={`creator-work-media ${previewVideos.includes(video.source) ? "is-preview-playing" : ""}`}>
                     <video className="creator-work-video" src={video.source} poster={video.poster} muted loop playsInline preload="metadata" ref={(node) => { videoRefs.current[video.source] = node; }} onPlay={(event) => {
                       if (event.currentTarget.muted) setPreviewVideos(current => current.includes(video.source) ? current : [...current, video.source]);
                     }} onPause={() => {
@@ -463,7 +463,7 @@ export function CreatorPage() {
                     {!isPlaying || soundVideo !== video.source ? (
                       <button type="button" className="creator-work-play" aria-label={`${video.hasAudio ? copy.work.playSound : copy.work.viewSample}: ${video.title}`} onClick={(event) => { event.stopPropagation(); void handlePortfolioPlay(video.source, video.hasAudio); }}>
                         <span className="creator-work-play-icon"><Play size={15} fill="currentColor" aria-hidden="true" /></span>
-                        <span>{video.hasAudio && blockedVideo === video.source ? copy.work.tapAgain : !video.hasAudio ? copy.work.viewSample : copy.work.playSound}</span>
+                        <span>{video.hasAudio && blockedVideo === video.source ? copy.work.tapAgain : previewVideos.includes(video.source) ? (language === "pt" ? "ATIVAR SOM" : language === "it" ? "ATTIVA AUDIO" : language === "es" ? "ACTIVAR SONIDO" : language === "fr" ? "ACTIVER LE SON" : "SOUND ON") : !video.hasAudio ? copy.work.viewSample : copy.work.playSound}</span>
                       </button>
                     ) : (
                       <button type="button" className="creator-work-pause" aria-label={copy.work.pause} onClick={(event) => { event.stopPropagation(); pausePortfolioVideo(video.source); }}><Pause size={17} fill="currentColor" /></button>
