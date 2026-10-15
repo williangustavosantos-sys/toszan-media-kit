@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ExternalLink, Play, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Play, Volume2, VolumeX } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy } from "../../data/bookingCopy";
 import "../../styles/music-live.css";
@@ -32,6 +32,64 @@ const reels: Reel[] = [
   { id: "extended-booth-run", title: "Extended Booth Run", subtitle: "Performance preview", duration: "0:16", poster: "/reels/posters/05-peak-booth-camera-presence-long.webp", video: "/reels/videos/05-peak-booth-camera-presence-long.mp4" },
 ];
 
+const reelTranslations: Record<Language, Array<Pick<Reel, "title" | "subtitle">>> = {
+  en: [
+    { title: "Room Proof", subtitle: "Wide crowd and room atmosphere" },
+    { title: "Booth Presence", subtitle: "Close performance at the booth" },
+    { title: "Booth Control", subtitle: "Hands on decks" },
+    { title: "Crowd Command", subtitle: "Mic, booth and response" },
+    { title: "Pride Identity", subtitle: "Camera proximity" },
+    { title: "Dancefloor Heat", subtitle: "Room atmosphere" },
+    { title: "Peak Moment", subtitle: "Wide stage view" },
+    { title: "Raised Hands Cue", subtitle: "Balcony and stage" },
+    { title: "Extended Booth Run", subtitle: "Performance preview" },
+  ],
+  pt: [
+    { title: "Prova da pista", subtitle: "Visão ampla do público e da casa" },
+    { title: "Presença na cabine", subtitle: "Apresentação de perto na cabine" },
+    { title: "Controle da cabine", subtitle: "Mãos nos equipamentos" },
+    { title: "Comando da pista", subtitle: "Microfone, cabine e resposta do público" },
+    { title: "Identidade Pride", subtitle: "Proximidade com a câmera" },
+    { title: "Calor da pista", subtitle: "Atmosfera da casa" },
+    { title: "Momento de ápice", subtitle: "Visão ampla do palco" },
+    { title: "Mãos ao alto", subtitle: "Varanda e palco" },
+    { title: "Sequência na cabine", subtitle: "Prévia da apresentação" },
+  ],
+  it: [
+    { title: "Prova della pista", subtitle: "Pubblico e atmosfera della sala" },
+    { title: "Presenza in console", subtitle: "Performance ravvicinata in console" },
+    { title: "Controllo della console", subtitle: "Mani sui deck" },
+    { title: "Comando della pista", subtitle: "Microfono, console e risposta del pubblico" },
+    { title: "Identità Pride", subtitle: "Vicinanza alla videocamera" },
+    { title: "Calore in pista", subtitle: "Atmosfera della sala" },
+    { title: "Momento di punta", subtitle: "Vista ampia del palco" },
+    { title: "Mani alzate", subtitle: "Balconata e palco" },
+    { title: "Sessione in console", subtitle: "Anteprima della performance" },
+  ],
+  es: [
+    { title: "Prueba de pista", subtitle: "Público y ambiente de la sala" },
+    { title: "Presencia en cabina", subtitle: "Actuación de cerca en la cabina" },
+    { title: "Control de cabina", subtitle: "Manos en los decks" },
+    { title: "Mando de la pista", subtitle: "Micrófono, cabina y respuesta del público" },
+    { title: "Identidad Pride", subtitle: "Cercanía con la cámara" },
+    { title: "Calor en la pista", subtitle: "Ambiente de la sala" },
+    { title: "Momento culminante", subtitle: "Vista amplia del escenario" },
+    { title: "Manos arriba", subtitle: "Balcón y escenario" },
+    { title: "Sesión en cabina", subtitle: "Avance de la actuación" },
+  ],
+  fr: [
+    { title: "Preuve de la piste", subtitle: "Public et ambiance de la salle" },
+    { title: "Présence en cabine", subtitle: "Performance au plus près des platines" },
+    { title: "Maîtrise des platines", subtitle: "Les mains sur les decks" },
+    { title: "Direction de la piste", subtitle: "Micro, cabine et réponse du public" },
+    { title: "Identité Pride", subtitle: "Proximité avec la caméra" },
+    { title: "Chaleur de la piste", subtitle: "Ambiance de la salle" },
+    { title: "Moment fort", subtitle: "Vue large de la scène" },
+    { title: "Mains levées", subtitle: "Balcon et scène" },
+    { title: "Session en cabine", subtitle: "Aperçu de la performance" },
+  ],
+};
+
 const liveUi: Record<Language, {
   intro: string;
   clips: string;
@@ -46,12 +104,16 @@ const liveUi: Record<Language, {
   ready: string;
   readyBody: string;
   openBooking: string;
+  inventory: string;
+  supporting: string;
+  previous: string;
+  next: string;
 }> = {
-  en: { intro: "Nine real performance clips, from the booth to the dancefloor. Select a moment, play it with sound and see the live energy directly.", clips: "Real clips", featured: "Featured first", audio: "Audio owner", liveProof: "Live proof", play: "Play with sound", retry: "Tap again for sound", mute: "Mute", soundOn: "Sound on", official: "Official reel", ready: "For promoters", readyBody: "Continue to formats, technical details and a direct booking enquiry.", openBooking: "Open booking" },
-  it: { intro: "Nove clip reali, dalla console alla pista. Seleziona un momento, attiva l’audio e guarda direttamente l’energia live.", clips: "Clip reali", featured: "In evidenza", audio: "Audio attivo", liveProof: "Prova live", play: "Riproduci con audio", retry: "Tocca ancora per l’audio", mute: "Disattiva audio", soundOn: "Audio attivo", official: "Reel ufficiale", ready: "Per i promoter", readyBody: "Continua con formati, dettagli tecnici e richiesta di booking diretta.", openBooking: "Vai al booking" },
-  pt: { intro: "Nove vídeos reais, da cabine à pista. Selecione um momento, ative o som e veja diretamente a energia ao vivo.", clips: "Vídeos reais", featured: "Destaques", audio: "Áudio ativo", liveProof: "Prova ao vivo", play: "Reproduzir com som", retry: "Toque novamente para o som", mute: "Silenciar", soundOn: "Som ligado", official: "Reel oficial", ready: "Para promoters", readyBody: "Continue para formatos, detalhes técnicos e contato direto de booking.", openBooking: "Abrir Booking" },
-  es: { intro: "Nueve vídeos reales, de la cabina a la pista. Selecciona un momento, activa el sonido y mira directamente la energía en vivo.", clips: "Vídeos reales", featured: "Destacados", audio: "Audio activo", liveProof: "Prueba en vivo", play: "Reproducir con sonido", retry: "Toca de nuevo para el sonido", mute: "Silenciar", soundOn: "Sonido activo", official: "Reel oficial", ready: "Para promotores", readyBody: "Continúa con formatos, detalles técnicos y una solicitud de booking directa.", openBooking: "Abrir Booking" },
-  fr: { intro: "Neuf vidéos réelles, de la cabine au dancefloor. Sélectionnez un moment, activez le son et découvrez directement l’énergie live.", clips: "Vidéos réelles", featured: "À la une", audio: "Audio actif", liveProof: "Preuve live", play: "Lire avec le son", retry: "Touchez encore pour le son", mute: "Couper le son", soundOn: "Son activé", official: "Reel officiel", ready: "Pour les promoteurs", readyBody: "Continuez vers les formats, les détails techniques et la demande de booking directe.", openBooking: "Ouvrir Booking" },
+  en: { intro: "Nine real performance clips, from the booth to the dancefloor. Select a moment, play it with sound and see the live energy directly.", clips: "Real clips", featured: "Featured", audio: "One audio source", liveProof: "Live proof", play: "Play with sound", retry: "Tap again for sound", mute: "Mute", soundOn: "Sound on", official: "Open on Instagram", ready: "For promoters", readyBody: "Continue to formats, technical details and a direct booking enquiry.", openBooking: "Open booking", inventory: "Live media inventory", supporting: "More live moments", previous: "Previous live video", next: "Next live video" },
+  it: { intro: "Nove video reali, dalla console alla pista. Seleziona un momento, attiva l’audio e guarda direttamente l’energia dal vivo.", clips: "Video reali", featured: "In evidenza", audio: "Una fonte audio", liveProof: "Prova dal vivo", play: "Riproduci con audio", retry: "Tocca ancora per l’audio", mute: "Disattiva audio", soundOn: "Audio attivo", official: "Apri su Instagram", ready: "Per gli organizzatori", readyBody: "Continua con formati, dettagli tecnici e una richiesta diretta di ingaggio.", openBooking: "Vai agli ingaggi", inventory: "Archivio video delle esibizioni", supporting: "Altri momenti dal vivo", previous: "Video precedente", next: "Video successivo" },
+  pt: { intro: "Nove vídeos reais, da cabine à pista. Selecione um momento, ative o som e veja diretamente a energia ao vivo.", clips: "Vídeos reais", featured: "Destaques", audio: "Uma fonte de áudio", liveProof: "Prova ao vivo", play: "Reproduzir com som", retry: "Toque novamente para o som", mute: "Silenciar", soundOn: "Som ligado", official: "Abrir no Instagram", ready: "Para contratantes", readyBody: "Veja os formatos, as informações técnicas e faça um pedido direto de contratação.", openBooking: "Ver contratações", inventory: "Arquivo de vídeos ao vivo", supporting: "Mais momentos ao vivo", previous: "Vídeo anterior", next: "Próximo vídeo" },
+  es: { intro: "Nueve vídeos reales, de la cabina a la pista. Selecciona un momento, activa el sonido y mira directamente la energía en vivo.", clips: "Vídeos reales", featured: "Destacados", audio: "Una fuente de audio", liveProof: "Prueba en directo", play: "Reproducir con sonido", retry: "Toca de nuevo para el sonido", mute: "Silenciar", soundOn: "Sonido activo", official: "Abrir en Instagram", ready: "Para promotores", readyBody: "Continúa con los formatos, los datos técnicos y una solicitud de contratación directa.", openBooking: "Ver contrataciones", inventory: "Archivo de vídeos en directo", supporting: "Más momentos en directo", previous: "Vídeo anterior", next: "Vídeo siguiente" },
+  fr: { intro: "Neuf vidéos réelles, de la cabine à la piste. Sélectionnez un moment, activez le son et découvrez directement l’énergie en direct.", clips: "Vidéos réelles", featured: "À la une", audio: "Une source audio", liveProof: "Preuve en direct", play: "Lire avec le son", retry: "Touchez encore pour le son", mute: "Couper le son", soundOn: "Son activé", official: "Ouvrir sur Instagram", ready: "Pour les organisateurs", readyBody: "Découvrez les formats, les informations techniques et envoyez une demande de réservation directe.", openBooking: "Voir les réservations", inventory: "Archive des vidéos en direct", supporting: "Autres moments en direct", previous: "Vidéo précédente", next: "Vidéo suivante" },
 };
 
 function AutoplayVideoCard({
@@ -109,7 +171,8 @@ function AutoplayVideoCard({
   }, [audioStatus, isThisVideoSoundEnabled]);
 
   const pauseOtherVideos = useCallback(() => {
-    document.querySelectorAll<HTMLVideoElement>("video[data-live-video]").forEach((video) => {
+    const section = videoRef.current?.closest(".live-editorial") ?? document;
+    section.querySelectorAll<HTMLVideoElement>("video[data-live-video]").forEach((video) => {
       if (video.dataset.liveVideo === reel.id) return;
       video.pause();
       video.muted = true;
@@ -175,13 +238,12 @@ function AutoplayVideoCard({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: reduceMotion ? 0 : 0.58, delay: reduceMotion ? 0 : index * 0.035, ease: [0.16, 1, 0.3, 1] }}
     >
-      <img src={reel.poster} alt="" aria-hidden="true" loading={reel.featured ? "eager" : "lazy"} decoding="async" fetchPriority={reel.featured ? "high" : "auto"} className="live-card-poster" />
+      <img src={reel.poster} alt="" aria-hidden="true" loading={reel.featured ? "eager" : "lazy"} decoding="async" className="live-card-poster" />
       <video
         ref={videoRef}
         key={reel.video}
         poster={reel.poster}
         muted={!isThisVideoSoundEnabled}
-        defaultMuted
         loop
         playsInline
         preload={saveData || reduceMotion ? "none" : active ? "auto" : "metadata"}
@@ -234,14 +296,17 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const reducedMotion = Boolean(useReducedMotion());
   const sectionRef = useRef<HTMLElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
+  const supportRailRef = useRef<HTMLDivElement | null>(null);
   const activeIdRef = useRef<string | null>(reels[0].id);
   const soundOwnerRef = useRef<string | null>(null);
   const headingInView = useInView(headingRef, { once: true, margin: "-80px" });
   const [activeId, setActiveId] = useState<string | null>(reels[0].id);
   const [soundEnabledForId, setSoundEnabledForId] = useState<string | null>(null);
   const [saveData, setSaveData] = useState(false);
-  const featuredReels = reels.slice(0, 3);
-  const supportingReels = reels.slice(3);
+  const [supportIndex, setSupportIndex] = useState(0);
+  const localizedReels = reels.map((reel, index) => ({ ...reel, ...reelTranslations[language][index] }));
+  const featuredReels = localizedReels.slice(0, 3);
+  const supportingReels = localizedReels.slice(3);
   const heading = context === "booking" ? bookingCopy[language].experienceTitle : t("experience.title");
   const eyebrow = context === "booking" ? bookingCopy[language].experienceLabel : t("experience.label");
   const intro = context === "booking" ? bookingCopy[language].experienceIntro : copy.intro;
@@ -318,6 +383,27 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const cardProps = { soundEnabledForId, setSoundEnabledForId: updateSoundOwner, onActivate: activateReel, saveData, reduceMotion: reducedMotion, copy };
   const contactHref = context === "booking" ? "#booking-contact" : "/booking";
   const contactLabel = context === "booking" ? bookingCopy[language].contact : copy.openBooking;
+  const scrollSupporting = (offset: number) => {
+    const rail = supportRailRef.current;
+    if (!rail) return;
+    const nextIndex = Math.max(0, Math.min(supportingReels.length - 1, supportIndex + offset));
+    const target = rail.children.item(nextIndex) as HTMLElement | null;
+    if (!target) return;
+    rail.scrollTo({ left: target.offsetLeft - rail.offsetLeft, behavior: reducedMotion ? "auto" : "smooth" });
+    setSupportIndex(nextIndex);
+  };
+  const updateSupportIndex = () => {
+    const rail = supportRailRef.current;
+    if (!rail) return;
+    const children = Array.from(rail.children) as HTMLElement[];
+    let nearestIndex = 0;
+    let nearestDistance = Infinity;
+    children.forEach((child, index) => {
+      const distance = Math.abs(child.offsetLeft - rail.offsetLeft - rail.scrollLeft);
+      if (distance < nearestDistance) { nearestDistance = distance; nearestIndex = index; }
+    });
+    setSupportIndex(nearestIndex);
+  };
 
   return (
     <section ref={sectionRef} id="experience" className="live-editorial" data-context={context} aria-labelledby={`live-title-${context}`}>
@@ -328,7 +414,7 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
           <p>{intro}</p>
         </motion.div>
 
-        <div className="live-facts" aria-label="Live media inventory">
+        <div className="live-facts" aria-label={copy.inventory}>
           {[{ value: "09", label: copy.clips }, { value: "03", label: copy.featured }, { value: "01", label: copy.audio }].map((fact, index) => (
             <motion.div key={fact.label} initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.45, delay: reducedMotion ? 0 : index * 0.06 }}><strong>{fact.value}</strong><span>{fact.label}</span></motion.div>
           ))}
@@ -338,8 +424,8 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
           {featuredReels.map((reel, index) => <div key={reel.id} className={`live-featured-item live-featured-${index + 1}`}><AutoplayVideoCard reel={reel} active={activeId === reel.id} index={index} variant="feature" {...cardProps} /></div>)}
         </div>
 
-        <div className="live-support-heading"><span>04—09</span><p>{copy.clips}</p></div>
-        <div className="live-support-grid">
+        <div className="live-support-heading"><div><span>04—09</span><p>{copy.supporting}</p></div><div className="live-support-controls"><span aria-live="polite">{String(supportIndex + 4).padStart(2, "0")} / 09</span><button type="button" onClick={() => scrollSupporting(-1)} disabled={supportIndex === 0} aria-label={copy.previous}><ChevronLeft size={18} /></button><button type="button" onClick={() => scrollSupporting(1)} disabled={supportIndex === supportingReels.length - 1} aria-label={copy.next}><ChevronRight size={18} /></button></div></div>
+        <div ref={supportRailRef} className="live-support-grid" onScroll={updateSupportIndex}>
           {supportingReels.map((reel, index) => <div key={reel.id} className="live-support-item"><AutoplayVideoCard reel={reel} active={activeId === reel.id} index={index + 3} {...cardProps} /></div>)}
         </div>
 

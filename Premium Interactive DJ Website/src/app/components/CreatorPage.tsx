@@ -70,7 +70,9 @@ export function EditorialReveal({ children, className, delay = 0 }: { children: 
 export function PortfolioPaths({ language, current }: { language: string; current?: "creator" | "booking" }) {
   const general = language === "pt" ? "Visão geral" : language === "it" ? "Generale" : "General";
   const label = language === "pt" ? "Explore TOSZAN" : language === "it" ? "Esplora TOSZAN" : "Explore TOSZAN";
-  return <nav className="creator-paths" aria-label={label}><span>{label}</span><a href="/">{general}<ArrowRight size={16} /></a><a href="/booking" aria-current={current === "booking" ? "page" : undefined}>DJ / Booking<ArrowRight size={16} /></a><a href="/creator" aria-current={current === "creator" ? "page" : undefined}>Creator<ArrowRight size={16} /></a></nav>;
+  const booking = language === "pt" ? "DJ / Contratação" : language === "it" ? "DJ / Ingaggi" : "DJ / Booking";
+  const creator = language === "pt" ? "Criador" : language === "it" ? "Creatore" : "Creator";
+  return <nav className="creator-paths" aria-label={label}><span>{label}</span><a href="/">{general}<ArrowRight size={16} /></a><a href="/booking" aria-current={current === "booking" ? "page" : undefined}>{booking}<ArrowRight size={16} /></a><a href="/creator" aria-current={current === "creator" ? "page" : undefined}>{creator}<ArrowRight size={16} /></a></nav>;
 }
 
 function Eyebrow({ children }: { children: ReactNode }) {
@@ -107,13 +109,6 @@ function PrimaryLink({ href, children, icon, external = false }: {
 }) {
   const reduced = useReducedMotion();
   return <motion.a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="creator-button creator-button-primary" whileHover={reduced ? undefined : { y: -3 }} whileTap={reduced ? undefined : { scale: 0.96 }} transition={{ duration: 0.2 }}>{children}{icon}</motion.a>;
-}
-
-function SecondaryLink({ href, children, icon, external = false }: {
-  href: string; children: ReactNode; icon?: ReactNode; external?: boolean;
-}) {
-  const reduced = useReducedMotion();
-  return <motion.a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="creator-button creator-button-secondary" whileHover={reduced ? undefined : { y: -3 }} whileTap={reduced ? undefined : { scale: 0.96 }} transition={{ duration: 0.2 }}>{children}{icon}</motion.a>;
 }
 
 // Visible counters retain the exact archived value for accessible labels and at rest.
@@ -180,6 +175,8 @@ export function CreatorPage() {
   const { language } = useLanguage();
   const copy = creatorCopy[getCreatorLanguage(language)];
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const playRequestVersion = useRef(0);
+  const intendedVideo = useRef<string | null>(null);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
   const [soundVideo, setSoundVideo] = useState<string | null>(null);
@@ -226,6 +223,9 @@ export function CreatorPage() {
     Object.entries(videoRefs.current).forEach(([source, video]) => {
       if (!video || source === activeSource) return;
       video.pause();
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
     });
     setActiveVideo((current) => (current && current !== activeSource ? null : current));
     setBlockedVideo((current) => (current && current !== activeSource ? null : current));
@@ -236,6 +236,8 @@ export function CreatorPage() {
     const video = videoRefs.current[source];
     if (!video) return;
 
+    const requestVersion = ++playRequestVersion.current;
+    intendedVideo.current = source;
     stopOtherVideos(source);
     video.currentTime = video.currentTime || 0;
 
@@ -247,8 +249,16 @@ export function CreatorPage() {
       setBlockedVideo(null);
       try {
         await video.play();
+        if (playRequestVersion.current !== requestVersion || intendedVideo.current !== source) {
+          video.pause();
+          video.muted = true;
+          video.defaultMuted = true;
+          video.volume = 0;
+          return;
+        }
         setActiveVideo(source);
       } catch {
+        if (playRequestVersion.current !== requestVersion) return;
         if (video.paused) {
           setActiveVideo(null);
         }
@@ -267,6 +277,13 @@ export function CreatorPage() {
 
     try {
       await video.play();
+      if (playRequestVersion.current !== requestVersion || intendedVideo.current !== source) {
+        video.pause();
+        video.muted = true;
+        video.defaultMuted = true;
+        video.volume = 0;
+        return;
+      }
       // Keep the media element aligned with React's rendered `muted` prop
       // after the asynchronous play request completes.
       video.defaultMuted = false;
@@ -275,6 +292,7 @@ export function CreatorPage() {
       setActiveVideo(source);
       setSoundVideo(source);
     } catch {
+      if (playRequestVersion.current !== requestVersion) return;
       setActiveVideo(null);
       setSoundVideo(null);
       setBlockedVideo(source);
@@ -289,16 +307,34 @@ export function CreatorPage() {
   };
 
   const handlePortfolioEnded = (source: string) => {
+    if (intendedVideo.current === source) {
+      intendedVideo.current = null;
+      playRequestVersion.current += 1;
+    }
     setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
   };
 
   const handlePortfolioError = (source: string) => {
+    if (intendedVideo.current === source) {
+      intendedVideo.current = null;
+      playRequestVersion.current += 1;
+    }
     setActiveVideo((current) => (current === source ? null : current));
+    setSoundVideo((current) => (current === source ? null : current));
     setBlockedVideo(source);
   };
 
   const pausePortfolioVideo = (source: string) => {
-    videoRefs.current[source]?.pause();
+    const video = videoRefs.current[source];
+    if (intendedVideo.current === source) intendedVideo.current = null;
+    playRequestVersion.current += 1;
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.pause();
+    }
     setActiveVideo((current) => (current === source ? null : current));
     setSoundVideo((current) => (current === source ? null : current));
   };
@@ -309,8 +345,15 @@ export function CreatorPage() {
         if (!entry.isIntersecting) {
           const video = entry.target as HTMLVideoElement;
           video.pause();
+          video.muted = true;
+          video.defaultMuted = true;
+          video.volume = 0;
           const source = video.getAttribute("src");
           if (source) {
+            if (intendedVideo.current === source) {
+              intendedVideo.current = null;
+              playRequestVersion.current += 1;
+            }
             setActiveVideo((current) => current === source ? null : current);
             setSoundVideo((current) => current === source ? null : current);
           }
@@ -318,7 +361,20 @@ export function CreatorPage() {
       });
     }, { threshold: 0.12 });
     Object.values(videoRefs.current).forEach((video) => { if (video) observer.observe(video); });
-    const pauseHidden = () => { if (document.hidden) Object.values(videoRefs.current).forEach((video) => video?.pause()); };
+    const pauseHidden = () => {
+      if (!document.hidden) return;
+      intendedVideo.current = null;
+      playRequestVersion.current += 1;
+      Object.values(videoRefs.current).forEach((video) => {
+        if (!video) return;
+        video.pause();
+        video.muted = true;
+        video.defaultMuted = true;
+        video.volume = 0;
+      });
+      setActiveVideo(null);
+      setSoundVideo(null);
+    };
     document.addEventListener("visibilitychange", pauseHidden);
     return () => { observer.disconnect(); document.removeEventListener("visibilitychange", pauseHidden); };
   }, []);
@@ -337,14 +393,14 @@ export function CreatorPage() {
             </div>
             <div className="creator-hero-actions">
               <PrimaryLink href="#work" icon={<ArrowRight size={16} />}>{copy.hero.work}</PrimaryLink>
-              <SecondaryLink href="#contact" icon={<Mail size={15} />}>{copy.hero.collaboration}</SecondaryLink>
+              <a href="#contact" className="creator-text-link creator-hero-inline-link"><Mail size={14} />{copy.hero.collaboration}</a>
+              <a href="/analytics" className="creator-text-link creator-hero-inline-link"><BarChart3 size={14} />{copy.hero.analytics}</a>
             </div>
-            <a href="/analytics" className="creator-text-link creator-hero-analytics"><BarChart3 size={14} />{copy.hero.analytics}<ArrowRight size={14} /></a>
           </motion.div>
           <motion.figure className="creator-hero-portrait" initial={reduced ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.15, delay: reduced ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}>
-            <span className="creator-portrait-word" aria-hidden="true">CREATOR</span>
+            <span className="creator-portrait-word" aria-hidden="true">{copy.hero.roleWord}</span>
             <div className="creator-portrait-light" aria-hidden="true" />
-            <img src={creatorPortrait} alt={copy.hero.alt} width={960} height={1280} loading="eager" decoding="async" fetchPriority="high" />
+            <img src={creatorPortrait} alt={copy.hero.alt} width={960} height={1280} loading="eager" decoding="async" />
             <figcaption><span>{copy.hero.roles}</span><span>{copy.hero.region}</span></figcaption>
           </motion.figure>
           <div className="creator-hero-foot">
@@ -371,15 +427,13 @@ export function CreatorPage() {
               {(() => {
                 const isPlaying = activeVideo === video.source && blockedVideo !== video.source;
                 return (
-                  <div className="creator-work-media" onMouseEnter={() => {
-                    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !soundVideo) void handlePortfolioPlay(video.source, false);
-                  }} onMouseLeave={() => { if (soundVideo !== video.source) pausePortfolioVideo(video.source); }}>
+                  <div className="creator-work-media">
                     <video className="creator-work-video" src={video.source} poster={video.poster} muted playsInline preload="metadata" ref={(node) => { videoRefs.current[video.source] = node; }} onPause={() => handlePortfolioPause(video.source)} onEnded={() => handlePortfolioEnded(video.source)} onError={() => handlePortfolioError(video.source)} />
                     <img src={video.poster} alt="" aria-hidden="true" loading="lazy" className={`creator-work-poster ${isPlaying ? "is-playing" : ""}`} />
                     <div className="creator-work-scrim" aria-hidden="true" />
                     <div className="creator-work-media-heading"><span>{String(index + 1).padStart(2, "0")}</span><span>{video.hasAudio ? copy.work.contentSample : copy.work.visualSample}</span></div>
                     {!isPlaying || soundVideo !== video.source ? (
-                      <button type="button" className="creator-work-play" onClick={(event) => { event.stopPropagation(); void handlePortfolioPlay(video.source, video.hasAudio); }}>
+                      <button type="button" className="creator-work-play" aria-label={`${video.hasAudio ? copy.work.playSound : copy.work.viewSample}: ${video.title}`} onClick={(event) => { event.stopPropagation(); void handlePortfolioPlay(video.source, video.hasAudio); }}>
                         <span className="creator-work-play-icon"><Play size={15} fill="currentColor" aria-hidden="true" /></span>
                         <span>{video.hasAudio && blockedVideo === video.source ? copy.work.tapAgain : !video.hasAudio ? copy.work.viewSample : copy.work.playSound}</span>
                       </button>

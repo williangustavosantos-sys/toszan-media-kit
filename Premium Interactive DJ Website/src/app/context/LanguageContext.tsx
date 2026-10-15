@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useLayoutEffect, ReactNode } from "react";
 
 export type Language = "en" | "pt" | "it" | "es" | "fr";
 
@@ -37,7 +37,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return value || key;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof document !== "undefined") {
       // Creator/Analytics have approved EN/PT/IT copy only. Their visible
       // fallback is English when a visitor arrived from ES/FR Booking.
@@ -255,14 +255,14 @@ const translations: Record<Language, any> = {
       music: "Música",
       lifestyle: "Lifestyle",
       partnerships: "Parcerias",
-      mediaKit: "Media Kit",
+      mediaKit: "Kit de imprensa",
       booking: "Contrate",
     },
     hero: {
       subtitle: "BEM-VINDOS AO MEU MUNDO!",
       tag: "Música\u00a0\u00a0•\u00a0\u00a0Lifestyle\u00a0\u00a0•\u00a0\u00a0Cultura\u00a0\u00a0•\u00a0\u00a0Performance",
       booking: "Contratar",
-      mediaKit: "Media Kit",
+      mediaKit: "Kit de imprensa",
       watchLive: "Assistir ao Vivo",
     },
     moments: {
@@ -300,7 +300,7 @@ const translations: Record<Language, any> = {
     brand: {
       label: "A Essência",
       title: "EXPERIÊNCIA",
-      desc1: "Energia brasileira moldada pela vida e pela nightlife europeia.",
+      desc1: "Energia brasileira moldada pela vida e pela noite europeia.",
       desc2: "Entre Milão, Roma e diferentes experiências na Europa, meu foco é criar momentos que as pessoas realmente lembram — através da música, presença, movimento e conexão.",
       desc3: "Mais do que um set, é atmosfera.\nMais do que conteúdo, é personalidade.",
       cards: {
@@ -318,9 +318,9 @@ const translations: Record<Language, any> = {
     },
     media: {
       label: "Imprensa e Mídia",
-      title: "Media Kit",
+      title: "Kit de Imprensa",
       subtitle: "Tudo o que você precisa para trabalhar com o Willian.",
-      desc: "Disponível para bookings no mundo todo, campanhas de marca, aparições na mídia e parcerias criativas.",
+      desc: "Disponível para contratações no mundo todo, campanhas de marca, aparições na mídia e parcerias criativas.",
       instagramPeriod: "Instagram · Últimos 30 Dias",
       stats: {
         views: "Visualizações mensais",
@@ -442,14 +442,14 @@ const translations: Record<Language, any> = {
       music: "Musica",
       lifestyle: "Lifestyle",
       partnerships: "Partnership",
-      mediaKit: "Media Kit",
+      mediaKit: "Cartella stampa",
       booking: "Prenota",
     },
     hero: {
       subtitle: "BENVENUTI NEL MIO MONDO!",
       tag: "Musica\u00a0\u00a0•\u00a0\u00a0Lifestyle\u00a0\u00a0•\u00a0\u00a0Cultura\u00a0\u00a0•\u00a0\u00a0Performance",
       booking: "Prenota",
-      mediaKit: "Media Kit",
+      mediaKit: "Cartella stampa",
       watchLive: "Guarda Live",
     },
     moments: {
@@ -459,7 +459,7 @@ const translations: Record<Language, any> = {
     },
     experience: {
       label: "Archivio Visuale",
-      title: "Live Experience",
+      title: "Esperienza dal vivo",
       categories: {
         all: "Tutti",
       },
@@ -487,7 +487,7 @@ const translations: Record<Language, any> = {
     brand: {
       label: "L'Essenza",
       title: "ESPERIENZA",
-      desc1: "Energia brasiliana plasmata dalla vita e dalla nightlife europea.",
+      desc1: "Energia brasiliana plasmata dalla vita e dalla notte europea.",
       desc2: "Tra Milano, Roma e diverse esperienze in Europa, il mio obiettivo è creare momenti che le persone ricorderanno davvero — attraverso la musica, la presenza, il movimento e la connessione.",
       desc3: "Più che un set, è un'atmosfera.\nPiù che contenuti, è personalità.",
       cards: {
@@ -495,7 +495,7 @@ const translations: Record<Language, any> = {
         musicText: "Più che uno stile, è un'energia contagiosa.\n\nOgni set è costruito per creare una vera connessione con il pubblico attraverso danza, tensione, emozione e divertimento, trasformando la pista da ballo in un'esperienza unica e intensa.",
         contentTitle: "CONTENUTO",
         contentText: "Contenuti focalizzati su lifestyle, musica, fitness, viaggi ed esperienze reali, sempre con una forte connessione organica con il pubblico.",
-        liveTitle: "PRESENZA LIVE",
+        liveTitle: "PRESENZA DAL VIVO",
         liveText: "Presenza a eventi, club, esperienze private e collaborazioni creative tra Brasile ed Europa.",
         communityTitle: "COMUNITÀ",
         communityText: "Costruire un pubblico attraverso l'autenticità, l'energia umana ed esperienze che generano vera identificazione."
@@ -505,9 +505,9 @@ const translations: Record<Language, any> = {
     },
     media: {
       label: "Stampa e Media",
-      title: "Media Kit",
+      title: "Cartella Stampa",
       subtitle: "Tutto ciò di cui hai bisogno per lavorare con Willian.",
-      desc: "Disponibile per booking, campagne brand, apparizioni sui media e partnership creative in tutto il mondo.",
+      desc: "Disponibile per ingaggi, campagne di marca, apparizioni sui media e collaborazioni creative in tutto il mondo.",
       instagramPeriod: "Instagram · Ultimi 30 Giorni",
       stats: {
         views: "Visualizzazioni mensili",
@@ -566,7 +566,7 @@ const translations: Record<Language, any> = {
       label: "Contatti",
       title: "Scrivimi",
       tagline: "Lavoriamo insieme?",
-      description: "Disponibile per booking, collaborazioni, partnership con brand e progetti creativi in tutto il mondo.",
+      description: "Disponibile per ingaggi, collaborazioni, partnership con marchi e progetti creativi in tutto il mondo.",
       bookingTitle: "Richiesta di Booking",
       bookingSubtitle: "Parlami del tuo evento.",
       send: "Invia Richiesta",
@@ -629,14 +629,14 @@ const translations: Record<Language, any> = {
       music: "Música",
       lifestyle: "Lifestyle",
       partnerships: "Alianzas",
-      mediaKit: "Media Kit",
+      mediaKit: "Dossier de prensa",
       booking: "Reservar",
     },
     hero: {
       subtitle: "¡BIENVENIDOS A MI MUNDO!",
       tag: "Música\u00a0\u00a0•\u00a0\u00a0Lifestyle\u00a0\u00a0•\u00a0\u00a0Cultura\u00a0\u00a0•\u00a0\u00a0Performance",
       booking: "Reservar",
-      mediaKit: "Media Kit",
+      mediaKit: "Dossier de prensa",
       watchLive: "Ver en Vivo",
     },
     moments: {
@@ -674,7 +674,7 @@ const translations: Record<Language, any> = {
     brand: {
       label: "La Esencia",
       title: "EXPERIENCIA",
-      desc1: "Energía brasileña moldeada por la vida y la nightlife europea.",
+      desc1: "Energía brasileña moldeada por la vida y la noche europea.",
       desc2: "Entre Milán, Roma y diferentes experiencias en Europa, mi objetivo es crear momentos que la gente realmente recuerde — a través de la música, la presencia, el movimiento y la conexión.",
       desc3: "Más que un set, es una atmósfera.\nMás que contenido, es personalidad.",
       cards: {
@@ -692,9 +692,9 @@ const translations: Record<Language, any> = {
     },
     media: {
       label: "Prensa y Medios",
-      title: "Media Kit",
+      title: "Dossier de Prensa",
       subtitle: "Todo lo que necesitas para trabajar con Willian.",
-      desc: "Disponible para bookings, campañas de marca, apariciones en medios y asociaciones creativas en todo el mundo.",
+      desc: "Disponible para contrataciones, campañas de marca, apariciones en medios y colaboraciones creativas en todo el mundo.",
       instagramPeriod: "Instagram · Últimos 30 Días",
       stats: {
         views: "Vistas mensuales",
@@ -753,7 +753,7 @@ const translations: Record<Language, any> = {
       label: "Contacto",
       title: "Contáctame",
       tagline: "¿Trabajamos juntos?",
-      description: "Disponible para bookings, colaboraciones, alianzas de marca y proyectos creativos en todo el mundo.",
+      description: "Disponible para contrataciones, colaboraciones, alianzas de marca y proyectos creativos en todo el mundo.",
       bookingTitle: "Solicitud de Booking",
       bookingSubtitle: "Cuéntame sobre tu evento.",
       send: "Enviar Solicitud",
@@ -816,14 +816,14 @@ const translations: Record<Language, any> = {
       music: "Musique",
       lifestyle: "Lifestyle",
       partnerships: "Partenariats",
-      mediaKit: "Media Kit",
+      mediaKit: "Dossier de presse",
       booking: "Réserver",
     },
     hero: {
       subtitle: "BIENVENUE DANS MON MONDE !",
       tag: "Musique\u00a0\u00a0•\u00a0\u00a0Lifestyle\u00a0\u00a0•\u00a0\u00a0Culture\u00a0\u00a0•\u00a0\u00a0Performance",
       booking: "Réserver",
-      mediaKit: "Media Kit",
+      mediaKit: "Dossier de presse",
       watchLive: "Regarder en Direct",
     },
     moments: {
@@ -833,7 +833,7 @@ const translations: Record<Language, any> = {
     },
     experience: {
       label: "Archive Visuelle",
-      title: "Expérience Live",
+      title: "Expérience en direct",
       categories: {
         all: "Tous",
       },
@@ -861,7 +861,7 @@ const translations: Record<Language, any> = {
     brand: {
       label: "L'Essence",
       title: "EXPÉRIENCE",
-      desc1: "L'énergie brésilienne façonnée par la vie et la nightlife européenne.",
+      desc1: "L'énergie brésilienne façonnée par la vie et la nuit européenne.",
       desc2: "Entre Milan, Rome et différentes expériences à travers l'Europe, mon objectif est de créer des moments dont les gens se souviendront vraiment — grâce à la musique, la présence, le mouvement et la connexion.",
       desc3: "Plus qu'un set, c'est une atmosphère.\nPlus que du contenu, c'est de la personnalité.",
       cards: {
@@ -869,7 +869,7 @@ const translations: Record<Language, any> = {
         musicText: "Plus qu'un style, c'est une énergie contagieuse.\n\nChaque set est construit pour créer une véritable connexion avec le public à travers la danse, la tension, l'émotion et le plaisir, transformant la piste de danse en une expérience unique et intense.",
         contentTitle: "CONTENU",
         contentText: "Contenu axé sur le style de vie, la musique, le fitness, les voyages et les expériences réelles, toujours avec une forte connexion organique au public.",
-        liveTitle: "PRÉSENCE LIVE",
+        liveTitle: "PRÉSENCE EN DIRECT",
         liveText: "Présence à des événements, des clubs, des expériences privées et des collaborations créatives à travers le Brésil et l'Europe.",
         communityTitle: "COMMUNAUTÉ",
         communityText: "Construire un public par l'authenticité, l'énergie humaine et des expériences qui génèrent une véritable identification."
@@ -879,9 +879,9 @@ const translations: Record<Language, any> = {
     },
     media: {
       label: "Presse et Médias",
-      title: "Media Kit",
+      title: "Dossier de Presse",
       subtitle: "Tout ce dont vous avez besoin pour travailler avec Willian.",
-      desc: "Disponible pour des bookings dans le monde entier, des campagnes de marque, des apparitions dans les médias et des partenariats créatifs.",
+      desc: "Disponible pour des réservations dans le monde entier, des campagnes de marque, des apparitions dans les médias et des partenariats créatifs.",
       instagramPeriod: "Instagram · 30 Derniers Jours",
       stats: {
         views: "Vues mensuelles",
@@ -940,7 +940,7 @@ const translations: Record<Language, any> = {
       label: "Contact",
       title: "Contactez-moi",
       tagline: "Travaillons ensemble ?",
-      description: "Disponible pour des bookings, collaborations, partenariats de marque et projets créatifs dans le monde entier.",
+      description: "Disponible pour des réservations, collaborations, partenariats de marque et projets créatifs dans le monde entier.",
       bookingTitle: "Demande de Booking",
       bookingSubtitle: "Parlez-moi de votre événement.",
       send: "Envoyer la Demande",

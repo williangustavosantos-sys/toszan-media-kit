@@ -9,7 +9,7 @@ import { LiveExperience } from "./LiveExperience";
 
 const media = {
   mix: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
-  embed: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23FFB000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
+  embed: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23bd9c6a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
   instagram: "https://www.instagram.com/toszan.willian/",
   soundcloud: "https://soundcloud.com/dj-willian-toszan",
 };
@@ -72,10 +72,10 @@ function SectionTitle({ label, title, intro }: { label: string; title: string; i
 }
 const detailsByLanguage: Record<Language, { fields: string[]; subject: string; whatsappIntro: string }> = {
   en: { subject: "DJ Booking TOSZAN", whatsappIntro: "Hello TOSZAN, I'd like to discuss a DJ booking.", fields: ["Date", "City / venue", "Event type", "Set duration", "Budget"] },
-  it: { subject: "Richiesta booking DJ TOSZAN", whatsappIntro: "Ciao TOSZAN, vorrei parlare di un booking DJ.", fields: ["Data", "Città / locale", "Tipo di evento", "Durata del set", "Budget"] },
+  it: { subject: "Richiesta di ingaggio DJ TOSZAN", whatsappIntro: "Ciao TOSZAN, vorrei parlare di un ingaggio DJ.", fields: ["Data", "Città / locale", "Tipo di evento", "Durata del set", "Budget"] },
   pt: { subject: "Contratação DJ TOSZAN", whatsappIntro: "Olá TOSZAN, gostaria de conversar sobre uma contratação como DJ.", fields: ["Data", "Cidade / local", "Tipo de evento", "Duração do set", "Orçamento"] },
   es: { subject: "Contratación DJ TOSZAN", whatsappIntro: "Hola TOSZAN, quisiera hablar de una contratación como DJ.", fields: ["Fecha", "Ciudad / local", "Tipo de evento", "Duración del set", "Presupuesto"] },
-  fr: { subject: "Demande de booking DJ TOSZAN", whatsappIntro: "Bonjour TOSZAN, je souhaite discuter d'un booking DJ.", fields: ["Date", "Ville / lieu", "Type d'événement", "Durée du set", "Budget"] },
+  fr: { subject: "Demande de réservation DJ TOSZAN", whatsappIntro: "Bonjour TOSZAN, je souhaite discuter d'une réservation DJ.", fields: ["Date", "Ville / lieu", "Type d'événement", "Durée du set", "Budget"] },
 };
 export function BookingPage() {
   const { language, t } = useLanguage();
@@ -91,7 +91,7 @@ export function BookingPage() {
   return <div className="cinematic-booking">
     <section className="cine-hero" aria-labelledby="booking-title">
       <div className="cine-hero-photo">
-        <picture><source media="(max-width: 600px)" srcSet="/editorial/booking-hero-800.webp"/><img src="/editorial/booking-hero.webp" alt={`TOSZAN — ${copy.location}`} fetchPriority="high" decoding="async" width={1200} height={1200}/></picture>
+        <picture><source media="(max-width: 600px)" srcSet="/editorial/booking-hero-800.webp"/><img src="/editorial/booking-hero.webp" alt={`TOSZAN — ${copy.location}`} decoding="async" width={1200} height={1200}/></picture>
       </div>
       <div className="cine-hero-shade"/>
       <div className="cine-hero-index" aria-hidden="true">45°27′51″ N · 09°11′25″ E</div>
@@ -102,7 +102,7 @@ export function BookingPage() {
         <p className="cine-hero-intro">{copy.heroIntro}</p>
         <div className="cine-actions"><Action href="#music" icon={<Headphones size={17}/>}>{copy.listen}</Action><Action href="#booking-contact" secondary>{copy.contact}</Action></div>
       </motion.div>
-      <div className="cine-hero-bottom cine-wrap"><p>{copy.genre}</p><a href="#experience"><span>{copy.watchLive}</span><span aria-hidden="true">↓</span></a></div>
+      <div className="cine-hero-bottom cine-wrap"><p>{copy.genre}</p><a href="#experience" aria-label={copy.watchLive}><span>{copy.watchLive}</span><span aria-hidden="true">↓</span></a></div>
     </section>
 
     <MusicSection context="booking" />
@@ -120,7 +120,7 @@ export function BookingPage() {
 
     <section id="mediakit" className="cine-section cine-press">
       <motion.div {...reveal} className="cine-wrap">
-        <div className="cine-heading-row"><SectionTitle label="TOSZAN / PRESS" title={copy.mediaKit}/><p className="cine-intro">{copy.technicalItems[2]}</p></div>
+        <div className="cine-heading-row"><SectionTitle label={copy.pressLabel} title={copy.mediaKit}/><p className="cine-intro">{copy.technicalItems[2]}</p></div>
         <div className="cine-press-grid">
           <div><h3>{copy.technical}</h3><ul className="cine-tech-list">{copy.technicalItems.map(item=><li key={item}><Check size={15}/>{item}</li>)}</ul>
             <a className="cine-text-link" href="/foto_dj4.JPG" download="TOSZAN-official-live-photo.jpg">{t("media.label")} · JPG<Download size={17}/></a>
@@ -135,8 +135,10 @@ export function BookingPage() {
       <div className="cine-contact-photo" aria-hidden="true"/>
       <motion.div {...reveal} className="cine-wrap">
         <p className="cine-kicker">{copy.contactLabel}</p><h2>{copy.contactTitle}</h2><p className="cine-intro">{copy.contactIntro}</p>
-        <div className="cine-actions"><Action href={email} icon={<Mail size={17}/>}>{copy.email}</Action><Action href={whatsapp} secondary external icon={<MessageCircle size={17}/>}>{copy.whatsapp}</Action></div>
-        <a href={email} className="cine-contact-email">dj@toszan.com.br<ArrowUpRight size={30}/></a>
+        <div className="cine-contact-direct">
+          <a href={email}><span><Mail size={15}/>{copy.email}</span><strong>dj@toszan.com.br</strong><ArrowUpRight size={22}/></a>
+          <a href={whatsapp} target="_blank" rel="noopener noreferrer"><span><MessageCircle size={15}/>{copy.whatsapp}</span><strong>+39 342 836 9444</strong><ArrowUpRight size={22}/></a>
+        </div>
         <div className="cine-socials"><a href={media.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={15}/>{copy.instagram}<ArrowUpRight size={14}/></a><a href={media.soundcloud} target="_blank" rel="noopener noreferrer"><Music2 size={15}/>SoundCloud<ArrowUpRight size={14}/></a><a href="/#mediakit">{copy.mediaKit}<ArrowUpRight size={14}/></a></div>
       </motion.div>
     </section>

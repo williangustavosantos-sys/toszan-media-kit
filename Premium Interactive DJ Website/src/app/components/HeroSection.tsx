@@ -1,346 +1,118 @@
-import { motion } from "motion/react";
-import { useLanguage } from "../context/LanguageContext";
-import { ToszanLogo } from "./ToszanLogo";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowDown, ArrowRight } from "lucide-react";
+import { useLanguage, type Language } from "../context/LanguageContext";
+import "../../styles/general-editorial.css";
+
 const heroBg = "/optimized/foto_2.webp";
 
+const heroUi: Record<Language, {
+  location: string;
+  role: string;
+  intro: string;
+  booking: string;
+  music: string;
+  live: string;
+  imageAlt: string;
+}> = {
+  en: {
+    location: "Milan, Italy · Available across Europe",
+    role: "Brazilian DJ · Tribal · Progressive · Circuit",
+    intro: "Music first. Real performances. A direct path from the sound to your dancefloor.",
+    booking: "Book TOSZAN",
+    music: "Listen to the music",
+    live: "Watch live proof",
+    imageAlt: "TOSZAN performing live at a DJ booth",
+  },
+  pt: {
+    location: "Milão, Itália · Disponível na Europa",
+    role: "DJ brasileiro · Tribal · Progressive · Circuit",
+    intro: "Música em primeiro lugar. Apresentações reais. Um caminho direto do som para a sua pista.",
+    booking: "Contratar TOSZAN",
+    music: "Ouvir a música",
+    live: "Ver apresentações reais",
+    imageAlt: "TOSZAN se apresentando ao vivo em uma cabine de DJ",
+  },
+  it: {
+    location: "Milano, Italia · Disponibile in Europa",
+    role: "DJ brasiliano · Tribal · Progressive · Circuit",
+    intro: "Prima la musica. Performance reali. Un percorso diretto dal sound alla tua pista.",
+    booking: "Prenota TOSZAN",
+    music: "Ascolta la musica",
+    live: "Guarda le performance",
+    imageAlt: "TOSZAN durante una performance dal vivo alla console",
+  },
+  es: {
+    location: "Milán, Italia · Disponible en Europa",
+    role: "DJ brasileño · Tribal · Progressive · Circuit",
+    intro: "La música primero. Actuaciones reales. Un camino directo del sonido a tu pista.",
+    booking: "Contratar a TOSZAN",
+    music: "Escuchar la música",
+    live: "Ver actuaciones reales",
+    imageAlt: "TOSZAN actuando en directo en una cabina de DJ",
+  },
+  fr: {
+    location: "Milan, Italie · Disponible en Europe",
+    role: "DJ brésilien · Tribal · Progressive · Circuit",
+    intro: "La musique d’abord. Des performances réelles. Un lien direct entre le son et votre piste.",
+    booking: "Réserver TOSZAN",
+    music: "Écouter la musique",
+    live: "Voir les performances",
+    imageAlt: "TOSZAN en performance live derrière les platines",
+  },
+};
+
 export function HeroSection() {
-  const { t } = useLanguage();
-
-  const scrollTo = (id: string) => {
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const openBooking = () => {
-    window.location.href = "/booking";
-  };
+  const { language } = useLanguage();
+  const reducedMotion = Boolean(useReducedMotion());
+  const copy = heroUi[language];
 
   return (
-    <section
-      id="hero"
-      className="relative w-full overflow-hidden"
-      style={{ height: "100dvh", minHeight: "640px" }}
-    >
-      {/* Background — Ken Burns warm */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ scale: 1.08 }}
+    <section id="hero" className="general-hero" aria-labelledby="general-hero-title">
+      <motion.img
+        src={heroBg}
+        alt={copy.imageAlt}
+        className="general-hero-image"
+        initial={reducedMotion ? false : { scale: 1.045 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 12, ease: "easeOut" }}
-        style={{ zIndex: 0 }}
-      >
-        <img
-          src={heroBg}
-          alt="Willian Toszan Live"
-          className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.28) saturate(1.4) contrast(1.1)" }}
-        />
-      </motion.div>
-
-      {/* Warm gradient layers */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(11,11,11,0.45) 0%, rgba(11,11,11,0.05) 30%, rgba(11,11,11,0.45) 65%, rgba(11,11,11,1) 100%)",
-          zIndex: 1,
-        }}
+        transition={{ duration: reducedMotion ? 0 : 8, ease: "easeOut" }}
+        decoding="async"
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 75% 45% at 50% 55%, rgba(255,176,0,0.12) 0%, transparent 70%)",
-          zIndex: 1,
-        }}
-      />
-      {/* Subtle Brazilian green vignette */}
-      <div
-        className="absolute bottom-0 left-0 right-0"
-        style={{
-          height: "30%",
-          background:
-            "linear-gradient(0deg, rgba(0,168,107,0.04) 0%, transparent 100%)",
-          zIndex: 1,
-        }}
-      />
-
-      {/* TOP BAR — location + genre */}
-      <motion.div
-        className="absolute top-28 left-0 right-0 flex flex-wrap items-center justify-center gap-3 px-6"
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.3 }}
-        style={{ zIndex: 4 }}
-      >
-        <span
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "#00A86B",
-            display: "inline-block",
-            boxShadow: "0 0 10px rgba(0,168,107,0.6)",
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "0.62rem",
-            letterSpacing: "clamp(0.18em, 1vw, 0.4em)",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.55)",
-          }}
-        >
-          Milan, Italy
-        </span>
-        <span style={{ color: "rgba(255,255,255,0.15)", margin: "0 4px" }}>|</span>
-        <span
-          style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "0.62rem",
-            letterSpacing: "clamp(0.18em, 1vw, 0.4em)",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.55)",
-          }}
-        >
-          Tribal · Progressive · Circuit House
-        </span>
-        <span
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "#FFB000",
-            display: "inline-block",
-            boxShadow: "0 0 10px rgba(255,176,0,0.5)",
-          }}
-        />
-      </motion.div>
-
-      {/* Profile photo removed */}
-
-      {/* MAIN CONTENT — bottom aligned */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-end px-6 pb-24 text-center"
-        style={{ zIndex: 3 }}
-      >
-        {/* Name */}
+      <div className="general-hero-scrim" aria-hidden="true" />
+      <div className="general-shell general-hero-content">
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          className="general-hero-meta"
+          initial={reducedMotion ? false : { opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ scale: 1.015, y: -3 }}
-          className="relative"
+          transition={{ duration: reducedMotion ? 0 : 0.65, delay: reducedMotion ? 0 : 0.12 }}
         >
-          <h1
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(2rem, 5.5vw, 4.2rem)",
-              lineHeight: 1,
-              letterSpacing: "0.25em",
-              marginRight: "-0.25em",
-              color: "#ffffff",
-              textShadow: "0 0 80px rgba(255,176,0,0.1)",
-              opacity: 0.85,
-            }}
-          >WILLIAN</h1>
-          <div style={{ display: "flex", justifyContent: "center", filter: "drop-shadow(0 0 50px rgba(255,255,255,0.15))", marginTop: "0.55rem" }}>
-            <ToszanLogo
-              cssHeight="min(11rem, calc((100vw - 3rem) / 4.392))"
-              gold={false}
-            />
+          <span>{copy.location}</span>
+          <span>{copy.role}</span>
+        </motion.div>
+
+        <motion.div
+          className="general-hero-brand"
+          initial={reducedMotion ? false : { opacity: 0, y: 36 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.85, delay: reducedMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p>WILLIAN</p>
+          <h1 id="general-hero-title">TOSZAN</h1>
+          <p className="general-hero-intro">{copy.intro}</p>
+        </motion.div>
+
+        <motion.div
+          className="general-hero-actions"
+          initial={reducedMotion ? false : { opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.7, delay: reducedMotion ? 0 : 0.38 }}
+        >
+          <a href="/booking" className="general-primary-link">{copy.booking}<ArrowRight size={17} aria-hidden="true" /></a>
+          <div className="general-hero-text-links">
+            <a href="#music">{copy.music}<ArrowDown size={14} aria-hidden="true" /></a>
+            <a href="#experience">{copy.live}<ArrowDown size={14} aria-hidden="true" /></a>
           </div>
-
-
-        </motion.div>
-
-        {/* Divider line */}
-        <motion.div
-          className="mt-6 mb-5"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 1.0 }}
-          style={{
-            height: "1px",
-            width: "clamp(80px, 25vw, 180px)",
-            background: "linear-gradient(90deg, transparent, #FFB000, transparent)",
-          }}
-        />
-
-        {/* Subtitle */}
-        <motion.p
-          className="mb-2"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "clamp(0.85rem, 2.5vw, 1.15rem)",
-            letterSpacing: "0.04em",
-            color: "rgba(255,255,255,0.9)",
-          }}
-        >
-          {t("hero.subtitle")}
-        </motion.p>
-
-        {/* Support text */}
-        <motion.p
-          className="mb-4"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "clamp(0.52rem, 1.3vw, 0.68rem)",
-            letterSpacing: "clamp(0.12em, 0.8vw, 0.24em)",
-            textTransform: "uppercase",
-            color: "rgba(255,176,0,0.7)",
-          }}
-        >
-          {t("hero.tag")}
-        </motion.p>
-
-        <motion.div
-          className="mb-7 flex flex-wrap items-center justify-center gap-2"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.25 }}
-        >
-          {["Milan Based", "EU Booking Ready", "Club / Circuit / Beach"].map((item) => (
-            <span
-              key={item}
-              style={{
-                border: "1px solid rgba(255,176,0,0.26)",
-                background: "rgba(255,255,255,0.045)",
-                color: "rgba(255,255,255,0.68)",
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "0.56rem",
-                letterSpacing: "0.22em",
-                padding: "8px 11px",
-                textTransform: "uppercase",
-              }}
-            >
-              {item}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* CTAs */}
-        <motion.div
-          className="flex flex-wrap items-center justify-center gap-3 md:gap-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.3 }}
-        >
-          {/* BOOKING */}
-          <button
-            onClick={openBooking}
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "0.64rem",
-              fontWeight: 600,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: "#0B0B0B",
-              background: "linear-gradient(135deg, #FFB000, #FF8C00)",
-              border: "1px solid rgba(255,176,0,0.7)",
-              padding: "14px 36px",
-              cursor: "pointer",
-              backdropFilter: "blur(12px)",
-              boxShadow: "0 0 24px rgba(255,176,0,0.24)",
-              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,176,0,0.9)";
-              e.currentTarget.style.color = "#0B0B0B";
-              e.currentTarget.style.background = "linear-gradient(135deg, #FFC547, #FF9D21)";
-              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
-              e.currentTarget.style.boxShadow = "0 12px 34px rgba(255,176,0,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,176,0,0.7)";
-              e.currentTarget.style.color = "#0B0B0B";
-              e.currentTarget.style.background = "linear-gradient(135deg, #FFB000, #FF8C00)";
-              e.currentTarget.style.transform = "scale(1) translateY(0)";
-              e.currentTarget.style.boxShadow = "0 0 24px rgba(255,176,0,0.24)";
-            }}
-          >
-            Book TOSZAN
-          </button>
-
-          {/* MUSIC */}
-          <button
-            onClick={() => scrollTo("#music")}
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "0.64rem",
-              fontWeight: 600,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: "#ffffff",
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              padding: "14px 36px",
-              cursor: "pointer",
-              backdropFilter: "blur(12px)",
-              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,176,0,0.6)";
-              e.currentTarget.style.color = "#FFB000";
-              e.currentTarget.style.background = "rgba(255,176,0,0.1)";
-              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
-              e.currentTarget.style.boxShadow = "0 10px 30px rgba(255,176,0,0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
-              e.currentTarget.style.color = "#ffffff";
-              e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-              e.currentTarget.style.transform = "scale(1) translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            {t("nav.music")}
-          </button>
-
-          {/* MEDIA KIT */}
-          <button
-            onClick={() => scrollTo("#mediakit")}
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "0.64rem",
-              fontWeight: 600,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: "#ffffff",
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              padding: "14px 36px",
-              cursor: "pointer",
-              backdropFilter: "blur(12px)",
-              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,176,0,0.6)";
-              e.currentTarget.style.color = "#FFB000";
-              e.currentTarget.style.background = "rgba(255,176,0,0.1)";
-              e.currentTarget.style.transform = "scale(1.05) translateY(-4px)";
-              e.currentTarget.style.boxShadow = "0 10px 30px rgba(255,176,0,0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
-              e.currentTarget.style.color = "#ffffff";
-              e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-              e.currentTarget.style.transform = "scale(1) translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            {t("hero.mediaKit")}
-          </button>
         </motion.div>
       </div>
-
     </section>
   );
 }

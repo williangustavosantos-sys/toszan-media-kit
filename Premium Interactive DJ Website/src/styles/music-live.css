@@ -7,13 +7,13 @@
   --media-rule: rgba(242, 239, 233, .16);
   position: relative;
   overflow: hidden;
-  scroll-margin-top: 84px;
+  scroll-margin-top: var(--site-anchor-offset, 104px);
   background: var(--media-bg);
   color: var(--media-paper);
   font-family: 'Space Grotesk', sans-serif;
 }
 .music-editorial { padding: 112px 0 96px; border-block: 1px solid var(--media-rule); }
-.music-anchor { position: absolute; top: 0; scroll-margin-top: 84px; }
+.music-anchor { position: absolute; top: 0; scroll-margin-top: var(--site-anchor-offset, 104px); }
 .music-ambient { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 78% 15%, rgba(189, 156, 106, .09), transparent 38%), linear-gradient(180deg, #0b0c0c, #080909 62%); }
 .music-shell,
 .live-shell { width: min(1440px, calc(100% - 112px)); margin-inline: auto; position: relative; z-index: 1; }
@@ -92,10 +92,10 @@
   .music-platform-tabs { flex: 1; }
   .music-platform-tabs button { min-width: 0; flex: 1; padding-inline: 12px; font-size: 8px; }
   .music-track-controls > span { display: none; }
-  .music-track-controls button { width: 42px; height: auto; min-height: 52px; border-block: 0; }
+  .music-track-controls button { width: 44px; height: auto; min-height: 52px; border-block: 0; }
   .music-cover-rail { width: calc(100% + 20px); gap: 13px; padding-bottom: 24px; }
-  .music-cover-button { flex-basis: 146px; }
-  .music-cover-title { font-size: 11px; }
+  .music-cover-button { flex-basis: clamp(174px, 52vw, 222px); }
+  .music-cover-title { font-size: 12px; }
   .music-swipe-note { display: flex; }
   .music-player-stage { grid-template-columns: 1fr; margin-top: 0; }
   .music-player-meta { position: relative; padding: 24px 0 26px; }
@@ -156,10 +156,16 @@
 .live-card-copy a { min-height: 38px; width: max-content; max-width: 100%; margin-top: 9px; display: inline-flex; align-items: center; gap: 8px; color: #d6d3cb; font-size: 7px; font-weight: 600; letter-spacing: .13em; line-height: 1.4; text-decoration: none; text-transform: uppercase; pointer-events: auto; }
 .live-card-copy a:hover { color: #e0c499; }
 .live-support-heading { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--media-rule); margin-top: 54px; }
+.live-support-heading > div:first-child { display: flex; align-items: center; gap: 24px; }
 .live-support-heading span { color: #777a74; font-size: 9px; letter-spacing: .16em; }
 .live-support-heading p { margin: 0; color: #c0c1ba; font-size: 8px; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; }
-.live-support-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 22px; }
-.live-support-item { min-width: 0; }
+.live-support-controls { display: flex; align-items: center; gap: 8px; }
+.live-support-controls > span { min-width: 54px; text-align: right; }
+.live-support-controls button { appearance: none; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--media-rule); border-radius: 0; background: transparent; color: var(--media-paper); cursor: pointer; }
+.live-support-controls button:hover:not(:disabled) { border-color: var(--media-gold); color: #d8bd91; }
+.live-support-controls button:disabled { cursor: default; opacity: .28; }
+.live-support-grid { display: flex; gap: 18px; margin-top: 22px; overflow-x: auto; overscroll-behavior-inline: contain; padding: 1px 1px 18px; scroll-padding-inline: 1px; scroll-snap-type: x mandatory; scrollbar-color: rgba(189, 156, 106, .55) rgba(255, 255, 255, .05); scrollbar-width: thin; }
+.live-support-item { flex: 0 0 calc((100% - 36px) / 3); min-width: 0; scroll-snap-align: start; }
 .live-booking-cta { margin-top: 58px; border-block: 1px solid var(--media-rule); min-height: 116px; display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 24px 0; }
 .live-booking-cta > div > span { color: var(--media-gold); font-size: 8px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
 .live-booking-cta p { max-width: 650px; margin: 9px 0 0; color: var(--media-muted); font-size: 13px; line-height: 1.7; }
@@ -174,16 +180,18 @@
 
 @media (max-width: 1100px) {
   .live-heading { gap: 50px; }
-  .live-featured-1 { grid-column: span 6; }
+  .live-featured-1 { grid-column: 1 / -1; }
   .live-featured-2,
-  .live-featured-3 { grid-column: span 3; }
+  .live-featured-3 { grid-column: span 6; }
+  .live-featured-1 .live-card.is-wide { aspect-ratio: 16 / 9; }
+  .live-support-item { flex-basis: min(40vw, 340px); }
   .live-card-copy { padding: 15px; }
   .live-card-copy h3 { font-size: clamp(26px, 3vw, 38px); }
   .live-card.is-wide .live-card-copy h3 { font-size: clamp(38px, 5.5vw, 62px); }
 }
 
 @media (max-width: 767px) {
-  .live-editorial { padding: 72px 0 68px; scroll-margin-top: 76px; }
+  .live-editorial { padding: 68px 0 64px; scroll-margin-top: var(--site-anchor-offset, 80px); }
   .live-heading { grid-template-columns: 1fr; gap: 24px; margin-bottom: 38px; }
   .live-heading > p { justify-self: start; font-size: 13px; line-height: 1.8; }
   .live-facts { margin-bottom: 28px; }
@@ -191,29 +199,29 @@
   .live-facts > div:first-child { padding-left: 0; }
   .live-facts strong { display: block; font-size: 34px; }
   .live-facts span { display: block; margin-top: 5px; font-size: 6px; letter-spacing: .1em; }
-  .live-featured-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .live-featured-1 { grid-column: 1 / -1; }
+  .live-featured-grid { grid-template-columns: 1fr; gap: 18px; }
+  .live-featured-1,
   .live-featured-2,
-  .live-featured-3 { grid-column: span 1; }
+  .live-featured-3 { grid-column: 1; }
   .live-card.is-wide { aspect-ratio: 4 / 3; }
   .live-card-topline { top: 9px; left: 9px; right: 55px; gap: 5px; }
   .live-card-topline span { min-height: 24px; padding: 4px 6px; font-size: 6px; letter-spacing: .09em; }
-  .live-mute-control { top: 8px; right: 8px; width: 42px; height: 42px; }
+  .live-mute-control { top: 8px; right: 8px; width: 44px; height: 44px; }
   .live-play-control { min-width: 48px; min-height: 48px; padding: 11px 13px; }
-  .live-featured-2 .live-play-control span,
-  .live-featured-3 .live-play-control span { display: none; }
   .live-card-copy { padding: 12px; }
   .live-card-copy h3,
   .live-card.is-wide .live-card-copy h3 { font-size: clamp(28px, 10vw, 46px); }
   .live-featured-2 .live-card-copy h3,
-  .live-featured-3 .live-card-copy h3 { font-size: clamp(21px, 7vw, 30px); }
+  .live-featured-3 .live-card-copy h3 { font-size: clamp(30px, 10vw, 46px); }
   .live-card-copy p { font-size: 7px; letter-spacing: .08em; }
-  .live-featured-2 .live-card-copy p,
-  .live-featured-3 .live-card-copy p { display: none; }
   .live-card-copy a { font-size: 6px; }
-  .live-support-heading { margin-top: 42px; min-height: 56px; }
-  .live-support-grid { width: calc(100% + 20px); display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; padding: 1px 20px 20px 1px; scrollbar-width: thin; scrollbar-color: rgba(189, 156, 106, .55) rgba(255, 255, 255, .05); }
-  .live-support-item { flex: 0 0 min(72vw, 300px); scroll-snap-align: start; }
+  .live-support-heading { margin-top: 42px; min-height: 64px; }
+  .live-support-heading > div:first-child { display: block; }
+  .live-support-heading > div:first-child p { margin-top: 5px; }
+  .live-support-controls { gap: 5px; }
+  .live-support-controls > span { min-width: 44px; font-size: 7px; }
+  .live-support-grid { width: calc(100% + 20px); gap: 14px; padding: 14px 20px 22px 1px; }
+  .live-support-item { flex: 0 0 min(82vw, 340px); scroll-snap-align: start; }
   .live-booking-cta { align-items: flex-start; flex-direction: column; gap: 22px; margin-top: 42px; padding-block: 26px; }
   .live-booking-cta p { font-size: 12px; }
   .live-booking-cta > a { width: 100%; }
@@ -221,6 +229,5 @@
 
 @media (max-width: 390px) {
   .live-card-topline span:first-child { display: none; }
-  .live-featured-2 .live-card-copy a,
-  .live-featured-3 .live-card-copy a { display: none; }
+  .live-support-controls > span { display: none; }
 }

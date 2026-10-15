@@ -1,180 +1,100 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "motion/react";
-import { Download, ExternalLink, Instagram, Music, Mail } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
-import { MomentsCarousel } from "./MomentsCarousel";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { useLanguage, type Language } from "../context/LanguageContext";
 import { creatorStats } from "../../data/creatorStats";
+import "../../styles/general-editorial.css";
+
+const proofImages = [
+  "/optimized/instagram_3.webp",
+  "/optimized/instagram_1.webp",
+  "/optimized/instagram_4.webp",
+  "/optimized/instagram_2.webp",
+] as const;
+
+const mediaUi: Record<Language, {
+  period: string;
+  source: string;
+  analytics: string;
+  creator: string;
+  imageAlt: string;
+}> = {
+  en: { period: "June 5 to July 4, 2026", source: "Historical Instagram Professional Insights", analytics: "Open verified analytics", creator: "Open Creator portfolio", imageAlt: "TOSZAN creator portfolio image" },
+  pt: { period: "5 de junho a 4 de julho de 2026", source: "Dados históricos profissionais do Instagram", analytics: "Ver métricas verificadas", creator: "Ver portfólio de criador", imageAlt: "Imagem do portfólio de criador de TOSZAN" },
+  it: { period: "Dal 5 giugno al 4 luglio 2026", source: "Dati professionali storici di Instagram", analytics: "Apri i dati verificati", creator: "Apri il portfolio del creatore", imageAlt: "Immagine del portfolio del creatore TOSZAN" },
+  es: { period: "Del 5 de junio al 4 de julio de 2026", source: "Datos profesionales históricos de Instagram", analytics: "Ver métricas verificadas", creator: "Ver portfolio de creador", imageAlt: "Imagen del portfolio de creador de TOSZAN" },
+  fr: { period: "Du 5 juin au 4 juillet 2026", source: "Données professionnelles historiques d’Instagram", analytics: "Voir les données vérifiées", creator: "Voir le portfolio créateur", imageAlt: "Image du portfolio créateur de TOSZAN" },
+};
+
+function AnimatedMetric({ value, locale, reducedMotion }: { value: string; locale: string; reducedMotion: boolean }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.7 });
+  const amount = Number(value.replace(/[,.]/g, ""));
+  const [display, setDisplay] = useState(reducedMotion ? value : "0");
+
+  useEffect(() => {
+    if (reducedMotion) { setDisplay(value); return; }
+    if (!inView) return;
+    let frame = 0;
+    const started = performance.now();
+    const formatter = new Intl.NumberFormat(locale);
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - started) / 1350);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(progress === 1 ? value : formatter.format(Math.round(amount * eased)));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [amount, inView, locale, reducedMotion, value]);
+
+  return <span ref={ref} data-final-value={value}>{display}</span>;
+}
 
 export function MediaKit() {
-  const { t } = useLanguage();
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
-
-  const stats = [
-    { value: Math.floor(Number(creatorStats.monthlyViewsExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.views"), accent: "#FFB000" },
-    { value: Math.floor(Number(creatorStats.followersExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.followers"), accent: "#00A86B" },
-    { value: Math.floor(Number(creatorStats.interactionsExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.interactions"), accent: "#FFB000" },
-    { value: Number(creatorStats.newFollowersExact.replace(/,/g, "")), suffix: "", label: t("media.stats.growth"), accent: "#1E90FF" },
-    { value: Math.floor(Number(creatorStats.accountsReachedExact.replace(/,/g, "")) / 1000), suffix: "K+", label: t("media.stats.reach"), accent: "#FFB000" },
-    { value: 0, suffix: t("media.stats.milan"), label: t("media.stats.based"), accent: "#00A86B", isStatic: true },
+  const { t, language } = useLanguage();
+  const reducedMotion = Boolean(useReducedMotion());
+  const copy = mediaUi[language];
+  const locale = language === "pt" ? "pt-BR" : language === "it" ? "it-IT" : language === "es" ? "es-ES" : language === "fr" ? "fr-FR" : "en-US";
+  const metrics = [
+    { value: creatorStats.monthlyViewsExact, label: t("media.stats.views") },
+    { value: creatorStats.followersExact, label: t("media.stats.followers") },
+    { value: creatorStats.interactionsExact, label: t("media.stats.interactions") },
+    { value: creatorStats.accountsReachedExact, label: t("media.stats.reach") },
+    { value: creatorStats.newFollowersExact, label: t("media.stats.growth") },
   ];
 
-
-
-  function AnimatedNumber({ value, isFloat, isStatic }: { value: number, isFloat?: boolean, isStatic?: boolean }) {
-    const [count, setCount] = useState(0);
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true, margin: "-50px" });
-
-    useEffect(() => {
-      if (inView && !isStatic) {
-        let start = 0;
-        const duration = 2000;
-        const startTime = performance.now();
-
-        const animate = (currentTime: number) => {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-
-          const ease = 1 - Math.pow(1 - progress, 4);
-          const current = start + (value - start) * ease;
-
-          setCount(current);
-
-          if (progress < 1) {
-            requestAnimationFrame(animate);
-          } else {
-            setCount(value);
-          }
-        };
-        requestAnimationFrame(animate);
-      } else if (isStatic) {
-        setCount(value);
-      }
-    }, [inView, value, isStatic]);
-
-    if (isStatic) return null;
-
-    return (
-      <span ref={ref}>
-        {isFloat ? count.toFixed(1).replace(".", ",") : Math.floor(count)}
-      </span>
-    );
-  }
-
   return (
-    <section
-      id="mediakit"
-      className="py-24 px-6 md:px-12 relative overflow-hidden"
-      style={{ background: "#111111", position: "relative" }}
-    >
-      {/* Background ambient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,176,0,0.06) 0%, transparent 60%)",
-        }}
-      />
-      <div
-        className="absolute top-0 left-0 right-0"
-        style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(255,176,0,0.4), transparent)" }}
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-
-        {/* Header */}
-        <motion.div
-          ref={titleRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 flex flex-col items-center text-center gap-8"
-        >
-          <div>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div style={{ width: "40px", height: "1px", background: "linear-gradient(90deg, transparent, #FFB000)" }} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.6rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "#FFB000" }}>
-                {t("media.label")}
-              </span>
-              <div style={{ width: "40px", height: "1px", background: "linear-gradient(90deg, #FFB000, transparent)" }} />
-            </div>
-            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.5rem, 7vw, 5.5rem)", letterSpacing: "0.06em", color: "#ffffff", lineHeight: 1 }}>
-              {t("media.title")}
-            </h2>
-            <p className="mt-2" style={{ fontFamily: "'Caveat', cursive", fontSize: "1.5rem", color: "rgba(255,176,0,0.65)" }}>
-              {t("media.subtitle")}
-            </p>
-          </div>
-          <p className="max-w-2xl" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.85rem", lineHeight: 1.85, color: "rgba(255,255,255,0.35)", letterSpacing: "0.04em" }}>
-            {t("media.desc")}
-          </p>
+    <section id="mediakit" className="general-media" aria-labelledby="general-media-title">
+      <div className="general-shell">
+        <motion.div className="general-media-heading" initial={reducedMotion ? false : { opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: reducedMotion ? 0 : 0.7 }}>
+          <div><p className="general-eyebrow">{t("media.label")}</p><h2 id="general-media-title">{t("media.title")}</h2></div>
+          <div><p className="general-media-script">{t("media.subtitle")}</p><p className="general-body-copy">{t("media.desc")}</p></div>
         </motion.div>
 
-        {/* Instagram Photos */}
-        <MomentsCarousel />
-
-        {/* Stats Row */}
-        <div className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8 }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
-          >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05, y: -6, zIndex: 10, transition: { duration: 0.3, ease: "easeOut" } }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="relative group flex flex-col items-center justify-center text-center py-7 px-4 rounded-xl transition-colors duration-500 hover:border-white/20"
-                style={{
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,176,0,0.12)",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
-                }}
-              >
-                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", letterSpacing: "0.06em", color: stat.accent, lineHeight: 1 }}>
-                  <AnimatedNumber value={stat.value} isFloat={stat.isFloat} isStatic={stat.isStatic} />
-                  {stat.suffix}
-                </div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.52rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginTop: "6px" }}>
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-          <p className="mt-4 text-center text-xs tracking-wide text-white/50">
-            Instagram Insights · {creatorStats.dateRange}
-          </p>
+        <div className="general-proof-rail" aria-label={t("media.title")}>
+          {proofImages.map((image, index) => (
+            <motion.figure key={image} initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : index * 0.05 }}>
+              <img src={image} alt={`${copy.imageAlt} ${index + 1}`} loading="lazy" decoding="async" />
+              <figcaption>{String(index + 1).padStart(2, "0")} / 04</figcaption>
+            </motion.figure>
+          ))}
         </div>
 
-        {/* Final Phrase / Quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.9, delay: 0.2 }}
-          className="mt-28 text-center"
-        >
-          <h3 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: "italic",
-            fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
-            color: "#ffffff",
-            lineHeight: 1.4,
-            opacity: 0.9,
-            maxWidth: "800px",
-            margin: "0 auto"
-          }}>
-            “{t("brand.quote1")}<br />
-            <span style={{ color: "#FFB000" }}>{t("brand.quote2")}</span>”
-          </h3>
-        </motion.div>
+        <div className="general-metric-strip">
+          {metrics.map((metric, index) => (
+            <motion.div key={metric.label} initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : index * 0.05 }}>
+              <strong><AnimatedMetric value={metric.value} locale={locale} reducedMotion={reducedMotion} /></strong>
+              <span>{metric.label}</span>
+            </motion.div>
+          ))}
+          <div className="general-metric-location"><strong>{t("media.stats.milan")}</strong><span>{t("media.stats.based")}</span></div>
+        </div>
+
+        <div className="general-media-source">
+          <p><span>{copy.source}</span>{copy.period}</p>
+          <div><a href="/analytics">{copy.analytics}<ArrowRight size={15} aria-hidden="true" /></a><a href="/creator">{copy.creator}<ExternalLink size={14} aria-hidden="true" /></a></div>
+        </div>
       </div>
     </section>
   );

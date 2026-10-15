@@ -7,12 +7,13 @@ import "../../styles/music-live.css";
 
 type Platform = "spotify" | "soundcloud";
 type MusicContext = "general" | "booking";
+type TrackType = "latest" | "new" | "live" | "remix" | "original" | "promo";
 
 const soundcloudTracks = [
   {
     id: "promo-set-2026",
     title: "Promo DJ Set TOSZAN — Splash Roma",
-    type: "Latest Release",
+    type: "latest" as TrackType,
     url: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-XDLKMpoYPopeyXs3-YI5G2Q-t500x500.jpg",
@@ -20,7 +21,7 @@ const soundcloudTracks = [
   {
     id: "brasil",
     title: "BRASIL - Sente essa pressão!",
-    type: "New Release",
+    type: "new" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/brasil",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/brasil&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-L5NlzlzzUIckkkFZ-3soezQ-t500x500.jpg",
@@ -28,7 +29,7 @@ const soundcloudTracks = [
   {
     id: "jamaican-bam-bam",
     title: "Jamaican (Bam Bam) — TOSZAN Remix",
-    type: "New Release",
+    type: "new" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-cnwDhLdEQTjyxQDm-Iyp7Xg-t500x500.jpg",
@@ -36,7 +37,7 @@ const soundcloudTracks = [
   {
     id: "manicomio",
     title: "TOSZAN Live at Manicomio",
-    type: "Live Set",
+    type: "live" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-F2H6wqLJLwayfNrU-m09i1g-t500x500.jpg",
@@ -44,7 +45,7 @@ const soundcloudTracks = [
   {
     id: "g-latina",
     title: "G-LATINA (TOSZAN Remix)",
-    type: "Toszan Remix",
+    type: "remix" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-542RIF8EbM1nUUlq-2bMAVg-t500x500.png",
@@ -52,7 +53,7 @@ const soundcloudTracks = [
   {
     id: "sesso",
     title: "Sesso e Samba (Toszan Remix)",
-    type: "Toszan Remix",
+    type: "remix" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-WjT8DtlDzkBe0QtJ-E5syGg-t500x500.jpg",
@@ -60,7 +61,7 @@ const soundcloudTracks = [
   {
     id: "solta",
     title: "Solta Mais Pressão",
-    type: "Original",
+    type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-emfkIvI2m5iWFLse-of9TRw-t500x500.png",
@@ -68,7 +69,7 @@ const soundcloudTracks = [
   {
     id: "batte-forte",
     title: "BATTE FORTE",
-    type: "Original",
+    type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-batte-forte",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-batte-forte&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-ed2jJzMb6mrwA35r-EU3FuQ-t500x500.png",
@@ -76,7 +77,7 @@ const soundcloudTracks = [
   {
     id: "opera",
     title: "TOSZAN - OPERA",
-    type: "Original",
+    type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-opera",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-opera&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-xDLDWQ0GdZy9CIIp-k3V5fQ-t500x500.jpg",
@@ -84,7 +85,7 @@ const soundcloudTracks = [
   {
     id: "thundr",
     title: "THUNDR Promo Set",
-    type: "Promo Set",
+    type: "promo" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true",
     cover: "https://i1.sndcdn.com/artworks-oZbHbD2A479EpjKK-uzgAfg-t500x500.png",
@@ -112,18 +113,21 @@ const musicUi: Record<Language, {
   soundcloudTitle: string;
   spotifyTitle: string;
   services: string;
+  platformLabel: string;
+  types: Record<TrackType, string>;
 }> = {
-  en: { intro: "Ten real sets, remixes and originals. Choose a cover, switch platforms and listen without leaving the experience.", catalog: "10 selectable tracks", selected: "Selected", previous: "Previous track", next: "Next track", swipe: "Swipe or use the arrows", openTrack: "Open selected track on SoundCloud", soundcloudTitle: "SoundCloud player", spotifyTitle: "TOSZAN artist player on Spotify", services: "Listen on your platform" },
-  it: { intro: "Dieci set, remix e originali reali. Scegli una cover, cambia piattaforma e ascolta senza uscire dall’esperienza.", catalog: "10 tracce selezionabili", selected: "Selezionata", previous: "Traccia precedente", next: "Traccia successiva", swipe: "Scorri o usa le frecce", openTrack: "Apri la traccia selezionata su SoundCloud", soundcloudTitle: "Player SoundCloud", spotifyTitle: "Player artista TOSZAN su Spotify", services: "Ascolta sulla tua piattaforma" },
-  pt: { intro: "Dez sets, remixes e faixas autorais reais. Escolha uma capa, troque de plataforma e ouça sem sair da experiência.", catalog: "10 faixas selecionáveis", selected: "Selecionada", previous: "Faixa anterior", next: "Próxima faixa", swipe: "Deslize ou use as setas", openTrack: "Abrir faixa selecionada no SoundCloud", soundcloudTitle: "Player do SoundCloud", spotifyTitle: "Player do artista TOSZAN no Spotify", services: "Ouça na sua plataforma" },
-  es: { intro: "Diez sets, remixes y temas originales reales. Elige una portada, cambia de plataforma y escucha sin salir de la experiencia.", catalog: "10 pistas seleccionables", selected: "Seleccionada", previous: "Pista anterior", next: "Pista siguiente", swipe: "Desliza o usa las flechas", openTrack: "Abrir pista seleccionada en SoundCloud", soundcloudTitle: "Reproductor de SoundCloud", spotifyTitle: "Reproductor del artista TOSZAN en Spotify", services: "Escucha en tu plataforma" },
-  fr: { intro: "Dix sets, remixes et titres originaux réels. Choisissez une pochette, changez de plateforme et écoutez sans quitter l’expérience.", catalog: "10 titres à sélectionner", selected: "Sélectionné", previous: "Titre précédent", next: "Titre suivant", swipe: "Balayez ou utilisez les flèches", openTrack: "Ouvrir le titre sélectionné sur SoundCloud", soundcloudTitle: "Lecteur SoundCloud", spotifyTitle: "Lecteur de l’artiste TOSZAN sur Spotify", services: "Écoutez sur votre plateforme" },
+  en: { intro: "Ten real sets, remixes and originals. Choose a cover, switch platforms and listen without leaving the experience.", catalog: "10 selectable tracks", selected: "Selected", previous: "Previous track", next: "Next track", swipe: "Swipe or use the arrows", openTrack: "Open selected track on SoundCloud", soundcloudTitle: "SoundCloud player", spotifyTitle: "TOSZAN artist player on Spotify", services: "Listen on your platform", platformLabel: "Music platform", types: { latest: "Latest release", new: "New release", live: "Live set", remix: "TOSZAN remix", original: "Original", promo: "Promotional set" } },
+  it: { intro: "Dieci set, remix e originali reali. Scegli una cover, cambia piattaforma e ascolta senza uscire dall’esperienza.", catalog: "10 tracce selezionabili", selected: "Selezionata", previous: "Traccia precedente", next: "Traccia successiva", swipe: "Scorri o usa le frecce", openTrack: "Apri la traccia selezionata su SoundCloud", soundcloudTitle: "Player SoundCloud", spotifyTitle: "Player artista TOSZAN su Spotify", services: "Ascolta sulla tua piattaforma", platformLabel: "Piattaforma musicale", types: { latest: "Ultima uscita", new: "Nuova uscita", live: "Set dal vivo", remix: "Remix TOSZAN", original: "Originale", promo: "Set promozionale" } },
+  pt: { intro: "Dez sets, remixes e faixas autorais reais. Escolha uma capa, troque de plataforma e ouça sem sair da experiência.", catalog: "10 faixas selecionáveis", selected: "Selecionada", previous: "Faixa anterior", next: "Próxima faixa", swipe: "Deslize ou use as setas", openTrack: "Abrir faixa selecionada no SoundCloud", soundcloudTitle: "Player do SoundCloud", spotifyTitle: "Player do artista TOSZAN no Spotify", services: "Ouça na sua plataforma", platformLabel: "Plataforma de música", types: { latest: "Lançamento mais recente", new: "Novo lançamento", live: "Set ao vivo", remix: "Remix de TOSZAN", original: "Faixa autoral", promo: "Set promocional" } },
+  es: { intro: "Diez sets, remixes y temas originales reales. Elige una portada, cambia de plataforma y escucha sin salir de la experiencia.", catalog: "10 pistas seleccionables", selected: "Seleccionada", previous: "Pista anterior", next: "Pista siguiente", swipe: "Desliza o usa las flechas", openTrack: "Abrir pista seleccionada en SoundCloud", soundcloudTitle: "Reproductor de SoundCloud", spotifyTitle: "Reproductor del artista TOSZAN en Spotify", services: "Escucha en tu plataforma", platformLabel: "Plataforma musical", types: { latest: "Último lanzamiento", new: "Nuevo lanzamiento", live: "Set en directo", remix: "Remix de TOSZAN", original: "Tema original", promo: "Set promocional" } },
+  fr: { intro: "Dix sets, remixes et titres originaux réels. Choisissez une pochette, changez de plateforme et écoutez sans quitter l’expérience.", catalog: "10 titres à sélectionner", selected: "Sélectionné", previous: "Titre précédent", next: "Titre suivant", swipe: "Balayez ou utilisez les flèches", openTrack: "Ouvrir le titre sélectionné sur SoundCloud", soundcloudTitle: "Lecteur SoundCloud", spotifyTitle: "Lecteur de l’artiste TOSZAN sur Spotify", services: "Écoutez sur votre plateforme", platformLabel: "Plateforme musicale", types: { latest: "Dernière sortie", new: "Nouveau titre", live: "Set live", remix: "Remix TOSZAN", original: "Titre original", promo: "Set promotionnel" } },
 };
 
-function MusicCoverCard({ track, active, selectedLabel, onSelect, reducedMotion }: {
+function MusicCoverCard({ track, active, selectedLabel, typeLabel, onSelect, reducedMotion }: {
   track: (typeof soundcloudTracks)[number];
   active: boolean;
   selectedLabel: string;
+  typeLabel: string;
   onSelect: () => void;
   reducedMotion: boolean;
 }) {
@@ -145,7 +149,7 @@ function MusicCoverCard({ track, active, selectedLabel, onSelect, reducedMotion 
         {active ? <span className="music-cover-selected">{selectedLabel}</span> : null}
       </span>
       <span className="music-cover-title">{track.title}</span>
-      <span className="music-cover-type">{track.type}</span>
+      <span className="music-cover-type">{typeLabel}</span>
     </motion.button>
   );
 }
@@ -213,7 +217,7 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
         </motion.div>
 
         <div className="music-platform-row">
-          <div className="music-platform-tabs" role="tablist" aria-label="Music platform">
+          <div className="music-platform-tabs" role="tablist" aria-label={copy.platformLabel}>
             {(["soundcloud", "spotify"] as Platform[]).map((item) => (
               <button key={item} type="button" role="tab" aria-selected={platform === item} aria-controls={`music-panel-${item}`} onClick={() => setPlatform(item)}>{item}</button>
             ))}
@@ -231,13 +235,13 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
           {platform === "soundcloud" ? (
             <motion.div key="soundcloud" id="music-panel-soundcloud" role="tabpanel" className="music-platform-panel" initial={reducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -10 }} transition={{ duration: reducedMotion ? 0 : 0.38 }}>
               <div ref={railRef} className="music-cover-rail" aria-label={copy.catalog}>
-                {soundcloudTracks.map((track) => <MusicCoverCard key={track.id} track={track} active={activeTrackId === track.id} selectedLabel={copy.selected} onSelect={() => selectTrack(track.id)} reducedMotion={reducedMotion} />)}
+                {soundcloudTracks.map((track) => <MusicCoverCard key={track.id} track={track} active={activeTrackId === track.id} selectedLabel={copy.selected} typeLabel={copy.types[track.type]} onSelect={() => selectTrack(track.id)} reducedMotion={reducedMotion} />)}
               </div>
               <div className="music-swipe-note"><ChevronLeft size={14} aria-hidden="true" />{copy.swipe}<ChevronRight size={14} aria-hidden="true" /></div>
               <div className="music-player-stage" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
                 <div className="music-player-meta">
                   <span className="music-player-count">{String(activeIndex + 1).padStart(2, "0")}</span>
-                  <div aria-live="polite"><span>{activeTrack.type}</span><h3>{activeTrack.title}</h3></div>
+                  <div aria-live="polite"><span>{copy.types[activeTrack.type]}</span><h3>{activeTrack.title}</h3></div>
                   <div className="music-player-nav">
                     <button type="button" onClick={() => selectRelative(-1)} aria-label={copy.previous}><ChevronLeft size={20} /></button>
                     <button type="button" onClick={() => selectRelative(1)} aria-label={copy.next}><ChevronRight size={20} /></button>
@@ -246,7 +250,7 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
                 </div>
                 <AnimatePresence mode="wait" initial={!reducedMotion}>
                   <motion.div key={activeTrackId} className="music-player-frame" initial={reducedMotion ? false : { opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} exit={reducedMotion ? undefined : { opacity: 0, scale: 0.985 }} transition={{ duration: reducedMotion ? 0 : 0.32 }}>
-                    <iframe title={`${copy.soundcloudTitle} — ${activeTrack.title}`} width="100%" height="400" scrolling="no" frameBorder="0" allow="autoplay" src={activeTrack.embedUrl} />
+                    <iframe title={`${copy.soundcloudTitle} — ${activeTrack.title}`} width="100%" height="400" scrolling="no" frameBorder="0" allow="autoplay; encrypted-media" src={activeTrack.embedUrl} />
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -254,7 +258,7 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
           ) : (
             <motion.div key="spotify" id="music-panel-spotify" role="tabpanel" className="music-platform-panel music-spotify-panel" initial={reducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -10 }} transition={{ duration: reducedMotion ? 0 : 0.38 }}>
               <div className="music-spotify-heading"><Headphones size={20} aria-hidden="true" /><span>TOSZAN / Spotify</span></div>
-              <div className="music-player-frame"><iframe title={copy.spotifyTitle} src={SPOTIFY_EMBED} width="100%" height="450" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" /></div>
+              <div className="music-player-frame"><iframe title={copy.spotifyTitle} src={SPOTIFY_EMBED} width="100%" height="450" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" /></div>
             </motion.div>
           )}
         </AnimatePresence>

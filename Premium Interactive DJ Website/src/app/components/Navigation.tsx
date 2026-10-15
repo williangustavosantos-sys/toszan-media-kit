@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage, type Language } from "../context/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
 import { ToszanLogo } from "./ToszanLogo";
 import { creatorCopy, getCreatorLanguage } from "../../data/creatorCopy";
@@ -9,7 +9,6 @@ import "../../styles/cinematic.css";
 
 export function Navigation() {
   const { t, language } = useLanguage();
-  const text = creatorCopy[getCreatorLanguage(language)];
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -17,17 +16,22 @@ export function Navigation() {
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
   const brand = path === "/creator" || path === "/analytics";
   const booking = path === "/booking";
-  const routeLabels = {
-    general: language === "pt" ? "Geral" : language === "it" ? "Generale" : language === "es" ? "General" : language === "fr" ? "Accueil" : "General",
-    booking: language === "pt" ? "Booking" : language === "it" ? "Booking" : language === "es" ? "Booking" : language === "fr" ? "Booking" : "Booking",
-    creator: "Creator",
+  const effectiveLanguage: Language = brand && (language === "es" || language === "fr") ? "en" : language;
+  const text = creatorCopy[getCreatorLanguage(effectiveLanguage)];
+  const navUi: Record<Language, { general: string; booking: string; creator: string; skip: string; nav: string; home: string; open: string; close: string }> = {
+    en: { general: "General", booking: "DJ / Booking", creator: "Creator", skip: "Skip to content", nav: "Main navigation", home: "TOSZAN — General", open: "Open menu", close: "Close menu" },
+    pt: { general: "Visão geral", booking: "DJ / Contratação", creator: "Criador", skip: "Ir para o conteúdo", nav: "Navegação principal", home: "TOSZAN — Visão geral", open: "Abrir menu", close: "Fechar menu" },
+    it: { general: "Generale", booking: "DJ / Ingaggi", creator: "Creatore", skip: "Vai al contenuto", nav: "Navigazione principale", home: "TOSZAN — Generale", open: "Apri menu", close: "Chiudi menu" },
+    es: { general: "General", booking: "DJ / Contratación", creator: "Creador", skip: "Ir al contenido", nav: "Navegación principal", home: "TOSZAN — General", open: "Abrir menú", close: "Cerrar menú" },
+    fr: { general: "Accueil", booking: "DJ / Réservation", creator: "Créateur", skip: "Aller au contenu", nav: "Navigation principale", home: "TOSZAN — Accueil", open: "Ouvrir le menu", close: "Fermer le menu" },
   };
+  const labels = navUi[effectiveLanguage];
   const cta = brand ? text.nav.cta : bookingCopy[language].contact;
   const ctaHref = brand ? "/creator#contact" : booking ? "#booking-contact" : "/booking";
   const routeLinks = [
-    { label: routeLabels.general, href: "/", current: path === "/" },
-    { label: routeLabels.booking, href: "/booking", current: booking },
-    { label: routeLabels.creator, href: "/creator", current: path === "/creator" },
+    { label: labels.general, href: "/", current: path === "/" },
+    { label: labels.booking, href: "/booking", current: booking },
+    { label: labels.creator, href: "/creator", current: path === "/creator" },
   ];
   const localLinks = brand ? [
     { label: text.nav.work, href: "/creator#work" },
@@ -60,14 +64,14 @@ export function Navigation() {
   },[menuOpen]);
   const close=()=>setMenuOpen(false);
   return <>
-    <a href="#main-content" className="cine-skip">{language==="it"?"Vai al contenuto":language==="pt"?"Ir para o conteúdo":"Skip to content"}</a>
-    <nav className={`cine-navigation ${scrolled||menuOpen?"is-scrolled":""}`} aria-label={language==="it"?"Navigazione principale":language==="pt"?"Navegação principal":"Main navigation"}>
-      <a href="/" className="cine-nav-logo" aria-label="TOSZAN home" onClick={close}><ToszanLogo logoHeight={24} gold={false}/></a>
+    <a href="#main-content" className="cine-skip">{labels.skip}</a>
+    <nav className={`cine-navigation ${scrolled||menuOpen?"is-scrolled":""}`} aria-label={labels.nav}>
+      <a href="/" className="cine-nav-logo" aria-label={labels.home} onClick={close}><ToszanLogo logoHeight={24} gold={false}/></a>
       <div className="cine-nav-links">
         <div className="cine-nav-routes">{routeLinks.map(link=><a href={link.href} key={link.href} aria-current={link.current?"page":undefined}>{link.label}</a>)}</div>
         <div className="cine-nav-local">{localLinks.map(link=><a href={link.href} key={link.href}>{link.label}</a>)}</div>
       </div>
-      <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector creatorLanguagesOnly={brand}/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
+      <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector creatorLanguagesOnly={brand}/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?labels.close:labels.open} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
     </nav>
     {menuOpen&&<div ref={menu} id="toszan-mobile-menu" className="cine-menu"><div className="cine-menu-routes">{routeLinks.map(link=><a key={link.href} href={link.href} aria-current={link.current?"page":undefined} onClick={close}>{link.label}</a>)}</div><div className="cine-menu-local">{localLinks.map(link=><a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}</div><a className="cine-menu-cta" href={ctaHref} onClick={close}>{cta} ↗</a></div>}
   </>;

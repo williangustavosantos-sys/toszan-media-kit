@@ -22,6 +22,13 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
     ? language
     : "en";
   const activeLang = visibleLanguages.find((item) => item.code === selectedLanguage)!;
+  const selectorLabel: Record<Language, string> = {
+    en: "Change language",
+    pt: "Alterar idioma",
+    it: "Cambia lingua",
+    es: "Cambiar idioma",
+    fr: "Changer de langue",
+  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -63,25 +70,25 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        aria-label={`${activeLang.name} language`}
+        aria-label={`${selectorLabel[selectedLanguage]}. ${activeLang.name}`}
         className="flex min-h-11 items-center gap-2 px-3 py-2"
         style={{
-          background: isOpen ? "rgba(255,176,0,0.12)" : "rgba(255,255,255,0.04)",
+          background: isOpen ? "rgba(189,156,106,0.12)" : "rgba(255,255,255,0.035)",
           backdropFilter: "blur(20px)",
-          border: isOpen ? "1px solid rgba(255,176,0,0.5)" : "1px solid rgba(255,255,255,0.12)",
-          borderRadius: "6px",
+          border: isOpen ? "1px solid rgba(189,156,106,0.55)" : "1px solid rgba(255,255,255,0.12)",
+          borderRadius: "2px",
           transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-          boxShadow: isOpen ? "0 0 30px rgba(255,176,0,0.15)" : "none",
+          boxShadow: isOpen ? "0 0 30px rgba(189,156,106,0.13)" : "none",
         }}
       >
-        <Globe size={16} style={{ color: isOpen ? "#FFB000" : "rgba(255,255,255,0.5)" }} />
+        <Globe size={16} style={{ color: isOpen ? "#bd9c6a" : "rgba(255,255,255,0.5)" }} />
         <span
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: "0.65rem",
             letterSpacing: "0.2em",
             fontWeight: 600,
-            color: isOpen ? "#FFB000" : "rgba(255,255,255,0.7)",
+            color: isOpen ? "#d8ba8a" : "rgba(255,255,255,0.7)",
           }}
         >
           {activeLang.label}
@@ -102,10 +109,10 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
               minWidth: "180px",
               background: "rgba(11,11,11,0.95)",
               backdropFilter: "blur(30px)",
-              border: "1px solid rgba(255,176,0,0.25)",
-              borderRadius: "8px",
+              border: "1px solid rgba(189,156,106,0.28)",
+              borderRadius: "2px",
               overflow: "hidden",
-              boxShadow: "0 0 60px rgba(255,176,0,0.15), 0 10px 40px rgba(0,0,0,0.5)",
+              boxShadow: "0 0 60px rgba(189,156,106,0.12), 0 10px 40px rgba(0,0,0,0.5)",
             }}
           >
             <div className="py-2">
@@ -120,8 +127,8 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
                   onClick={() => handleLanguageChange(lang.code)}
                   className="w-full flex items-center justify-between px-4 py-3"
                   style={{
-                    background: selectedLanguage === lang.code ? "rgba(255,176,0,0.12)" : "transparent",
-                    borderLeft: selectedLanguage === lang.code ? "2px solid #FFB000" : "2px solid transparent",
+                    background: selectedLanguage === lang.code ? "rgba(189,156,106,0.12)" : "transparent",
+                    borderLeft: selectedLanguage === lang.code ? "2px solid #bd9c6a" : "2px solid transparent",
                     transition: "all 0.3s",
                   }}
                 >
@@ -132,7 +139,7 @@ export function LanguageSelector({ creatorLanguagesOnly = false }: { creatorLang
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontSize: "0.75rem",
                         fontWeight: 600,
-                        color: selectedLanguage === lang.code ? "#FFB000" : "rgba(255,255,255,0.85)",
+                        color: selectedLanguage === lang.code ? "#d8ba8a" : "rgba(255,255,255,0.85)",
                       }}
                     >
                       {lang.name}
@@ -163,10 +170,10 @@ export function LanguageSelectorMobile() {
             fontSize: "0.65rem",
             fontWeight: 600,
             letterSpacing: "0.2em",
-            color: language === lang.code ? "#FFB000" : "rgba(255,255,255,0.5)",
-            background: language === lang.code ? "rgba(255,176,0,0.1)" : "rgba(255,255,255,0.02)",
-            border: language === lang.code ? "1px solid rgba(255,176,0,0.4)" : "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "4px",
+            color: language === lang.code ? "#d8ba8a" : "rgba(255,255,255,0.5)",
+            background: language === lang.code ? "rgba(189,156,106,0.1)" : "rgba(255,255,255,0.02)",
+            border: language === lang.code ? "1px solid rgba(189,156,106,0.45)" : "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "2px",
             padding: "8px 12px",
             cursor: "pointer",
             transition: "all 0.3s",

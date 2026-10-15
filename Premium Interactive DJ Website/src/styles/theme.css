@@ -212,7 +212,7 @@
 
 /* Keep deep-linked sections visible below the fixed creator navigation. */
 main [id] {
-  scroll-margin-top: 88px;
+  scroll-margin-top: var(--site-anchor-offset, 104px);
 }
 
 @media (prefers-reduced-motion: reduce) {

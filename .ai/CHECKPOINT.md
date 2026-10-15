@@ -1,50 +1,36 @@
 # TOSZAN WEBSITE — CHECKPOINT
 
-Date: 2026-10-14 Europe/Rome.
+Date: 2026-10-15 Europe/Rome.
 
-## Completed in the revised candidate
+## Reopened after physical-iPhone rejection
 
-- Finished the partial Creator/Analytics interaction CSS and removed obsolete giant-arrow styling.
-- Rebuilt `MusicSection.tsx` as a complete, semantic 10-track in-page catalog with SoundCloud, Spotify, previous/next, swipe and reduced-motion support.
-- Rebuilt `LiveExperience.tsx` around all 9 real videos with 3 featured items, 6 supporting items, explicit touch controls and a single synchronized audio owner.
-- Fixed two media races found by focused browser QA: mute now reads actual media state, and viewport selection cannot undo a user's active audio owner.
-- Integrated the full Music and Live components into both General and Booking without duplicate IDs/controllers.
-- Corrected permanent global navigation, logo-to-General behavior and General hero logo geometry.
-- Preserved original media, translations, analytics evidence and historical data sources.
+- The owner rejected Production source `39cfd2fbec1a819d2f408971172dbd27b10e7ead` after inspecting it on a physical iPhone.
+- Prior automated layout and flow passes are retained only as historical technical evidence. They did not detect the unacceptable mobile composition and are not release acceptance.
+- Correction work is isolated on `fix/iphone-visual-correction-20261015` from the rejected Production commit.
+- `main`, `origin/main`, Production deployment and canonical domain must remain unchanged until explicit owner approval of a new Preview.
 
-## Verified locally
+## Baseline completed
 
-- Production build: PASS.
-- Layout/media inventory matrix: 24/24 PASS in Chrome and WebKit at iPhone, iPad and desktop viewports.
-- Functional matrix: 9/9 PASS, including all 10 tracks, Spotify, swipe, all 9 videos, one audio owner, mute, reduced motion, Save Data, counters, bars and all analytics modals.
-- No horizontal overflow, duplicate IDs, broken local images, local HTTP failures or page errors in the recorded matrix.
-- Evidence: `outputs/final-redesign-qa.json` and `outputs/final-redesign/*.png`.
+- Local Vite runs through managed session `toszan-iphone-visual-audit-60d5887b` at `http://127.0.0.1:4173`.
+- 64 full-page screenshots cover `/`, `/booking`, `/creator` and `/analytics` at eight widths in Chromium and WebKit.
+- 76 additional mobile critical-section captures cover the sections most likely to hide proportion and control defects.
+- Optical inspection confirms the reported defects; zero overflow was a false-positive proxy for visual quality.
+- Evidence and measurements are recorded in `outputs/iphone-correction/baseline/` and `outputs/iphone-correction/VISUAL_AUDIT.md`.
 
-## Verified Preview
+## Immediate implementation order
 
-- Source implementation commit: `5c35192659c031451af740e738dcd66d0424a264`.
-- URL: `https://toszan-media-c3g8bviig-williangustavosantos-sys-projects.vercel.app`.
-- Deployment: `dpl_AM72TGH4PfEDPePoiM99kn8V5Aju` (`READY`).
-- Hosted matrix: 24/24 PASS; hosted functional flows: 9/9 PASS.
-- Real SoundCloud embedded UI entered `playing` state in Chrome and WebKit mobile contexts.
-- Evidence: `outputs/hosted-preview-qa.json` and `outputs/hosted-soundcloud-qa.json`.
+1. Compact and integrate the Creator mobile hero portrait; remove redundant first-viewport CTAs.
+2. Make every Creator portfolio video a full-width editorial 9:16 item per row on phones with separated caption/control zones.
+3. Simplify General Hero and replace the internal-looking General contact/cards with a concise booking bridge and contact rows.
+4. Recompose Live for one dominant featured item plus clear, touch-safe navigation through all nine videos while preserving one audio owner.
+5. Consolidate color/type/spacing tokens and safe-area-aware fixed navigation/anchor offsets.
+6. Localize media titles, track types, dates, controls and ARIA labels across all supported languages.
+7. Validate build, interaction, media/audio state, links, languages, reduced motion, Chromium/WebKit and full-page visual evidence.
+8. Create a new Preview only and open `/` for owner review.
 
-## Published and verified Production
+## Release boundary
 
-- `main` was fast-forwarded without force and pushed at `7a0327d9fb755f02a41e1cdf292346e089936bfe`.
-- Canonical URL: `https://toszan-media-kit.vercel.app`.
-- Validated deployment: `dpl_98tbkqRGooPVkH5YBCApbHXQuG85` (`READY`, target `production`).
-- Production matrix: 24/24 PASS; Production functional flows: 9/9 PASS.
-- Real SoundCloud embedded UI entered `playing` state in Chrome and WebKit mobile contexts on Production.
-- Evidence: `outputs/production-qa.json` and `outputs/production-soundcloud-qa.json`.
-- Physical iPhone/iPad, native Safari application and perceived speaker output remain unverified and must not be claimed.
-
-## User authority
-
-The user explicitly requested: when finished, update `main` and Vercel and send the ready link. Main/Production publication is therefore authorized after hosted validation. Do not describe the prior rejected candidate as approved.
-
-## Next action
-
-1. Commit this final continuity-only checkpoint on `main`; it does not change the application subdirectory.
-2. Stop the managed local Vite session.
-3. Send `https://toszan-media-kit.vercel.app/` to the owner for visual/commercial review, with physical-device/audio limits stated explicitly.
+- Preview: authorized after validation.
+- `main`: not authorized in this reopened correction task.
+- Vercel Production / canonical alias: not authorized.
+- Physical iPhone Safari and perceived speaker output remain owner-side checks unless separately observed; do not claim them from emulation.

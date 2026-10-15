@@ -27,12 +27,13 @@ const english = {
     eyebrow: "Creator portfolio · 2026",
     headline: "Brazilian energy. European point of view.",
     description:
-      "Milan-based creator and fitness professional producing credible, high-energy content for lifestyle, menswear, wellness, travel, technology and culture brands.",
+      "Milan-based creator making credible, energetic content for menswear, wellness, travel and culture brands.",
     work: "View Selected Work",
     collaboration: "Start a Collaboration",
     analytics: "Verified Analytics",
     alt: "Willian Toszan, Brazilian creator based in Milan",
     roles: "Creator · Fitness · Music",
+    roleWord: "CREATOR",
     region: "Milan / Europe",
   },
   metricLabels: [
@@ -211,7 +212,7 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     meta: {
       title: "WILLIAN TOSZAN | Criador brasileiro em Milão",
       description:
-        "Criador brasileiro baseado em Milão. Lifestyle europeu, fitness, viagens, moda masculina, vida noturna e música para colaborações com marcas premium.",
+        "Criador brasileiro baseado em Milão. Estilo de vida europeu, fitness, viagens, moda masculina, vida noturna e música para colaborações com marcas premium.",
     },
     nav: {
       overview: "Visão geral",
@@ -225,15 +226,16 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     hero: {
       location: "Milão, Itália",
       availability: "Disponível em toda a Europa",
-      eyebrow: "Portfólio de creator · 2026",
+      eyebrow: "Portfólio de criador · 2026",
       headline: "Energia brasileira. Visão europeia.",
       description:
-        "Criador baseado em Milão e profissional de fitness, produzindo conteúdo confiável e dinâmico para marcas de lifestyle, moda masculina, bem-estar, viagens, tecnologia e cultura.",
+        "Criador em Milão, com conteúdo confiável e dinâmico para marcas de moda masculina, bem-estar, viagens e cultura.",
       work: "Ver trabalhos selecionados",
       collaboration: "Iniciar colaboração",
       analytics: "Métricas verificadas",
       alt: "Willian Toszan, criador brasileiro baseado em Milão",
-      roles: "Creator · Fitness · Música",
+      roles: "Criador · Fitness · Música",
+      roleWord: "CRIADOR",
       region: "Milão / Europa",
     },
     metricLabels: [
@@ -258,15 +260,15 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     ],
     performance: {
       eyebrow: "Resumo do público",
-      title: "Performance que gera atenção",
+      title: "Resultados que geram atenção",
       intro:
-        "Dados oficiais do Instagram Professional Insights de 5 de junho a 4 de julho de 2026, preservados com capturas de tela para verificação.",
+        "Dados profissionais oficiais do Instagram de 5 de junho a 4 de julho de 2026, preservados com capturas de tela para verificação.",
     },
     work: {
       eyebrow: "Conteúdo selecionado",
       title: "Conteúdo criado para marcas",
       intro:
-        "Uma seleção de formatos de vídeo vertical que demonstram narrativa de produto, comunicação segura em frente à câmera, styling e contexto de lifestyle europeu.",
+        "Uma seleção de vídeos verticais que demonstram narrativa de produto, comunicação segura em frente à câmera, direção de estilo e contexto europeu.",
       contentSample: "Exemplo de conteúdo",
       visualSample: "Exemplo visual",
       tapAgain: "Toque novamente para ativar o som",
@@ -275,13 +277,13 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       pause: "Pausar exemplo",
       videos: [
         {
-          title: "Apresentação como creator UGC",
+          title: "Apresentação como criador UGC",
           category: "UGC + Comunicação",
           description: "Uma apresentação objetiva da minha abordagem para criar conteúdo autêntico que conquista atenção para marcas.",
         },
         {
           title: "Campanha UGC — Cera capilar",
-          category: "Grooming masculino",
+          category: "Cuidados masculinos",
           description: "Trabalho completo de UGC criado para a Bottega Paesano, apresentando o problema, o produto e o resultado.",
         },
         {
@@ -292,12 +294,12 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
         {
           title: "Comunicação no fitness",
           category: "Fitness + Comunicação",
-          description: "Ideal para campanhas de fitness, bem-estar, coaching e motivação.",
+          description: "Ideal para campanhas de fitness, bem-estar, orientação e motivação.",
         },
         {
-          title: "Lifestyle de inverno em Milão",
+          title: "Estilo de vida no inverno de Milão",
           category: "Moda masculina + Milão",
-          description: "Ideal para moda masculina, grooming, styling e campanhas de lifestyle premium.",
+          description: "Ideal para moda masculina, cuidados pessoais, direção de estilo e campanhas premium.",
         },
       ],
     },
@@ -305,9 +307,9 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       eyebrow: "Pilares de conteúdo",
       title: "Uma identidade. Diferentes universos de marca.",
       intro:
-        "O valor está em não ficar limitado a um único nicho. É uma marca pessoal reconhecível, capaz de transitar com naturalidade por categorias premium de lifestyle sem parecer genérica.",
+        "O valor está em não ficar limitado a um único nicho. É uma marca pessoal reconhecível, capaz de transitar com naturalidade por categorias premium de estilo de vida sem parecer genérica.",
       items: [
-        "Lifestyle europeu",
+        "Estilo de vida europeu",
         "Fitness",
         "Moda masculina",
         "Viagens",
@@ -343,17 +345,17 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       intro: "Vídeos curtos e experiências reais, criados em Milão para marcas na Europa.",
       cta: "Conversar sobre uma parceria",
       offers: [
-        { title: "UGC & Reels", detail: "Demonstrações de produtos e vídeos curtos." },
-        { title: "Lifestyle & Viagens", detail: "Hotéis, moda masculina e experiências urbanas." },
-        { title: "Fitness & Bem-estar", detail: "Conteúdo com experiência profissional." },
-        { title: "Eventos & Nightlife", detail: "Cobertura de eventos e ativações de marcas." },
+        { title: "UGC e Reels", detail: "Demonstrações de produtos e vídeos curtos." },
+        { title: "Estilo de vida e viagens", detail: "Hotéis, moda masculina e experiências urbanas." },
+        { title: "Fitness e bem-estar", detail: "Conteúdo com experiência profissional." },
+        { title: "Eventos e vida noturna", detail: "Cobertura de eventos e ativações de marcas." },
       ],
     },
     contact: {
       eyebrow: "Contato",
       title: "Vamos criar a campanha certa",
       intro:
-        "Para marcas, agências, hotéis, turismo, moda, fitness, tecnologia, grooming, lifestyle e eventos. Inclua objetivo, entregas, prazo e faixa de orçamento para uma resposta mais rápida.",
+        "Para marcas, agências, hotéis, turismo, moda, fitness, tecnologia, cuidados pessoais, estilo de vida e eventos. Inclua objetivo, entregas, prazo e faixa de orçamento para uma resposta mais rápida.",
       partnershipEmail: "E-mail para parcerias",
       analytics: "Métricas",
       verified: "Capturas verificadas",
@@ -361,16 +363,16 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       sendBrief: "Enviar briefing da colaboração",
       instagram: "Ver Instagram",
       footerLocation: "© 2026 Willian Toszan · Milão, Itália",
-      footerRoles: "Creator · Fitness · Lifestyle · Música",
+      footerRoles: "Criador · Fitness · Estilo de vida · Música",
     },
     analyticsPage: {
       eyebrow: "Métricas verificadas",
       title: "Dados verificados do Instagram",
       intro: "Registro verificado do Instagram de 5 de junho a 4 de julho de 2026. Capturas oficiais disponíveis abaixo.",
-      creatorPage: "Página do creator",
+      creatorPage: "Página do criador",
       startProject: "Iniciar projeto",
       verification:
-        "Todas as métricas desta página vêm diretamente do Instagram Professional Insights. As capturas foram feitas no Painel Profissional do Instagram. A verificação completa ao vivo está disponível mediante solicitação.",
+        "Todas as métricas desta página vêm diretamente dos dados profissionais do Instagram. As capturas foram feitas no Painel Profissional do Instagram. A verificação completa ao vivo está disponível mediante solicitação.",
       snapshot: "Resumo de julho de 2026",
       month: "Julho de 2026",
       metricLabels: ["Seguidores", "Visualizações mensais", "Contas alcançadas", "Interações", "Novos seguidores", "Cliques no link"],
@@ -389,7 +391,7 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
         { title: "Visão geral das visualizações", metric: "174.189 visualizações e 56.062 contas alcançadas" },
         { title: "Cidades do público das visualizações", metric: "São Paulo, Milão, Roma e Rio de Janeiro" },
         { title: "Visão geral das interações", metric: "24.039 interações" },
-        { title: "Cidades das interações", metric: "Distribuição por cidade segundo o Instagram Insights" },
+        { title: "Cidades das interações", metric: "Distribuição por cidade segundo os dados do Instagram" },
         { title: "Países das interações", metric: "Brasil, Itália, Estados Unidos e Espanha" },
         { title: "Idade das interações", metric: "Principais faixas etárias: 25–44 anos" },
         { title: "Detalhe do público das interações", metric: "Detalhe do iPad com cartões do público" },
@@ -405,9 +407,9 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
   },
   it: {
     meta: {
-      title: "WILLIAN TOSZAN | Creator brasiliano a Milano",
+      title: "WILLIAN TOSZAN | Creatore brasiliano a Milano",
       description:
-        "Creator brasiliano con base a Milano. Lifestyle europeo, fitness, viaggi, moda uomo, nightlife e musica per collaborazioni con brand premium.",
+        "Creatore brasiliano con base a Milano. Stile di vita europeo, fitness, viaggi, moda uomo, vita notturna e musica per collaborazioni con marchi premium.",
     },
     nav: {
       overview: "Panoramica",
@@ -421,15 +423,16 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     hero: {
       location: "Milano, Italia",
       availability: "Disponibile in tutta Europa",
-      eyebrow: "Portfolio creator · 2026",
+      eyebrow: "Portfolio del creatore · 2026",
       headline: "Energia brasiliana. Punto di vista europeo.",
       description:
-        "Creator con base a Milano e professionista del fitness, produce contenuti credibili e dinamici per brand di lifestyle, moda uomo, benessere, viaggi, tecnologia e cultura.",
+        "Creatore a Milano, con contenuti credibili e dinamici per marchi di moda uomo, benessere, viaggi e cultura.",
       work: "Guarda i lavori selezionati",
       collaboration: "Avvia una collaborazione",
       analytics: "Dati verificati",
-      alt: "Willian Toszan, creator brasiliano con base a Milano",
-      roles: "Creator · Fitness · Musica",
+      alt: "Willian Toszan, creatore brasiliano con base a Milano",
+      roles: "Creatore · Fitness · Musica",
+      roleWord: "CREATORE",
       region: "Milano / Europa",
     },
     metricLabels: [
@@ -454,15 +457,15 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
     ],
     performance: {
       eyebrow: "Dati sul pubblico",
-      title: "Performance che conquista l'attenzione",
+      title: "Risultati che conquistano l'attenzione",
       intro:
-        "Dati ufficiali di Instagram Professional Insights dal 5 giugno al 4 luglio 2026, conservati con screenshot di verifica.",
+        "Dati professionali ufficiali di Instagram dal 5 giugno al 4 luglio 2026, conservati con schermate di verifica.",
     },
     work: {
       eyebrow: "Contenuti selezionati",
       title: "Contenuti creati per i brand",
       intro:
-        "Una selezione di formati video verticali che mostra storytelling di prodotto, sicurezza davanti alla videocamera, styling e contesto lifestyle europeo.",
+        "Una selezione di video verticali che mostra narrazione di prodotto, sicurezza davanti alla videocamera, direzione stilistica e contesto europeo.",
       contentSample: "Esempio di contenuto",
       visualSample: "Esempio visivo",
       tapAgain: "Tocca di nuovo per attivare l'audio",
@@ -471,13 +474,13 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       pause: "Metti in pausa",
       videos: [
         {
-          title: "Presentazione come creator UGC",
+          title: "Presentazione come creatore UGC",
           category: "UGC + Comunicazione",
           description: "Una presentazione diretta del mio approccio alla creazione di contenuti autentici capaci di conquistare l'attenzione per i brand.",
         },
         {
           title: "Campagna UGC — Cera per capelli",
-          category: "Grooming uomo",
+          category: "Cura maschile",
           description: "Un contenuto UGC completo creato per Bottega Paesano, dal problema iniziale al prodotto e al risultato.",
         },
         {
@@ -488,12 +491,12 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
         {
           title: "Comunicazione nel fitness",
           category: "Fitness + Comunicazione",
-          description: "Ideale per campagne fitness, benessere, coaching e motivazione.",
+          description: "Ideale per campagne fitness, benessere, formazione e motivazione.",
         },
         {
-          title: "Lifestyle invernale a Milano",
+          title: "Stile di vita invernale a Milano",
           category: "Moda uomo + Milano",
-          description: "Ideale per moda uomo, grooming, styling e campagne lifestyle premium.",
+          description: "Ideale per moda uomo, cura personale, direzione stilistica e campagne premium.",
         },
       ],
     },
@@ -501,13 +504,13 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       eyebrow: "Pilastri dei contenuti",
       title: "Un'identità. Diversi mondi di marca.",
       intro:
-        "Il valore non è essere limitati a una sola nicchia. È un personal brand riconoscibile, capace di muoversi con naturalezza tra categorie lifestyle premium senza risultare generico.",
+        "Il valore non è essere limitati a una sola nicchia. È un'identità personale riconoscibile, capace di muoversi con naturalezza tra categorie premium senza risultare generica.",
       items: [
-        "Lifestyle europeo",
+        "Stile di vita europeo",
         "Fitness",
         "Moda uomo",
         "Viaggi",
-        "Nightlife",
+        "Vita notturna",
         "DJ e musica",
         "Brasile in Europa",
         "Italia vs Brasile",
@@ -539,17 +542,17 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       intro: "Video brevi ed esperienze reali, creati a Milano per brand in Europa.",
       cta: "Parliamo di una collaborazione",
       offers: [
-        { title: "UGC & Reels", detail: "Demo di prodotto e video brevi." },
-        { title: "Lifestyle & Viaggi", detail: "Hotel, moda uomo ed esperienze urbane." },
-        { title: "Fitness & Benessere", detail: "Contenuti con esperienza professionale." },
-        { title: "Eventi & Nightlife", detail: "Copertura di eventi e attivazioni di brand." },
+        { title: "UGC e Reel", detail: "Dimostrazioni di prodotto e video brevi." },
+        { title: "Stile di vita e viaggi", detail: "Hotel, moda uomo ed esperienze urbane." },
+        { title: "Fitness e benessere", detail: "Contenuti con esperienza professionale." },
+        { title: "Eventi e vita notturna", detail: "Copertura di eventi e attivazioni di marchi." },
       ],
     },
     contact: {
       eyebrow: "Contatti",
       title: "Creiamo la campagna giusta",
       intro:
-        "Per brand, agenzie, hotel, turismo, moda, fitness, tecnologia, grooming, lifestyle ed eventi. Includi obiettivo, deliverable, tempistiche e fascia di budget per ricevere una risposta più rapida.",
+        "Per marchi, agenzie, hotel, turismo, moda, fitness, tecnologia, cura personale ed eventi. Includi obiettivo, materiali richiesti, tempistiche e fascia di budget per ricevere una risposta più rapida.",
       partnershipEmail: "E-mail per collaborazioni",
       analytics: "Dati",
       verified: "Screenshot verificati",
@@ -557,16 +560,16 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
       sendBrief: "Invia il brief della collaborazione",
       instagram: "Vai su Instagram",
       footerLocation: "© 2026 Willian Toszan · Milano, Italia",
-      footerRoles: "Creator · Fitness · Lifestyle · Musica",
+      footerRoles: "Creatore · Fitness · Stile di vita · Musica",
     },
     analyticsPage: {
       eyebrow: "Dati verificati",
       title: "Instagram Insights verificati",
       intro: "Dati verificati di Instagram dal 5 giugno al 4 luglio 2026. Screenshot ufficiali disponibili qui sotto.",
-      creatorPage: "Pagina creator",
+      creatorPage: "Pagina del creatore",
       startProject: "Avvia un progetto",
       verification:
-        "Tutti i dati mostrati in questa pagina provengono direttamente da Instagram Professional Insights. Gli screenshot sono stati acquisiti dal Pannello professionale di Instagram. La verifica completa dal vivo è disponibile su richiesta.",
+        "Tutti i dati mostrati in questa pagina provengono direttamente dagli strumenti professionali di Instagram. Le schermate sono state acquisite dal Pannello professionale di Instagram. La verifica completa dal vivo è disponibile su richiesta.",
       snapshot: "Dati di luglio 2026",
       month: "Luglio 2026",
       metricLabels: ["Follower", "Visualizzazioni mensili", "Account raggiunti", "Interazioni", "Nuovi follower", "Clic sul link"],
@@ -585,7 +588,7 @@ export const creatorCopy: Record<CreatorLanguage, CreatorCopy> = {
         { title: "Panoramica delle visualizzazioni", metric: "174.189 visualizzazioni e 56.062 account raggiunti" },
         { title: "Città del pubblico delle visualizzazioni", metric: "San Paolo, Milano, Roma e Rio de Janeiro" },
         { title: "Panoramica delle interazioni", metric: "24.039 interazioni" },
-        { title: "Città delle interazioni", metric: "Distribuzione per città secondo Instagram Insights" },
+        { title: "Città delle interazioni", metric: "Distribuzione per città secondo i dati di Instagram" },
         { title: "Paesi delle interazioni", metric: "Brasile, Italia, Stati Uniti e Spagna" },
         { title: "Età delle interazioni", metric: "Fasce d'età principali: 25–44 anni" },
         { title: "Dettaglio del pubblico delle interazioni", metric: "Dettaglio da iPad con schede del pubblico" },
