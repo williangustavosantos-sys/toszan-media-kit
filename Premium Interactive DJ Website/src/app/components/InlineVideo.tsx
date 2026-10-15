@@ -11,6 +11,46 @@ const labels: Record<Language, { play: string; sound: string; mute: string; retr
   fr: { play: "Lire", sound: "Activer le son", mute: "Couper le son", retry: "Réessayer" },
 };
 
+// Only two Creator previews may decode simultaneously. The selected DJ reel keeps
+// its own slot, and a user's explicit choice outranks ambient autoplay.
+type PlaybackEntry = {
+  video: HTMLVideoElement;
+  kind: "dj" | "creator";
+  active: boolean;
+  ratio: number;
+  auto: boolean;
+  manualOrder: number;
+  admitted: boolean;
+  start: () => void;
+  stop: () => void;
+};
+
+const mediaEntries = new Map<HTMLVideoElement, PlaybackEntry>();
+let manualOrder = 0;
+
+function rebalancePlayback() {
+  const eligible = (entry: PlaybackEntry) =>
+    entry.active && entry.ratio >= 0.15 && !document.hidden && (entry.auto || entry.manualOrder > 0);
+  const creators = [...mediaEntries.values()]
+    .filter(entry => entry.kind === "creator" && eligible(entry))
+    .sort((a, b) => b.manualOrder - a.manualOrder || b.ratio - a.ratio);
+  const admittedCreators = new Set(creators.slice(0, 2));
+  for (const entry of mediaEntries.values()) {
+    const next = eligible(entry) && (entry.kind === "dj" || admittedCreators.has(entry));
+    if (next === entry.admitted) continue;
+    entry.admitted = next;
+    if (next) entry.start();
+    else entry.stop();
+  }
+}
+
+function prioritizeVideo(video: HTMLVideoElement) {
+  const entry = mediaEntries.get(video);
+  if (!entry) return;
+  entry.manualOrder = ++manualOrder;
+  rebalancePlayback();
+}
+
 // Audio has one owner across DJ and Creator, including rapid navigation.
 function claimAudio(owner: HTMLVideoElement) {
   document.querySelectorAll<HTMLVideoElement>("video[data-inline-video]").forEach(video => {
@@ -32,6 +72,8 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
   const ref = useRef<HTMLVideoElement>(null);
   const request = useRef(0);
   const visible = useRef(false);
+  const retryCount = useRef(0);
+  const retryTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [playing, setPlaying] = useState(false);
   const [rendered, setRendered] = useState(false);
   const [sound, setSound] = useState(false);
@@ -39,6 +81,9 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
 
   const stop = useCallback(() => {
     request.current++;
+    if (retryTimer.current !== null) clearTimeout(retryTimer.current);
+    retryTimer.current = null;
+    retryCount.current = 0;
     const video = ref.current;
     if (!video) return;
     video.muted = true;
@@ -46,6 +91,8 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
     video.pause();
     setSound(false);
     setPlaying(false);
+    setRendered(false);
+    setStatus("idle");
   }, []);
 
   const play = useCallback(async (withSound: boolean) => {
@@ -81,27 +128,30 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
     if (!video) return;
     video.setAttribute("webkit-playsinline", "");
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    const observer = new IntersectionObserver(entries => {
-      const entry = entries[0];
-      visible.current = entry.isIntersecting && entry.intersectionRatio >= .15;
-      if (!visible.current || !active) { stop(); return; }
-      if (!reduced && !saveData) void play(false);
-    }, { threshold: [0, .15], rootMargin: "0px" });
-    observer.observe(video);
-    const visibility = () => {
-      if (document.hidden) stop();
-      else if (visible.current && active && !reduced && !saveData) void play(false);
+    const entry: PlaybackEntry = {
+      video, kind, active, ratio: 0, auto: !reduced && !saveData,
+      manualOrder: 0, admitted: false,
+      start: () => { void play(false); },
+      stop,
     };
-    document.addEventListener("visibilitychange", visibility);
+    mediaEntries.set(video, entry);
+    const observer = new IntersectionObserver(entries => {
+      const observed = entries[0];
+      entry.ratio = observed.isIntersecting ? observed.intersectionRatio : 0;
+      visible.current = entry.ratio >= 0.15;
+      if (!visible.current) entry.manualOrder = 0;
+      rebalancePlayback();
+    }, { threshold: [0, 0.15, 0.5, 0.75, 1], rootMargin: "0px" });
+    observer.observe(video);
+    document.addEventListener("visibilitychange", rebalancePlayback);
     return () => {
       observer.disconnect();
-      document.removeEventListener("visibilitychange", visibility);
-      request.current++;
-      video.muted = true;
-      video.defaultMuted = true;
-      video.pause();
+      document.removeEventListener("visibilitychange", rebalancePlayback);
+      mediaEntries.delete(video);
+      stop();
+      rebalancePlayback();
     };
-  }, [active, play, reduced, stop]);
+  }, [active, kind, play, reduced, stop]);
 
   // Reveal only after the browser submits a decoded frame, not on play() alone.
   useEffect(() => {
@@ -111,18 +161,42 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
     return () => video.cancelVideoFrameCallback(frame);
   }, [playing]);
 
+  const recoverFromError = () => {
+    const video = ref.current;
+    if (!video || !mediaEntries.get(video)?.admitted || document.hidden) {
+      setStatus("error");
+      return;
+    }
+    if (retryCount.current >= 2) { setStatus("error"); return; }
+    const delay = 900 * (2 ** retryCount.current++);
+    setStatus("pending");
+    if (retryTimer.current !== null) clearTimeout(retryTimer.current);
+    retryTimer.current = setTimeout(() => {
+      retryTimer.current = null;
+      if (!mediaEntries.get(video)?.admitted || !visible.current || document.hidden) return;
+      video.load();
+      void play(false);
+    }, delay);
+  };
+
   const label = status === "error" ? copy.retry : !playing ? copy.play : sound ? copy.mute : copy.sound;
   return <div className={`inline-media ${kind === "dj" ? "live-inline-media" : "creator-work-media"} ${playing && rendered ? "is-preview-playing" : ""}`}
     data-playback={status} data-rendered={rendered}>
-    <video ref={ref} src={source} poster={poster} loop muted playsInline preload={active ? "metadata" : "none"}
+    <video ref={ref} src={source} poster={poster} loop muted playsInline preload="none"
       className={kind === "dj" ? "live-card-video" : "creator-work-video"}
       data-inline-video={kind} data-live-video={kind === "dj" ? source : undefined}
       controls={false} disablePictureInPicture
-      onPlaying={() => { setPlaying(true); setStatus("playing"); }}
+      onPlaying={() => {
+        retryCount.current = 0;
+        if (retryTimer.current !== null) clearTimeout(retryTimer.current);
+        retryTimer.current = null;
+        setPlaying(true);
+        setStatus("playing");
+      }}
       onTimeUpdate={event => { if (event.currentTarget.currentTime > 0 && event.currentTarget.readyState >= 2) setRendered(true); }}
-      onPause={() => { setPlaying(false); setStatus(current => current === "error" ? current : "idle"); }}
+      onPause={() => { setPlaying(false); setStatus(current => current === "error" || current === "pending" ? current : "idle"); }}
       onVolumeChange={event => setSound(!event.currentTarget.muted)}
-      onError={() => { setPlaying(false); setRendered(false); setStatus("error"); }} />
+      onError={() => { setPlaying(false); setRendered(false); recoverFromError(); }} />
     <img className="inline-poster" src={poster} alt="" aria-hidden="true" loading="lazy" />
     <div className="inline-scrim" aria-hidden="true" />
     {children}
@@ -131,7 +205,10 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
       onClick={event => {
         event.stopPropagation();
         const video = ref.current;
-        if (playing && sound && video) { video.muted = true; video.defaultMuted = true; setSound(false); }
+        if (!video) return;
+        if (status === "error") retryCount.current = 0;
+        prioritizeVideo(video);
+        if (playing && sound) { video.muted = true; video.defaultMuted = true; setSound(false); }
         else void play(playing ? true : false);
       }}>
       {!playing ? <Play size={16} fill="currentColor" /> : sound ? <VolumeX size={16} /> : <Volume2 size={16} />}
