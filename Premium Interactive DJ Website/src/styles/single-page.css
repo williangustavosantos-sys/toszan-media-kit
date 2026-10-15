@@ -1,5 +1,5 @@
 /* Single continuous journey; #dj-booking and #creator are in-page anchors. */
-html{scroll-padding-top:calc(var(--site-nav-height) + env(safe-area-inset-top,0px) + 18px)}
+html{scroll-padding-top:0}
 #top,#dj-booking,#creator,#booking-contact,#music,#experience,#performance,#work,#contact{scroll-margin-top:calc(var(--site-nav-height) + env(safe-area-inset-top,0px) + 18px)}
 .single-page-section{position:relative;isolation:isolate}
 #dj-booking{border-top:1px solid rgba(189,156,106,.35)}
@@ -18,7 +18,7 @@ html{scroll-padding-top:calc(var(--site-nav-height) + env(safe-area-inset-top,0p
 .creator-metric-label{color:#d4d2ca!important;font-size:12px!important}
 .creator-metric-label svg{color:#c3a677!important}
 .creator-hero-portrait{overflow:visible}
-.creator-hero-portrait img{filter:saturate(.93) contrast(1.03) brightness(.97) drop-shadow(0 0 25px rgba(221,211,198,.2));width:155%!important;height:138%!important;right:-16%!important;bottom:-1%!important;mask-image:linear-gradient(to bottom,#000 93%,transparent 100%)}
+.creator-hero-portrait img{filter:saturate(.93) contrast(1.03) brightness(.97) drop-shadow(0 0 25px rgba(221,211,198,.2));width:150%!important;height:105%!important;right:-16%!important;bottom:-1%!important;mask-image:linear-gradient(to bottom,#000 93%,transparent 100%)}
 .creator-hero-grid{grid-template-columns:48% 52%!important}
 .creator-hero-copy{z-index:4}
 .creator-hero-portrait figcaption{display:none}
@@ -57,7 +57,7 @@ html{scroll-padding-top:calc(var(--site-nav-height) + env(safe-area-inset-top,0p
 .music-services>div{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media(max-width:1100px){
  .creator-hero-name{font-size:clamp(85px,10vw,123px)!important}
- .creator-hero-portrait img{width:173%!important;height:150%!important;right:-27%!important}
+ .creator-hero-portrait img{width:156%!important;height:109%!important;right:-19%!important}
  .music-listen-layout{grid-template-columns:1fr}
  .music-services>div{grid-template-columns:repeat(3,1fr)}
 }
