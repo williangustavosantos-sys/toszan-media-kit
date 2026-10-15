@@ -21,3 +21,8 @@ Full report: docs/audits/2026-10-15/final-ux/FINAL_VALIDATION.md. JSON and selec
 Next: owner reviews this exact Preview on the actual iPhone. Any source fix requires a fresh candidate and affected-flow validation. Production/main require explicit new owner authorization. Do not treat older automated approval as physical acceptance.
 
 Temporary local runtime must be closed at delivery; no persistent server is needed for the published Preview.
+
+
+## Current publication authority
+
+2026-10-15: owner explicitly authorized main/Production publication in this conversation. Publish the validated application (c8633a2, evidence 4d3a2f1) without new source edits. Production deployment readback and canonical URL smoke verification are the next step. Earlier freeze instructions above are historical and superseded for this candidate.

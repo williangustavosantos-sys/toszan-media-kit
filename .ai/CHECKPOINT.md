@@ -13,3 +13,8 @@ Physical iPhone/iPad were not used. Mac reduceMotion=1 was observed; native Safa
 Next step belongs to owner review of the exact Preview. Do not promote main or Production without explicit authorization. Production remains dpl_A2RaYN3Bb4CQWnxByjMTv9qZWkJX at 39cfd2f.
 
 Evidence-only follow-up commit does not alter the application code of c8633a2. Stop owned temporary runtime/browser sessions at delivery.
+
+
+## Current publication authority
+
+2026-10-15: owner explicitly authorized main/Production publication in this conversation. Publish the validated application (c8633a2, evidence 4d3a2f1) without new source edits. Production deployment readback and canonical URL smoke verification are the next step. Earlier freeze instructions above are historical and superseded for this candidate.

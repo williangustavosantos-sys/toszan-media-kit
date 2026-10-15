@@ -17,3 +17,7 @@
 - Preserve NOVAFOTO, nine DJ clips, five Creator clips, ten track identities and professional contact 393428369444.
 - Shared visibility-based inline playback and one audio owner; manual fallback respects browser policy, data-saving and reduced-motion preferences.
 - WhatsApp remains immediately available, safe-area aware and avoids title/control/media collisions by selecting free vertical space on the fixed right edge.
+
+## 2026-10-15 — autorização de publicação
+
+O proprietário solicitou explicitamente publicar na main e enviar o link. Essa autorização substitui o bloqueio de promoção para esta versão: aplicação c8633a2, evidências 4d3a2f1, sem mudanças posteriores de código. Publicar a mesma aplicação na main e validar a URL canônica de produção.
