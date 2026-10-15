@@ -1,0 +1,82 @@
+[
+  {
+    "id": "promo-set-2026",
+    "url": "https://i1.sndcdn.com/artworks-XDLKMpoYPopeyXs3-YI5G2Q-t500x500.jpg",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 86575,
+    "path": "/music/covers/promo-set-2026.jpg"
+  },
+  {
+    "id": "brasil",
+    "url": "https://i1.sndcdn.com/artworks-L5NlzlzzUIckkkFZ-3soezQ-t500x500.jpg",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 179655,
+    "path": "/music/covers/brasil.jpg"
+  },
+  {
+    "id": "jamaican-bam-bam",
+    "url": "https://i1.sndcdn.com/artworks-cnwDhLdEQTjyxQDm-Iyp7Xg-t500x500.jpg",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 186602,
+    "path": "/music/covers/jamaican-bam-bam.jpg"
+  },
+  {
+    "id": "manicomio",
+    "url": "https://i1.sndcdn.com/artworks-F2H6wqLJLwayfNrU-m09i1g-t500x500.jpg",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 94275,
+    "path": "/music/covers/manicomio.jpg"
+  },
+  {
+    "id": "g-latina",
+    "url": "https://i1.sndcdn.com/artworks-542RIF8EbM1nUUlq-2bMAVg-t500x500.png",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 177023,
+    "path": "/music/covers/g-latina.jpg"
+  },
+  {
+    "id": "sesso",
+    "url": "https://i1.sndcdn.com/artworks-WjT8DtlDzkBe0QtJ-E5syGg-t500x500.jpg",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 78909,
+    "path": "/music/covers/sesso.jpg"
+  },
+  {
+    "id": "solta",
+    "url": "https://i1.sndcdn.com/artworks-emfkIvI2m5iWFLse-of9TRw-t500x500.png",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 144735,
+    "path": "/music/covers/solta.jpg"
+  },
+  {
+    "id": "batte-forte",
+    "url": "https://i1.sndcdn.com/artworks-ed2jJzMb6mrwA35r-EU3FuQ-t500x500.png",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 80050,
+    "path": "/music/covers/batte-forte.jpg"
+  },
+  {
+    "id": "opera",
+    "url": "https://i1.sndcdn.com/artworks-xDLDWQ0GdZy9CIIp-k3V5fQ-t500x500.jpg",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 63178,
+    "path": "/music/covers/opera.jpg"
+  },
+  {
+    "id": "thundr",
+    "url": "https://i1.sndcdn.com/artworks-oZbHbD2A479EpjKK-uzgAfg-t500x500.png",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 85963,
+    "path": "/music/covers/thundr.jpg"
+  }
+]

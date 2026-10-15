@@ -8,3 +8,6 @@ build/
 *.log
 public/creator/videos/ugc-creator-introduction.mp4
 public/creator/videos/ugc-hair-wax-bottega-paesano.mp4
+
+.playwright-cli/
+output/playwright/

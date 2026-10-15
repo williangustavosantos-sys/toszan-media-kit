@@ -1,0 +1,353 @@
+[
+  {
+    "file": "public/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+    "size": 1493101,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/01-booth-control-front-closeup.mp4",
+    "size": 1851346,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+    "size": 1972325,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuvj420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/07-yellow-fog-crowd-support.mp4",
+    "size": 1989909,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/09-wide-crowd-room-proof.mp4",
+    "size": 2084836,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuvj420p",
+        "width": 768,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/08-mic-crowd-command-booth.mp4",
+    "size": 1794171,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 576,
+        "height": 768,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/05-peak-booth-camera-presence-long.mp4",
+    "size": 1986113,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/03-deck-control-overhead.mp4",
+    "size": 1572777,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuvj420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/reels/videos/06-balcony-stage-raised-hands.mp4",
+    "size": 1790647,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 576,
+        "height": 1024,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/creator/videos/winter-lifestyle-milan.mp4",
+    "size": 1369856,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 720,
+        "height": 1280,
+        "level": 31
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/creator/videos/lifestyle-dj-day.mp4",
+    "size": 2280739,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 720,
+        "height": 1280,
+        "level": 31
+      }
+    ]
+  },
+  {
+    "file": "public/creator/videos/brand-product-showcase.mp4",
+    "size": 1741702,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuvj420p",
+        "width": 720,
+        "height": 1228,
+        "level": 31
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/creator/videos/ugc-creator-introduction.mp4",
+    "size": 12104928,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 720,
+        "height": 1280,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/creator/videos/fitness-public-speaking.mp4",
+    "size": 3659070,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 720,
+        "height": 1280,
+        "level": 31
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  },
+  {
+    "file": "public/creator/videos/ugc-hair-wax-bottega-paesano.mp4",
+    "size": 10521599,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "profile": "High",
+        "pix_fmt": "yuv420p",
+        "width": 720,
+        "height": 1280,
+        "level": 40
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "profile": "LC",
+        "pix_fmt": null,
+        "width": null,
+        "height": null,
+        "level": null
+      }
+    ]
+  }
+]

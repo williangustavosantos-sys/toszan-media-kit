@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MotionConfig } from "motion/react";
 import { LanguageProvider, useLanguage, type Language } from "./context/LanguageContext";
+import { WhatsAppLink } from "./components/WhatsAppLink";
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
 import { BookingPage } from "./components/BookingPage";
@@ -85,6 +86,7 @@ export default function App() {
         }}
       >
         <Navigation />
+        <WhatsAppLink floating />
         <main id="main-content" tabIndex={-1}>
           {isAnalyticsRoute ? <AnalyticsPage /> : (
             <>

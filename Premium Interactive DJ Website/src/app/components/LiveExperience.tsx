@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { ArrowLeft, ArrowRight, ExternalLink, Play, VolumeX } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy } from "../../data/bookingCopy";
 import "../../styles/music-live.css";
+import { InlineVideo } from "./InlineVideo";
 
 type LiveContext = "general" | "booking";
-type AudioStatus = "muted" | "playing" | "blocked";
 
 type Reel = {
   id: string;
@@ -116,161 +116,10 @@ const liveUi: Record<Language, {
   fr: { intro: "Neuf vidéos réelles, de la cabine à la piste. Sélectionnez un moment, activez le son et découvrez directement l’énergie en direct.", clips: "Vidéos réelles", featured: "À la une", audio: "Une source audio", liveProof: "Preuve en direct", play: "Lire avec le son", retry: "Touchez encore pour le son", mute: "Couper le son", soundOn: "Son activé", official: "Ouvrir sur Instagram", ready: "Pour les organisateurs", readyBody: "Découvrez les formats, les informations techniques et envoyez une demande de réservation directe.", openBooking: "Voir les réservations", inventory: "Archive des vidéos en direct", supporting: "Autres moments en direct", previous: "Vidéo précédente", next: "Vidéo suivante" },
 };
 
-function AutoplayVideoCard({
-  reel,
-  active,
-  onActivate,
-  soundEnabledForId,
-  setSoundEnabledForId,
-  index,
-  saveData,
-  reduceMotion,
-  copy,
-  variant = "standard",
-}: {
-  reel: Reel;
-  active: boolean;
-  onActivate: (id: string) => void;
-  soundEnabledForId: string | null;
-  setSoundEnabledForId: (id: string | null) => void;
-  index: number;
-  saveData: boolean;
-  reduceMotion: boolean;
-  copy: (typeof liveUi)[Language];
-  variant?: "feature" | "standard";
-}) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoReady, setVideoReady] = useState(false);
-  const [isPreviewPlaying, setIsPreviewPlaying] = useState(false);
-  const [audioStatus, setAudioStatus] = useState<AudioStatus>("muted");
-  const isThisVideoSoundEnabled = soundEnabledForId === reel.id;
-  const shouldPlayVideo = active && !saveData && !reduceMotion;
-  const isWide = reel.format === "wide";
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (shouldPlayVideo) {
-      video.setAttribute("playsinline", "");
-      video.setAttribute("webkit-playsinline", "");
-      video.defaultMuted = !isThisVideoSoundEnabled;
-      video.muted = !isThisVideoSoundEnabled;
-      video.volume = isThisVideoSoundEnabled ? 1 : 0;
-      void video.play().catch(() => undefined);
-      return;
-    }
-
-    if (!isThisVideoSoundEnabled) {
-      video.pause();
-      video.currentTime = 0;
-    }
-  }, [isThisVideoSoundEnabled, shouldPlayVideo]);
-
-  useEffect(() => {
-    if (!isThisVideoSoundEnabled && audioStatus !== "muted") setAudioStatus("muted");
-  }, [audioStatus, isThisVideoSoundEnabled]);
-
-  const pauseOtherVideos = useCallback(() => {
-    const section = videoRef.current?.closest(".live-editorial") ?? document;
-    section.querySelectorAll<HTMLVideoElement>("video[data-live-video]").forEach((video) => {
-      if (video.dataset.liveVideo === reel.id) return;
-      video.pause();
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-    });
-  }, [reel.id]);
-
-  const handlePlayWithSound = useCallback(async () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    onActivate(reel.id);
-    pauseOtherVideos();
-    setSoundEnabledForId(reel.id);
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-    video.defaultMuted = false;
-    video.muted = false;
-    video.volume = 1;
-
-    try {
-      await video.play();
-      setAudioStatus("playing");
-    } catch {
-      setAudioStatus("blocked");
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-      setSoundEnabledForId(null);
-    }
-  }, [onActivate, pauseOtherVideos, reel.id, setSoundEnabledForId]);
-
-  const handleMuteToggle = useCallback(async () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (!video.muted && video.volume > 0) {
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-      setSoundEnabledForId(null);
-      setAudioStatus("muted");
-      return;
-    }
-
-    await handlePlayWithSound();
-  }, [audioStatus, handlePlayWithSound, isThisVideoSoundEnabled, setSoundEnabledForId]);
-
-  return (
-    <motion.article
-      className={`live-card ${active ? "is-active" : ""} ${isPreviewPlaying ? "is-preview-playing" : ""} ${isWide ? "is-wide" : "is-vertical"} ${variant === "feature" ? "is-feature" : ""}`}
-      data-reel-id={reel.id}
-      data-featured={reel.featured ? "true" : "false"}
-      data-autoplay-eligible={shouldPlayVideo ? "true" : "false"}
-      aria-label={`${reel.title}: ${reel.subtitle}`}
-      initial={reduceMotion ? false : { opacity: 0, y: 26 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: reduceMotion ? 0 : 0.58, delay: reduceMotion ? 0 : index * 0.035, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <img src={reel.poster} alt="" aria-hidden="true" loading={reel.featured ? "eager" : "lazy"} decoding="async" className="live-card-poster" />
-      <video
-        ref={videoRef}
-        key={reel.video}
-        poster={reel.poster}
-        muted={!isThisVideoSoundEnabled}
-        autoPlay={shouldPlayVideo}
-        loop
-        playsInline
-        preload={saveData || reduceMotion ? "none" : active ? "auto" : "metadata"}
-        controls={false}
-        disablePictureInPicture
-        aria-hidden="true"
-        data-live-video={reel.id}
-        onLoadedData={() => setVideoReady(true)}
-        onCanPlay={() => setVideoReady(true)}
-        onPlay={() => setIsPreviewPlaying(true)}
-        onPause={() => setIsPreviewPlaying(false)}
-        onError={() => { setVideoReady(false); setIsPreviewPlaying(false); }}
-        className="live-card-video"
-        style={{ opacity: videoReady && active ? 1 : 0 }}
-      >
-        <source src={reel.video} type="video/mp4" />
-      </video>
-
-      <div className="live-card-scrim" aria-hidden="true" />
-      <button type="button" className="creator-work-play live-creator-control"
-        onClick={audioStatus === "playing" && isThisVideoSoundEnabled ? handleMuteToggle : handlePlayWithSound}
-        aria-label={`${audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : isPreviewPlaying ? copy.soundOn : copy.play}: ${reel.title}`}
-        aria-pressed={audioStatus === "playing" && isThisVideoSoundEnabled}>
-        <span className="creator-work-play-icon">{audioStatus === "playing" && isThisVideoSoundEnabled ? <VolumeX size={17} aria-hidden="true" /> : <Play size={16} fill="currentColor" aria-hidden="true" />}</span>
-        <span>{audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : audioStatus === "blocked" ? copy.retry : isPreviewPlaying ? copy.soundOn : copy.play}</span>
-      </button>
-
-    </motion.article>
-  );
+function AutoplayVideoCard({ reel, active }: { reel: Reel; active: boolean }) {
+  return <article className={`live-card ${active ? "is-active" : ""}`} data-reel-id={reel.id}>
+    <InlineVideo kind="dj" source={reel.video} poster={reel.poster} title={reel.title} active={active} />
+  </article>;
 }
 
 export function LiveExperience({ context = "general" }: { context?: LiveContext }) {
@@ -279,12 +128,8 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const reducedMotion = Boolean(useReducedMotion());
   const sectionRef = useRef<HTMLElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
-  const activeIdRef = useRef<string | null>(reels[0].id);
-  const soundOwnerRef = useRef<string | null>(null);
   const headingInView = useInView(headingRef, { once: true, margin: "-80px" });
   const [activeId, setActiveId] = useState<string | null>(reels[0].id);
-  const [soundEnabledForId, setSoundEnabledForId] = useState<string | null>(null);
-  const [saveData, setSaveData] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const touchStart = useRef<number | null>(null);
   const mouseStart = useRef<number | null>(null);
@@ -293,21 +138,7 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
   const eyebrow = context === "booking" ? bookingCopy[language].experienceLabel : t("experience.label");
   const intro = context === "booking" ? bookingCopy[language].experienceIntro : copy.intro;
 
-  useEffect(() => {
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-    setSaveData(Boolean(connection?.saveData));
-  }, []);
-
-  const updateSoundOwner = useCallback((id: string | null) => {
-    soundOwnerRef.current = id;
-    setSoundEnabledForId(id);
-  }, []);
-
-  const activateReel = useCallback((id: string) => {
-    if (activeIdRef.current !== id && soundOwnerRef.current && soundOwnerRef.current !== id) updateSoundOwner(null);
-    activeIdRef.current = id;
-    setActiveId(id);
-  }, [updateSoundOwner]);
+  const activateReel = useCallback((id: string) => setActiveId(id), []);
 
   const moveCarousel = useCallback((step: number) => {
     const next = (carouselIndex + step + reels.length) % reels.length;
@@ -315,19 +146,6 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
     setCarouselIndex(next);
   }, [activateReel, carouselIndex]);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    section.querySelectorAll<HTMLVideoElement>("video[data-live-video]").forEach((video) => {
-      const shouldHaveSound = soundEnabledForId !== null && video.dataset.liveVideo === soundEnabledForId;
-      video.muted = !shouldHaveSound;
-      video.defaultMuted = !shouldHaveSound;
-      video.volume = shouldHaveSound ? 1 : 0;
-      if (!shouldHaveSound && video.dataset.liveVideo !== activeId) video.pause();
-    });
-  }, [activeId, soundEnabledForId]);
-
-  const cardProps = { soundEnabledForId, setSoundEnabledForId: updateSoundOwner, onActivate: activateReel, saveData, reduceMotion: reducedMotion, copy };
   const contactHref = context === "booking" ? "#booking-contact" : "/booking";
   const contactLabel = context === "booking" ? bookingCopy[language].contact : copy.openBooking;
   return (
@@ -351,14 +169,14 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
             <span>{language === "pt" ? "DESLIZE PARA VER MAIS" : language === "it" ? "SCORRI PER VEDERE ALTRI VIDEO" : language === "es" ? "DESLIZA PARA VER MÁS" : language === "fr" ? "BALAYEZ POUR VOIR PLUS" : "SWIPE TO EXPLORE"}</span>
             <span>→</span>
           </div>
-          <div className="live-infinite-track" key={carouselIndex}>
+          <div className="live-infinite-track">
             {[-1, 0, 1].map(offset => {
               const index = (carouselIndex + offset + localizedReels.length) % localizedReels.length;
               const reel = localizedReels[index];
               return <div key={reel.id} className={`live-infinite-slide ${offset === 0 ? "is-center" : "is-side"}`}
                 aria-label={`${reel.title}`}
                 onClick={offset === 0 ? undefined : () => moveCarousel(offset)}>
-                <AutoplayVideoCard reel={reel} active={offset === 0 && activeId === reel.id} index={index} variant="feature" {...cardProps} />
+                <AutoplayVideoCard reel={reel} active={offset === 0 && activeId === reel.id} />
               </div>;
             })}
           </div>

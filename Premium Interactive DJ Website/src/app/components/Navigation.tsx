@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
@@ -11,6 +11,8 @@ export function Navigation() {
   const { t, language } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const header = useRef<HTMLElement>(null);
+  const mobileTabs = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   const menu = useRef<HTMLDivElement>(null);
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
@@ -33,13 +35,27 @@ export function Navigation() {
     if (path === "/analytics") return;
     const sections = ["top", "dj-booking", "creator"].map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
     const current = () => {
-      const line = window.scrollY + 220;
+      const line = window.scrollY + parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height") || "114") + 32;
       const hit = [...sections].reverse().find(el => el.offsetTop <= line);
       setActiveSection(hit?.id || "top");
     };
     current(); window.addEventListener("scroll", current, { passive: true });
     return () => window.removeEventListener("scroll", current);
   }, [path]);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const bottom = Math.max(header.current?.getBoundingClientRect().bottom ?? 0,
+        mobileTabs.current?.getBoundingClientRect().bottom ?? 0);
+      document.documentElement.style.setProperty("--header-height", `${Math.ceil(bottom)}px`);
+    };
+    const observer = new ResizeObserver(measure);
+    if (header.current) observer.observe(header.current);
+    if (mobileTabs.current) observer.observe(mobileTabs.current);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => { observer.disconnect(); window.removeEventListener("resize", measure); };
+  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (path !== "/analytics" && href.startsWith("/#")) {
@@ -99,7 +115,7 @@ export function Navigation() {
   const close=()=>setMenuOpen(false);
   return <>
     <a href="#main-content" className="cine-skip">{labels.skip}</a>
-    <nav className={`cine-navigation ${scrolled||menuOpen?"is-scrolled":""}`} aria-label={labels.nav}>
+    <nav ref={header} className={`cine-navigation ${scrolled||menuOpen?"is-scrolled":""}`} aria-label={labels.nav}>
       <a href="/" className="cine-nav-logo" aria-label={labels.home} onClick={handleLogoClick}><ToszanLogo logoHeight={24} gold={false}/></a>
       <div className="cine-nav-links">
         <div className="cine-nav-routes">{routeLinks.map(link=><a href={link.href} key={link.href} aria-current={link.current?"page":undefined} onClick={(e)=>handleNavClick(e, link.href)}>{link.label}</a>)}</div>
@@ -107,7 +123,7 @@ export function Navigation() {
       </div>
       <div className="cine-nav-tools"><a className="cine-nav-cta" href={ctaHref}>{cta} ↗</a><LanguageSelector/><button ref={toggle} type="button" className="cine-menu-toggle" aria-label={menuOpen?labels.close:labels.open} aria-expanded={menuOpen} aria-controls="toszan-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X size={22}/>:<Menu size={22}/>}</button></div>
     </nav>
-    <nav className="toszan-mobile-tabs" aria-label={labels.nav}>
+    <nav ref={mobileTabs} className="toszan-mobile-tabs" aria-label={labels.nav}>
       {routeLinks.map(link => <a key={link.href} href={link.href} aria-current={link.current ? "page" : undefined} onClick={(e)=>handleNavClick(e, link.href)}>{link.label}</a>)}
     </nav>
     {menuOpen&&<div ref={menu} id="toszan-mobile-menu" className="cine-menu"><div className="cine-menu-routes">{routeLinks.map(link=><a key={link.href} href={link.href} aria-current={link.current?"page":undefined} onClick={(e)=>handleNavClick(e, link.href)}>{link.label}</a>)}</div><div className="cine-menu-local">{localLinks.map(link=><a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}</div><a className="cine-menu-cta" href={ctaHref} onClick={close}>{cta} ↗</a></div>}

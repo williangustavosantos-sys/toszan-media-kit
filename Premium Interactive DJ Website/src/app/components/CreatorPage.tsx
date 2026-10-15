@@ -3,14 +3,11 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   BarChart3,
-  ExternalLink,
   Instagram,
   Mail,
   MapPin,
   MessageCircle,
-  Pause,
   Music2,
-  Play,
 } from "lucide-react";
 import {
   creatorLinks,
@@ -27,6 +24,7 @@ import {
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
 import { useLanguage } from "../context/LanguageContext";
 
+import { InlineVideo } from "./InlineVideo";
 import creatorPortrait from "../../imports/creator-portrait-novafoto.png";
 import "../../styles/creator-editorial.css";
 
@@ -179,13 +177,6 @@ export function CreatorPage() {
   const reduced = useReducedMotion();
   const { language } = useLanguage();
   const copy = creatorCopy[getCreatorLanguage(language)];
-  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
-  const playRequestVersion = useRef(0);
-  const intendedVideo = useRef<string | null>(null);
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
-  const [blockedVideo, setBlockedVideo] = useState<string | null>(null);
-  const [soundVideo, setSoundVideo] = useState<string | null>(null);
-  const [previewVideos, setPreviewVideos] = useState<string[]>([]);
 
   useEffect(() => {
     if (window.location.pathname === "/creator") setCreatorMeta(copy);
@@ -225,191 +216,6 @@ export function CreatorPage() {
     ][index],
   }));
 
-  const stopOtherVideos = (activeSource: string) => {
-    Object.entries(videoRefs.current).forEach(([source, video]) => {
-      if (!video || source === activeSource) return;
-      video.pause();
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-    });
-    setActiveVideo((current) => (current && current !== activeSource ? null : current));
-    setBlockedVideo((current) => (current && current !== activeSource ? null : current));
-    setSoundVideo((current) => (current && current !== activeSource ? null : current));
-  };
-
-  const handlePortfolioPlay = async (source: string, hasAudio: boolean) => {
-    const video = videoRefs.current[source];
-    if (!video) return;
-
-    const requestVersion = ++playRequestVersion.current;
-    intendedVideo.current = source;
-    setPreviewVideos([]);
-    stopOtherVideos(source);
-    video.currentTime = video.currentTime || 0;
-
-    if (!hasAudio) {
-      setSoundVideo(null);
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-      setBlockedVideo(null);
-      try {
-        await video.play();
-        if (playRequestVersion.current !== requestVersion || intendedVideo.current !== source) {
-          video.pause();
-          video.muted = true;
-          video.defaultMuted = true;
-          video.volume = 0;
-          return;
-        }
-        setActiveVideo(source);
-      } catch {
-        if (playRequestVersion.current !== requestVersion) return;
-        if (video.paused) {
-          setActiveVideo(null);
-        }
-        setBlockedVideo(null);
-      }
-      return;
-    }
-
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-    video.removeAttribute("muted");
-    video.defaultMuted = false;
-    video.muted = false;
-    video.volume = 1;
-    setBlockedVideo(null);
-
-    try {
-      await video.play();
-      if (playRequestVersion.current !== requestVersion || intendedVideo.current !== source) {
-        video.pause();
-        video.muted = true;
-        video.defaultMuted = true;
-        video.volume = 0;
-        return;
-      }
-      // Keep the media element aligned with React's rendered `muted` prop
-      // after the asynchronous play request completes.
-      video.defaultMuted = false;
-      video.muted = false;
-      video.volume = 1;
-      setActiveVideo(source);
-      setSoundVideo(source);
-    } catch {
-      if (playRequestVersion.current !== requestVersion) return;
-      setActiveVideo(null);
-      setSoundVideo(null);
-      setBlockedVideo(source);
-    }
-  };
-
-  const handlePortfolioPause = (source: string) => {
-    const video = videoRefs.current[source];
-    if (video && !video.ended && video.error === null && activeVideo !== source) return;
-    setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
-  };
-
-  const handlePortfolioEnded = (source: string) => {
-    if (intendedVideo.current === source) {
-      intendedVideo.current = null;
-      playRequestVersion.current += 1;
-    }
-    setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
-  };
-
-  const handlePortfolioError = (source: string) => {
-    if (intendedVideo.current === source) {
-      intendedVideo.current = null;
-      playRequestVersion.current += 1;
-    }
-    setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
-    setBlockedVideo(source);
-  };
-
-  const pausePortfolioVideo = (source: string) => {
-    const video = videoRefs.current[source];
-    if (intendedVideo.current === source) intendedVideo.current = null;
-    playRequestVersion.current += 1;
-    if (video) {
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-      video.pause();
-    }
-    setActiveVideo((current) => (current === source ? null : current));
-    setSoundVideo((current) => (current === source ? null : current));
-  };
-
-  // Mobile Safari and Chrome: only decode and play samples that are actually visible.
-  // Muted inline playback is requested after intersection, while audio always requires a tap.
-  useEffect(() => {
-    const canAutoplay = !reduced && !(navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        const video = entry.target as HTMLVideoElement;
-        const source = video.getAttribute("src");
-        if (!source) continue;
-        const visible = entry.isIntersecting && entry.intersectionRatio >= 0.12;
-
-        if (!visible) {
-          video.pause();
-          video.muted = true;
-          video.defaultMuted = true;
-          video.volume = 0;
-          setPreviewVideos(current => current.filter(item => item !== source));
-          if (intendedVideo.current === source) {
-            intendedVideo.current = null;
-            playRequestVersion.current += 1;
-            setActiveVideo(current => current === source ? null : current);
-            setSoundVideo(current => current === source ? null : current);
-          }
-          continue;
-        }
-        if (!canAutoplay || intendedVideo.current) continue;
-        video.muted = true;
-        video.defaultMuted = true;
-        video.volume = 0;
-        video.loop = true;
-        void video.play().then(() => {
-          if (!video.paused && video.muted) {
-            setPreviewVideos(current => current.includes(source) ? current : [...current, source]);
-          }
-        }).catch(() => {
-          // Safari Low Power Mode and user preferences can prevent autoplay.
-          // Keep the poster and a functional tap-to-play button visible.
-          setPreviewVideos(current => current.filter(item => item !== source));
-        });
-      }
-    }, { threshold: [0, 0.12, 0.4], rootMargin: "90px 0px" });
-
-    Object.values(videoRefs.current).forEach(video => { if (video) observer.observe(video); });
-    const pauseHidden = () => {
-      if (!document.hidden) return;
-      intendedVideo.current = null;
-      playRequestVersion.current += 1;
-      Object.values(videoRefs.current).forEach(video => {
-        if (!video) return;
-        video.pause();
-        video.muted = true;
-        video.defaultMuted = true;
-        video.volume = 0;
-      });
-      setActiveVideo(null);
-      setSoundVideo(null);
-      setPreviewVideos([]);
-    };
-    document.addEventListener("visibilitychange", pauseHidden);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", pauseHidden);
-    };
-  }, [reduced]);
 
   return (
     <div className="cinematic-creator">
@@ -447,30 +253,9 @@ export function CreatorPage() {
         <div className="creator-portfolio">
           {localizedVideos.map((video, index) => (
             <motion.article key={video.source} className={`creator-work-item ${index < 2 ? "creator-work-featured" : ""}`} initial={reduced ? false : { opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.8, delay: reduced ? 0 : index % 3 * 0.09, ease: [0.22, 1, 0.36, 1] }}>
-              {(() => {
-                const isPlaying = activeVideo === video.source && blockedVideo !== video.source;
-                return (
-                  <div className={`creator-work-media ${previewVideos.includes(video.source) ? "is-preview-playing" : ""}`}>
-                    <video className="creator-work-video" src={video.source} poster={video.poster} muted loop playsInline preload="metadata" ref={(node) => { videoRefs.current[video.source] = node; }} onPlay={(event) => {
-                      if (event.currentTarget.muted) setPreviewVideos(current => current.includes(video.source) ? current : [...current, video.source]);
-                    }} onPause={() => {
-                      setPreviewVideos(current => current.filter(item => item !== video.source));
-                      handlePortfolioPause(video.source);
-                    }} onEnded={() => handlePortfolioEnded(video.source)} onError={() => handlePortfolioError(video.source)} />
-                    <img src={video.poster} alt="" aria-hidden="true" loading="lazy" className={`creator-work-poster ${isPlaying || previewVideos.includes(video.source) ? "is-playing" : ""}`} />
-                    <div className="creator-work-scrim" aria-hidden="true" />
-                    <div className="creator-work-media-heading"><span>{String(index + 1).padStart(2, "0")}</span><span>{video.hasAudio ? copy.work.contentSample : copy.work.visualSample}</span></div>
-                    {!isPlaying || soundVideo !== video.source ? (
-                      <button type="button" className="creator-work-play" aria-label={`${video.hasAudio ? copy.work.playSound : copy.work.viewSample}: ${video.title}`} onClick={(event) => { event.stopPropagation(); void handlePortfolioPlay(video.source, video.hasAudio); }}>
-                        <span className="creator-work-play-icon"><Play size={15} fill="currentColor" aria-hidden="true" /></span>
-                        <span>{video.hasAudio && blockedVideo === video.source ? copy.work.tapAgain : previewVideos.includes(video.source) ? (language === "pt" ? "ATIVAR SOM" : language === "it" ? "ATTIVA AUDIO" : language === "es" ? "ACTIVAR SONIDO" : language === "fr" ? "ACTIVER LE SON" : "SOUND ON") : !video.hasAudio ? copy.work.viewSample : copy.work.playSound}</span>
-                      </button>
-                    ) : (
-                      <button type="button" className="creator-work-pause" aria-label={copy.work.pause} onClick={(event) => { event.stopPropagation(); pausePortfolioVideo(video.source); }}><Pause size={17} fill="currentColor" /></button>
-                    )}
-                  </div>
-                );
-              })()}
+              <InlineVideo kind="creator" source={video.source} poster={video.poster} title={video.title}>
+                <div className="creator-work-media-heading"><span>{String(index + 1).padStart(2, "0")}</span><span>{video.hasAudio ? copy.work.contentSample : copy.work.visualSample}</span></div>
+              </InlineVideo>
               <div className="creator-work-caption"><Eyebrow>{video.category}</Eyebrow><h3>{video.title}</h3><p>{video.description}</p></div>
             </motion.article>
           ))}

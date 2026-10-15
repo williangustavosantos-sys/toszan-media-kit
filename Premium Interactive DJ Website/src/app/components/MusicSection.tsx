@@ -4,6 +4,7 @@ import { ExternalLink, Headphones, Music2, Play } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy } from "../../data/bookingCopy";
 import "../../styles/music-live.css";
+import { MusicArtwork } from "./MusicArtwork";
 
 type Platform = "spotify" | "soundcloud";
 type MusicContext = "general" | "booking";
@@ -16,7 +17,7 @@ const soundcloudTracks = [
     type: "latest" as TrackType,
     url: "https://soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/splash-roma-314855699/promo-dj-set-toszan-splash&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-XDLKMpoYPopeyXs3-YI5G2Q-t500x500.jpg",
+    cover: "/music/covers/promo-set-2026.jpg",
   },
   {
     id: "brasil",
@@ -24,7 +25,7 @@ const soundcloudTracks = [
     type: "new" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/brasil",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/brasil&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-L5NlzlzzUIckkkFZ-3soezQ-t500x500.jpg",
+    cover: "/music/covers/brasil.jpg",
   },
   {
     id: "jamaican-bam-bam",
@@ -32,7 +33,7 @@ const soundcloudTracks = [
     type: "new" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/jamaican-bam-bam-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-cnwDhLdEQTjyxQDm-Iyp7Xg-t500x500.jpg",
+    cover: "/music/covers/jamaican-bam-bam.jpg",
   },
   {
     id: "manicomio",
@@ -40,7 +41,7 @@ const soundcloudTracks = [
     type: "live" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-live-at-manicomio&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-F2H6wqLJLwayfNrU-m09i1g-t500x500.jpg",
+    cover: "/music/covers/manicomio.jpg",
   },
   {
     id: "g-latina",
@@ -48,7 +49,7 @@ const soundcloudTracks = [
     type: "remix" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/g-latina-pedro-sampaio-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-542RIF8EbM1nUUlq-2bMAVg-t500x500.png",
+    cover: "/music/covers/g-latina.jpg",
   },
   {
     id: "sesso",
@@ -56,7 +57,7 @@ const soundcloudTracks = [
     type: "remix" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/sesso-e-samba-toszan-remix&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-WjT8DtlDzkBe0QtJ-E5syGg-t500x500.jpg",
+    cover: "/music/covers/sesso.jpg",
   },
   {
     id: "solta",
@@ -64,7 +65,7 @@ const soundcloudTracks = [
     type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-solta-mais-pressa-o&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-emfkIvI2m5iWFLse-of9TRw-t500x500.png",
+    cover: "/music/covers/solta.jpg",
   },
   {
     id: "batte-forte",
@@ -72,7 +73,7 @@ const soundcloudTracks = [
     type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-batte-forte",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-batte-forte&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-ed2jJzMb6mrwA35r-EU3FuQ-t500x500.png",
+    cover: "/music/covers/batte-forte.jpg",
   },
   {
     id: "opera",
@@ -80,7 +81,7 @@ const soundcloudTracks = [
     type: "original" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-opera",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-opera&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-xDLDWQ0GdZy9CIIp-k3V5fQ-t500x500.jpg",
+    cover: "/music/covers/opera.jpg",
   },
   {
     id: "thundr",
@@ -88,7 +89,7 @@ const soundcloudTracks = [
     type: "promo" as TrackType,
     url: "https://soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set",
     embedUrl: "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/dj-willian-toszan/toszan-thundr-promo-set&color=%23bd9c6a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=false",
-    cover: "https://i1.sndcdn.com/artworks-oZbHbD2A479EpjKK-uzgAfg-t500x500.png",
+    cover: "/music/covers/thundr.jpg",
   },
 ] as const;
 
@@ -144,7 +145,7 @@ function MusicCoverCard({ track, active, selectedLabel, typeLabel, onSelect, red
       transition={{ duration: 0.22 }}
     >
       <span className="music-cover-art">
-        <img src={track.cover} alt="" loading="lazy" decoding="async" />
+        <MusicArtwork key={track.cover} src={track.cover} title={track.title} eager />
         <span className="music-cover-play" aria-hidden="true"><Play size={25} fill="currentColor" /></span>
         {active ? <span className="music-cover-selected">{selectedLabel}</span> : null}
       </span>
@@ -202,7 +203,7 @@ export function MusicSection({ context = "general" }: { context?: MusicContext }
         <p className="music-swipe-note">{language === "pt" ? "Arraste as capas e toque para selecionar" : language === "it" ? "Scorri le copertine e scegli il brano" : language === "es" ? "Desliza las portadas y elige una canción" : language === "fr" ? "Faites défiler les pochettes et choisissez un titre" : "Swipe covers and select a track"}</p>
         <div className="music-listen-layout">
           <div className="music-selected-track" aria-live="polite">
-            <img src={activeTrack.cover} alt="" loading="lazy" />
+            <MusicArtwork key={activeTrack.cover} src={activeTrack.cover} title={activeTrack.title} eager />
             <div>
               <span className="music-selected-eyebrow">{copy.selected} / {copy.types[activeTrack.type]}</span>
               <h3>{activeTrack.title}</h3>

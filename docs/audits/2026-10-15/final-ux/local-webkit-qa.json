@@ -1,0 +1,3221 @@
+{
+  "base": "http://127.0.0.1:4187",
+  "tag": "local-webkit",
+  "layouts": [
+    {
+      "width": 320,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 7011.78125,
+          "width": 159.59375,
+          "height": 179.53125,
+          "top": 7011.78125,
+          "right": 179.59375,
+          "bottom": 7191.3125,
+          "left": 20
+        },
+        "portrait": {
+          "x": 193.59375,
+          "y": 7042.4375,
+          "width": 106.40625,
+          "height": 278.59375,
+          "top": 7042.4375,
+          "right": 300,
+          "bottom": 7321.03125,
+          "left": 193.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 6788.28125,
+          "width": 320,
+          "height": 7423.3125,
+          "top": 6788.28125,
+          "right": 320,
+          "bottom": 14211.59375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 124,
+          "width": 320,
+          "height": 6664.28125,
+          "top": 124,
+          "right": 320,
+          "bottom": 6788.28125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 320,
+      "section": "#creator",
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 347.78125,
+          "width": 159.59375,
+          "height": 179.53125,
+          "top": 347.78125,
+          "right": 179.59375,
+          "bottom": 527.3125,
+          "left": 20
+        },
+        "portrait": {
+          "x": 193.59375,
+          "y": 378.4375,
+          "width": 106.40625,
+          "height": 278.59375,
+          "top": 378.4375,
+          "right": 300,
+          "bottom": 657.03125,
+          "left": 193.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 124.28125,
+          "width": 320,
+          "height": 7423.3125,
+          "top": 124.28125,
+          "right": 320,
+          "bottom": 7547.59375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6540,
+          "width": 320,
+          "height": 6664.28125,
+          "top": -6540,
+          "right": 320,
+          "bottom": 124.28125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 375,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 6931.703125,
+          "width": 192.59375,
+          "height": 135.78125,
+          "top": 6931.703125,
+          "right": 212.59375,
+          "bottom": 7067.484375,
+          "left": 20
+        },
+        "portrait": {
+          "x": 226.59375,
+          "y": 6931.703125,
+          "width": 128.40625,
+          "height": 336.1875,
+          "top": 6931.703125,
+          "right": 355,
+          "bottom": 7267.890625,
+          "left": 226.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 6703.3125,
+          "width": 375,
+          "height": 7249.578125,
+          "top": 6703.3125,
+          "right": 375,
+          "bottom": 13952.890625,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 124,
+          "width": 375,
+          "height": 6579.3125,
+          "top": 124,
+          "right": 375,
+          "bottom": 6703.3125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 375,
+      "section": "#creator",
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 352.703125,
+          "width": 192.59375,
+          "height": 135.78125,
+          "top": 352.703125,
+          "right": 212.59375,
+          "bottom": 488.484375,
+          "left": 20
+        },
+        "portrait": {
+          "x": 226.59375,
+          "y": 352.703125,
+          "width": 128.40625,
+          "height": 336.1875,
+          "top": 352.703125,
+          "right": 355,
+          "bottom": 688.890625,
+          "left": 226.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 124.3125,
+          "width": 375,
+          "height": 7249.578125,
+          "top": 124.3125,
+          "right": 375,
+          "bottom": 7373.890625,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6455,
+          "width": 375,
+          "height": 6579.3125,
+          "top": -6455,
+          "right": 375,
+          "bottom": 124.3125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 390,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 6935.625,
+          "width": 201.59375,
+          "height": 135.78125,
+          "top": 6935.625,
+          "right": 221.59375,
+          "bottom": 7071.40625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 6935.625,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 6935.625,
+          "right": 370,
+          "bottom": 7287.515625,
+          "left": 235.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 6722.328125,
+          "width": 390,
+          "height": 6594.328125,
+          "top": 6722.328125,
+          "right": 390,
+          "bottom": 13316.65625,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 124,
+          "width": 390,
+          "height": 6598.328125,
+          "top": 124,
+          "right": 390,
+          "bottom": 6722.328125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 390,
+      "section": "#creator",
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 337.625,
+          "width": 201.59375,
+          "height": 135.78125,
+          "top": 337.625,
+          "right": 221.59375,
+          "bottom": 473.40625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 337.625,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 337.625,
+          "right": 370,
+          "bottom": 689.515625,
+          "left": 235.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 124.328125,
+          "width": 390,
+          "height": 6594.328125,
+          "top": 124.328125,
+          "right": 390,
+          "bottom": 6718.65625,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6474,
+          "width": 390,
+          "height": 6598.328125,
+          "top": -6474,
+          "right": 390,
+          "bottom": 124.328125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 430,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 430,
+        "scrollWidth": 430,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 6947.453125,
+          "width": 225.59375,
+          "height": 120.953125,
+          "top": 6947.453125,
+          "right": 245.59375,
+          "bottom": 7068.40625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 259.59375,
+          "y": 6947.453125,
+          "width": 150.40625,
+          "height": 393.78125,
+          "top": 6947.453125,
+          "right": 410,
+          "bottom": 7341.234375,
+          "left": 259.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 6721.0625,
+          "width": 430,
+          "height": 6724.8125,
+          "top": 6721.0625,
+          "right": 430,
+          "bottom": 13445.875,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 124,
+          "width": 430,
+          "height": 6597.0625,
+          "top": 124,
+          "right": 430,
+          "bottom": 6721.0625,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 430,
+      "section": "#creator",
+      "geometry": {
+        "width": 430,
+        "scrollWidth": 430,
+        "header": 106,
+        "statement": {
+          "x": 20,
+          "y": 350.453125,
+          "width": 225.59375,
+          "height": 120.953125,
+          "top": 350.453125,
+          "right": 245.59375,
+          "bottom": 471.40625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 259.59375,
+          "y": 350.453125,
+          "width": 150.40625,
+          "height": 393.78125,
+          "top": 350.453125,
+          "right": 410,
+          "bottom": 744.234375,
+          "left": 259.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 124.0625,
+          "width": 430,
+          "height": 6724.8125,
+          "top": 124.0625,
+          "right": 430,
+          "bottom": 6848.875,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6473,
+          "width": 430,
+          "height": 6597.0625,
+          "top": -6473,
+          "right": 430,
+          "bottom": 124.0625,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 768,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 768,
+        "scrollWidth": 768,
+        "header": 88,
+        "statement": {
+          "x": 32,
+          "y": 6669.96875,
+          "width": 369.59375,
+          "height": 97.84375,
+          "top": 6669.96875,
+          "right": 401.59375,
+          "bottom": 6767.8125,
+          "left": 32
+        },
+        "portrait": {
+          "x": 433.59375,
+          "y": 6335.09375,
+          "width": 302.40625,
+          "height": 679.953125,
+          "top": 6335.09375,
+          "right": 736,
+          "bottom": 7015.046875,
+          "left": 433.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 6270.09375,
+          "width": 768,
+          "height": 6558.640625,
+          "top": 6270.09375,
+          "right": 768,
+          "bottom": 12828.734375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 106,
+          "width": 768,
+          "height": 6164.09375,
+          "top": 106,
+          "right": 768,
+          "bottom": 6270.09375,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 768,
+      "section": "#creator",
+      "geometry": {
+        "width": 768,
+        "scrollWidth": 768,
+        "header": 88,
+        "statement": {
+          "x": 32,
+          "y": 505.96875,
+          "width": 369.59375,
+          "height": 97.84375,
+          "top": 505.96875,
+          "right": 401.59375,
+          "bottom": 603.8125,
+          "left": 32
+        },
+        "portrait": {
+          "x": 433.59375,
+          "y": 171.09375,
+          "width": 302.40625,
+          "height": 679.953125,
+          "top": 171.09375,
+          "right": 736,
+          "bottom": 851.046875,
+          "left": 433.59375
+        },
+        "creator": {
+          "x": 0,
+          "y": 106.09375,
+          "width": 768,
+          "height": 6558.640625,
+          "top": 106.09375,
+          "right": 768,
+          "bottom": 6664.734375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6058,
+          "width": 768,
+          "height": 6164.09375,
+          "top": -6058,
+          "right": 768,
+          "bottom": 106.09375,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 820,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 820,
+        "scrollWidth": 820,
+        "header": 88,
+        "statement": {
+          "x": 32,
+          "y": 6660.046875,
+          "width": 398.1875,
+          "height": 97.84375,
+          "top": 6660.046875,
+          "right": 430.1875,
+          "bottom": 6757.890625,
+          "left": 32
+        },
+        "portrait": {
+          "x": 462.1875,
+          "y": 6325.171875,
+          "width": 325.8125,
+          "height": 679.953125,
+          "top": 6325.171875,
+          "right": 788,
+          "bottom": 7005.125,
+          "left": 462.1875
+        },
+        "creator": {
+          "x": 0,
+          "y": 6260.171875,
+          "width": 820,
+          "height": 6601.28125,
+          "top": 6260.171875,
+          "right": 820,
+          "bottom": 12861.453125,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 106,
+          "width": 820,
+          "height": 6154.171875,
+          "top": 106,
+          "right": 820,
+          "bottom": 6260.171875,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 820,
+      "section": "#creator",
+      "geometry": {
+        "width": 820,
+        "scrollWidth": 820,
+        "header": 88,
+        "statement": {
+          "x": 32,
+          "y": 506.046875,
+          "width": 398.1875,
+          "height": 97.84375,
+          "top": 506.046875,
+          "right": 430.1875,
+          "bottom": 603.890625,
+          "left": 32
+        },
+        "portrait": {
+          "x": 462.1875,
+          "y": 171.171875,
+          "width": 325.8125,
+          "height": 679.953125,
+          "top": 171.171875,
+          "right": 788,
+          "bottom": 851.125,
+          "left": 462.1875
+        },
+        "creator": {
+          "x": 0,
+          "y": 106.171875,
+          "width": 820,
+          "height": 6601.28125,
+          "top": 106.171875,
+          "right": 820,
+          "bottom": 6707.453125,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6048,
+          "width": 820,
+          "height": 6154.171875,
+          "top": -6048,
+          "right": 820,
+          "bottom": 106.171875,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 1024,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 1024,
+        "scrollWidth": 1024,
+        "header": 88,
+        "statement": {
+          "x": 32,
+          "y": 6868.125,
+          "width": 510.390625,
+          "height": 130.5,
+          "top": 6868.125,
+          "right": 542.390625,
+          "bottom": 6998.625,
+          "left": 32
+        },
+        "portrait": {
+          "x": 574.390625,
+          "y": 6535.203125,
+          "width": 417.609375,
+          "height": 679.953125,
+          "top": 6535.203125,
+          "right": 992,
+          "bottom": 7215.15625,
+          "left": 574.390625
+        },
+        "creator": {
+          "x": 0,
+          "y": 6470.203125,
+          "width": 1024,
+          "height": 6918.15625,
+          "top": 6470.203125,
+          "right": 1024,
+          "bottom": 13388.359375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 106,
+          "width": 1024,
+          "height": 6364.203125,
+          "top": 106,
+          "right": 1024,
+          "bottom": 6470.203125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 1024,
+      "section": "#creator",
+      "geometry": {
+        "width": 1024,
+        "scrollWidth": 1024,
+        "header": 88,
+        "statement": {
+          "x": 32,
+          "y": 504.125,
+          "width": 510.390625,
+          "height": 130.5,
+          "top": 504.125,
+          "right": 542.390625,
+          "bottom": 634.625,
+          "left": 32
+        },
+        "portrait": {
+          "x": 574.390625,
+          "y": 171.203125,
+          "width": 417.609375,
+          "height": 679.953125,
+          "top": 171.203125,
+          "right": 992,
+          "bottom": 851.15625,
+          "left": 574.390625
+        },
+        "creator": {
+          "x": 0,
+          "y": 106.203125,
+          "width": 1024,
+          "height": 6918.15625,
+          "top": 106.203125,
+          "right": 1024,
+          "bottom": 7024.359375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6258,
+          "width": 1024,
+          "height": 6364.203125,
+          "top": -6258,
+          "right": 1024,
+          "bottom": 106.203125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 1280,
+        "scrollWidth": 1280,
+        "header": 88,
+        "statement": {
+          "x": 50,
+          "y": 6957.8125,
+          "width": 520,
+          "height": 145.875,
+          "top": 6957.8125,
+          "right": 570,
+          "bottom": 7103.6875,
+          "left": 50
+        },
+        "portrait": {
+          "x": 713.390625,
+          "y": 6583.375,
+          "width": 516.609375,
+          "height": 679.953125,
+          "top": 6583.375,
+          "right": 1230,
+          "bottom": 7263.328125,
+          "left": 713.390625
+        },
+        "creator": {
+          "x": 0,
+          "y": 6518.375,
+          "width": 1280,
+          "height": 7271.21875,
+          "top": 6518.375,
+          "right": 1280,
+          "bottom": 13789.59375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 106,
+          "width": 1280,
+          "height": 6412.375,
+          "top": 106,
+          "right": 1280,
+          "bottom": 6518.375,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "section": "#creator",
+      "geometry": {
+        "width": 1280,
+        "scrollWidth": 1280,
+        "header": 88,
+        "statement": {
+          "x": 50,
+          "y": 545.8125,
+          "width": 520,
+          "height": 145.875,
+          "top": 545.8125,
+          "right": 570,
+          "bottom": 691.6875,
+          "left": 50
+        },
+        "portrait": {
+          "x": 713.390625,
+          "y": 171.375,
+          "width": 516.609375,
+          "height": 679.953125,
+          "top": 171.375,
+          "right": 1230,
+          "bottom": 851.328125,
+          "left": 713.390625
+        },
+        "creator": {
+          "x": 0,
+          "y": 106.375,
+          "width": 1280,
+          "height": 7271.21875,
+          "top": 106.375,
+          "right": 1280,
+          "bottom": 7377.59375,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6306,
+          "width": 1280,
+          "height": 6412.375,
+          "top": -6306,
+          "right": 1280,
+          "bottom": 106.375,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 1440,
+      "section": "#dj-booking",
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "header": 88,
+        "statement": {
+          "x": 50,
+          "y": 7122.671875,
+          "width": 520,
+          "height": 154.09375,
+          "top": 7122.671875,
+          "right": 570,
+          "bottom": 7276.765625,
+          "left": 50
+        },
+        "portrait": {
+          "x": 801.390625,
+          "y": 6739.09375,
+          "width": 588.609375,
+          "height": 679.953125,
+          "top": 6739.09375,
+          "right": 1390,
+          "bottom": 7419.046875,
+          "left": 801.390625
+        },
+        "creator": {
+          "x": 0,
+          "y": 6674.09375,
+          "width": 1440,
+          "height": 7713.3125,
+          "top": 6674.09375,
+          "right": 1440,
+          "bottom": 14387.40625,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": 106,
+          "width": 1440,
+          "height": 6568.09375,
+          "top": 106,
+          "right": 1440,
+          "bottom": 6674.09375,
+          "left": 0
+        }
+      }
+    },
+    {
+      "width": 1440,
+      "section": "#creator",
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "header": 88,
+        "statement": {
+          "x": 50,
+          "y": 554.671875,
+          "width": 520,
+          "height": 154.09375,
+          "top": 554.671875,
+          "right": 570,
+          "bottom": 708.765625,
+          "left": 50
+        },
+        "portrait": {
+          "x": 801.390625,
+          "y": 171.09375,
+          "width": 588.609375,
+          "height": 679.953125,
+          "top": 171.09375,
+          "right": 1390,
+          "bottom": 851.046875,
+          "left": 801.390625
+        },
+        "creator": {
+          "x": 0,
+          "y": 106.09375,
+          "width": 1440,
+          "height": 7713.3125,
+          "top": 106.09375,
+          "right": 1440,
+          "bottom": 7819.40625,
+          "left": 0
+        },
+        "dj": {
+          "x": 0,
+          "y": -6462,
+          "width": 1440,
+          "height": 6568.09375,
+          "top": -6462,
+          "right": 1440,
+          "bottom": 106.09375,
+          "left": 0
+        }
+      }
+    }
+  ],
+  "flows": [
+    {
+      "locale": "pt",
+      "whatsapp": {
+        "href": "https://wa.me/393428369444?text=Ol%C3%A1%2C+TOSZAN%21+Gostaria+de+informa%C3%A7%C3%B5es+sobre+contrata%C3%A7%C3%B5es+ou+parcerias.",
+        "destination": "https://api.whatsapp.com/send/?phone=393428369444&text=Ol%C3%A1%2C+TOSZAN%21+Gostaria+de+informa%C3%A7%C3%B5es+sobre+contrata%C3%A7%C3%B5es+ou+parcerias.&type=phone_number&app_absent=0"
+      },
+      "clips": [
+        {
+          "before": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.8543517909986729,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1076605164,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 1.372195541333401,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 717839752,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.1376408333240431,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1017658611,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.6617445836694396,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1986304059,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.12786954198979736,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3694140135,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.6384287913324567,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 678769988,
+            "nonblack": 1009,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.13423774966482668,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 601116020,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.6445667083330369,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2099474716,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.24998912434166928,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4018412730,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.7614817493443375,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1275407661,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.1300501673217483,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2959640892,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.6451216670064476,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3188935956,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.13202162465972303,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1926963574,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.6439954160008783,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 338935926,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.13128958300450388,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1399021930,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.6437834583360944,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1738788833,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.13290824966716525,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 598304017,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.6515452086786513,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4232504101,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "wrapped": {
+        "before": {
+          "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+          "time": 0.14277316632753273,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 1750491994,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        },
+        "after": {
+          "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+          "time": 0.6548949163297028,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 1910281095,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        }
+      },
+      "creator": [
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.13983874999921864,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3452495934,
+            "nonblack": 1021,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.6507724586601608,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1011424171,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 0.81521712500773,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 793026277,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 1.3339168339962253,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 908982634,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 1.4049627089998873,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2323350508,
+            "nonblack": 853,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 1.9155289166608276,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3016744942,
+            "nonblack": 826,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 1.971938333671522,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2039993552,
+            "nonblack": 1016,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 2.485530749998653,
+            "frames": 61,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2509887711,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 0.8934305826558906,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1757312057,
+            "nonblack": 1022,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.4043736246567111,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3402849084,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "cover": {
+        "statement": {
+          "x": 20,
+          "y": 337.625,
+          "width": 201.59375,
+          "height": 135.78125,
+          "top": 337.625,
+          "right": 221.59375,
+          "bottom": 473.40625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 337.625,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 337.625,
+          "right": 370,
+          "bottom": 689.515625,
+          "left": 235.59375
+        }
+      },
+      "last": {
+        "x": 110.5,
+        "y": 298.546875,
+        "width": 169,
+        "height": 374.734375
+      },
+      "artwork": "/music/covers/promo-set-2026.jpg"
+    },
+    {
+      "locale": "it",
+      "whatsapp": {
+        "href": "https://wa.me/393428369444?text=Ciao%2C+TOSZAN%21+Vorrei+informazioni+su+ingaggi+o+collaborazioni.",
+        "destination": "https://api.whatsapp.com/send/?phone=393428369444&text=Ciao%2C+TOSZAN%21+Vorrei+informazioni+su+ingaggi+o+collaborazioni.&type=phone_number&app_absent=0"
+      },
+      "clips": [
+        {
+          "before": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.8511733749921713,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2832844002,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 1.3687680000135134,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1961827263,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.13947341634213684,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3694140135,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.6493873750029561,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 712125346,
+            "nonblack": 1007,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.13245162466209975,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 601116020,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.6445420000003902,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2099474716,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.12668145899970196,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 475780719,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.6391322916728388,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1455426990,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.13223516667381488,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2959640892,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.6432979576749204,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3188935956,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.14084379200518932,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1926963574,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.6537290006768566,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 338935926,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.13235412466467023,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1399021930,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.6461881663256952,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1738788833,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.13315283365500868,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 598304017,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.6515152919974128,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4232504101,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.14286995799053964,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1750491994,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.6550900000143377,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1910281095,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "wrapped": {
+        "before": {
+          "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+          "time": 0.13404574966698457,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 1017658611,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        },
+        "after": {
+          "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+          "time": 0.6457474996683582,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 1986304059,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        }
+      },
+      "creator": [
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.12855295833301544,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1962369058,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.6388469166543502,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1011424171,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 0.7038526243341293,
+            "frames": 9,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1522305184,
+            "nonblack": 1022,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 1.2254560000018646,
+            "frames": 9,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3864776232,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 3.887647707986536,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2280623640,
+            "nonblack": 914,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 4.401577583664223,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 959582140,
+            "nonblack": 834,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 1.8867759173250163,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1162948139,
+            "nonblack": 1015,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 2.3999284999993535,
+            "frames": 56,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3507991730,
+            "nonblack": 1015,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.1528059579903152,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3743200383,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.6684576249969387,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3303004854,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "cover": {
+        "statement": {
+          "x": 20,
+          "y": 337.4375,
+          "width": 201.59375,
+          "height": 161.390625,
+          "top": 337.4375,
+          "right": 221.59375,
+          "bottom": 498.828125,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 337.4375,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 337.4375,
+          "right": 370,
+          "bottom": 689.328125,
+          "left": 235.59375
+        }
+      },
+      "last": {
+        "x": 110.5,
+        "y": 298.859375,
+        "width": 169,
+        "height": 374.734375
+      },
+      "artwork": "/music/covers/promo-set-2026.jpg"
+    },
+    {
+      "locale": "en",
+      "whatsapp": {
+        "href": "https://wa.me/393428369444?text=Hi%2C+TOSZAN%21+I%27d+like+information+about+bookings+or+partnerships.",
+        "destination": "https://api.whatsapp.com/send/?phone=393428369444&text=Hi%2C+TOSZAN%21+I%27d+like+information+about+bookings+or+partnerships.&type=phone_number&app_absent=0"
+      },
+      "clips": [
+        {
+          "before": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.8382518743291784,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3202061708,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 1.3520760409963166,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1838020388,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.14307579199799858,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 601116020,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.6525236256625049,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2099474716,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.13644745867036245,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 475780719,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.6475220833267914,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 452839954,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.14013075034221878,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2959640892,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.6477660000022808,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3188935956,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.13969475066127274,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1926963574,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.6494916673409019,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 338935926,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.12809499966041965,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1399021930,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.6370849576714744,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2244733168,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.13292783367046213,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 598304017,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.6469032919991264,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4232504101,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.1315401253344236,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1750491994,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.6578973749952661,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1910281095,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.14331512499271054,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1017658611,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.6536691253323663,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1986304059,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "wrapped": {
+        "before": {
+          "source": "/reels/videos/03-deck-control-overhead.mp4",
+          "time": 0.1318384166766582,
+          "frames": 11,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 3694140135,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        },
+        "after": {
+          "source": "/reels/videos/03-deck-control-overhead.mp4",
+          "time": 0.6427324583357162,
+          "frames": 11,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 712125346,
+          "nonblack": 1007,
+          "rendered": "true",
+          "state": "playing"
+        }
+      },
+      "creator": [
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.14238929200159628,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3452495934,
+            "nonblack": 1021,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.6511302923338844,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1011424171,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 0.7163212496691546,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3805108928,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 1.2388186250032662,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4013584564,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 6.724608208672002,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2089658704,
+            "nonblack": 827,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 7.24559491700071,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 785730260,
+            "nonblack": 858,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 1.8975635419981447,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1162948139,
+            "nonblack": 1015,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 2.415765833003101,
+            "frames": 55,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2309110438,
+            "nonblack": 1016,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.176199458672093,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3743200383,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.6882031256790024,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3303004854,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "cover": {
+        "statement": {
+          "x": 20,
+          "y": 337.265625,
+          "width": 201.59375,
+          "height": 143.25,
+          "top": 337.265625,
+          "right": 221.59375,
+          "bottom": 480.515625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 337.265625,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 337.265625,
+          "right": 370,
+          "bottom": 689.15625,
+          "left": 235.59375
+        }
+      },
+      "last": {
+        "x": 110.5,
+        "y": 299.21875,
+        "width": 169,
+        "height": 353.265625
+      },
+      "artwork": "/music/covers/promo-set-2026.jpg"
+    },
+    {
+      "locale": "es",
+      "whatsapp": {
+        "href": "https://wa.me/393428369444?text=%C2%A1Hola%2C+TOSZAN%21+Me+gustar%C3%ADa+recibir+informaci%C3%B3n+sobre+contrataciones+o+colaboraciones.",
+        "destination": "https://api.whatsapp.com/send/?phone=393428369444&text=%C2%A1Hola%2C+TOSZAN%21+Me+gustar%C3%ADa+recibir+informaci%C3%B3n+sobre+contrataciones+o+colaboraciones.&type=phone_number&app_absent=0"
+      },
+      "clips": [
+        {
+          "before": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.8378245833379878,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 191361378,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 1.3463559166571162,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1991406983,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.13498795866176916,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 475780719,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.654796875007987,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 452839954,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.13921025000271853,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2959640892,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.648971916989815,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3188935956,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.1317631666686805,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1926963574,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.6418510826643647,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 338935926,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.13411833399847356,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1399021930,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.6430531673302131,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1738788833,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.14041587566996014,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 598304017,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.6505485003285041,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4232504101,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.13713745866391863,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1750491994,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.6501310830022724,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1910281095,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.14077337433503923,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1017658611,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.6543214583427608,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1986304059,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.14177554200128895,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3694140135,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.6535977503291178,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 712125346,
+            "nonblack": 1007,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "wrapped": {
+        "before": {
+          "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+          "time": 0.1327961249975348,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 601116020,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        },
+        "after": {
+          "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+          "time": 0.6530949163392125,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 2099474716,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        }
+      },
+      "creator": [
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.12754820833102798,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1962369058,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.644822958334716,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1011424171,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 0.7194182079994105,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3805108928,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 1.2327626249961312,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4013584564,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 10.09929170899784,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 189816747,
+            "nonblack": 984,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 10.614111042001062,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 759416516,
+            "nonblack": 931,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 1.8859075836723769,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1162948139,
+            "nonblack": 1015,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 2.3964432083359175,
+            "frames": 58,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3507991730,
+            "nonblack": 1015,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.1555564999908983,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3743200383,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.665937166325618,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3303004854,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "cover": {
+        "statement": {
+          "x": 20,
+          "y": 337.625,
+          "width": 201.59375,
+          "height": 135.78125,
+          "top": 337.625,
+          "right": 221.59375,
+          "bottom": 473.40625,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 337.625,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 337.625,
+          "right": 370,
+          "bottom": 689.515625,
+          "left": 235.59375
+        }
+      },
+      "last": {
+        "x": 110.5,
+        "y": 299.234375,
+        "width": 169,
+        "height": 391.234375
+      },
+      "artwork": "/music/covers/promo-set-2026.jpg"
+    },
+    {
+      "locale": "fr",
+      "whatsapp": {
+        "href": "https://wa.me/393428369444?text=Bonjour%2C+TOSZAN+%21+Je+souhaite+des+informations+sur+les+r%C3%A9servations+ou+partenariats.",
+        "destination": "https://api.whatsapp.com/send/?phone=393428369444&text=Bonjour%2C+TOSZAN+%21+Je+souhaite+des+informations+sur+les+r%C3%A9servations+ou+partenariats.&type=phone_number&app_absent=0"
+      },
+      "clips": [
+        {
+          "before": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 0.8446909166759085,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2523419335,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+            "time": 1.3627392496566488,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 733180535,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.13287137534509658,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2959640892,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/07-yellow-fog-crowd-support.mp4",
+            "time": 0.6454645833262708,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3188935956,
+            "nonblack": 1017,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.12901620833162403,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1926963574,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+            "time": 0.6379780003340436,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 338935926,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.13071429166753684,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1399021930,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/06-balcony-stage-raised-hands.mp4",
+            "time": 0.6512986250052695,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1738788833,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.128839792343938,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 598304017,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/05-peak-booth-camera-presence-long.mp4",
+            "time": 0.6479045419967469,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 4232504101,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.12800320832732132,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1750491994,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/09-wide-crowd-room-proof.mp4",
+            "time": 0.6370405836656649,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 861779438,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.1367552916610716,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1017658611,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/01-booth-control-front-closeup.mp4",
+            "time": 0.655322958671399,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1986304059,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.13912991733166502,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3694140135,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/03-deck-control-overhead.mp4",
+            "time": 0.6493042086725166,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 712125346,
+            "nonblack": 1007,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.1408591249970356,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 601116020,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/reels/videos/08-mic-crowd-command-booth.mp4",
+            "time": 0.6513235420054483,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2099474716,
+            "nonblack": 1024,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "wrapped": {
+        "before": {
+          "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+          "time": 0.14362425066539386,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 475780719,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        },
+        "after": {
+          "source": "/reels/videos/02-crowd-proximity-selfie-booth.mp4",
+          "time": 0.6565410006615437,
+          "frames": 10,
+          "paused": false,
+          "muted": true,
+          "inline": true,
+          "webkitInline": true,
+          "hash": 452839954,
+          "nonblack": 1024,
+          "rendered": "true",
+          "state": "playing"
+        }
+      },
+      "creator": [
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.13649966666412167,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1962369058,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-creator-introduction.mp4",
+            "time": 0.655219333006292,
+            "frames": 11,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1011424171,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 0.7488388336647727,
+            "frames": 9,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 79020865,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/optimized/ugc-hair-wax-bottega-paesano.mp4",
+            "time": 1.268696916999648,
+            "frames": 9,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1118885465,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 0.6875142503405629,
+            "frames": 15,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1254477863,
+            "nonblack": 837,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/brand-product-showcase.mp4",
+            "time": 1.2049937086709324,
+            "frames": 15,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3762790847,
+            "nonblack": 841,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 1.9074243333361867,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2733496938,
+            "nonblack": 1014,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/fitness-public-speaking.mp4",
+            "time": 2.4252981249985175,
+            "frames": 61,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 2309110438,
+            "nonblack": 1016,
+            "rendered": "true",
+            "state": "playing"
+          }
+        },
+        {
+          "before": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.143653083325251,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 3743200383,
+            "nonblack": 1023,
+            "rendered": "true",
+            "state": "playing"
+          },
+          "after": {
+            "source": "/creator/videos/winter-lifestyle-milan.mp4",
+            "time": 1.6635497913214456,
+            "frames": 10,
+            "paused": false,
+            "muted": true,
+            "inline": true,
+            "webkitInline": true,
+            "hash": 1363899708,
+            "nonblack": 1020,
+            "rendered": "true",
+            "state": "playing"
+          }
+        }
+      ],
+      "cover": {
+        "statement": {
+          "x": 20,
+          "y": 337.78125,
+          "width": 201.59375,
+          "height": 153.921875,
+          "top": 337.78125,
+          "right": 221.59375,
+          "bottom": 491.703125,
+          "left": 20
+        },
+        "portrait": {
+          "x": 235.59375,
+          "y": 337.78125,
+          "width": 134.40625,
+          "height": 351.890625,
+          "top": 337.78125,
+          "right": 370,
+          "bottom": 689.671875,
+          "left": 235.59375
+        }
+      },
+      "last": {
+        "x": 110.5,
+        "y": 298.703125,
+        "width": 169,
+        "height": 391.234375
+      },
+      "artwork": "/music/covers/promo-set-2026.jpg"
+    }
+  ],
+  "failures": [],
+  "pageErrors": [],
+  "fallback": {
+    "before": {
+      "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+      "time": 0.14487908332920169,
+      "frames": 10,
+      "paused": false,
+      "muted": true,
+      "inline": true,
+      "webkitInline": true,
+      "hash": 1926963574,
+      "nonblack": 1024,
+      "rendered": "true",
+      "state": "playing"
+    },
+    "after": {
+      "source": "/reels/videos/04-wide-stage-manicomio-smoke.mp4",
+      "time": 0.6645063333329698,
+      "frames": 10,
+      "paused": false,
+      "muted": true,
+      "inline": true,
+      "webkitInline": true,
+      "hash": 338935926,
+      "nonblack": 1024,
+      "rendered": "true",
+      "state": "playing"
+    }
+  },
+  "artworkRecovery": true
+}

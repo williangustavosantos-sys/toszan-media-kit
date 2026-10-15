@@ -3,6 +3,8 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import "../../styles/general-editorial.css";
 
+import { WhatsAppLink } from "./WhatsAppLink";
+
 const heroBg = "/optimized/foto_2.webp";
 
 const heroUi: Record<Language, {
@@ -106,6 +108,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reducedMotion ? 0 : 0.7, delay: reducedMotion ? 0 : 0.38 }}
         >
+          <WhatsAppLink className="general-primary-link hero-whatsapp" />
           <a href="#dj-booking" className="general-primary-link">{copy.booking}<ArrowRight size={17} aria-hidden="true" /></a>
           <div className="general-hero-text-links">
             <a href="#music">{copy.music}<ArrowDown size={14} aria-hidden="true" /></a>
