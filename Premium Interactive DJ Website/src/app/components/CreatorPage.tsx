@@ -27,7 +27,7 @@ import {
 import { creatorCopy, getCreatorLanguage, type CreatorCopy } from "../../data/creatorCopy";
 import { useLanguage } from "../context/LanguageContext";
 
-import creatorPortrait from "../../imports/creator-portrait-editorial-clean.webp";
+import creatorPortrait from "../../imports/creator-portrait-premium.webp";
 import "../../styles/creator-editorial.css";
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
@@ -485,7 +485,7 @@ export function CreatorPage() {
       </Section>
 
       <Section id="services" number="05" eyebrow={copy.services.eyebrow} title={copy.services.title} intro={copy.services.intro} className="creator-services-section">
-        <div className="creator-services">{copy.services.offers.map((offer, index) => <motion.a href="#contact" key={offer.title} className="creator-service" aria-label={`${offer.title} — ${copy.services.cta}`} initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.06 }} whileHover={reduced ? undefined : { x: 6 }} whileTap={reduced ? undefined : { scale: 0.985 }}><span className="creator-service-number">{String(index + 1).padStart(2, "0")}</span><h3>{offer.title}</h3><p>{offer.detail}</p><ArrowRight size={22} aria-hidden="true" /></motion.a>)}</div>
+        <div className="creator-services">{copy.services.offers.map((offer, index) => <motion.div key={offer.title} className="creator-service" initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.06 }}><span className="creator-service-number">{String(index + 1).padStart(2, "0")}</span><h3>{offer.title}</h3><p>{offer.detail}</p></motion.div>)}</div>
         <div className="creator-services-cta"><a href="#contact" className="creator-text-link">{copy.services.cta}<ArrowRight size={17} /></a></div>
       </Section>
 

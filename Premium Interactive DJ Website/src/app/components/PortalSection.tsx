@@ -1,6 +1,6 @@
 import { ArrowUpRight, Disc3, Film, Users } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
-import creatorPortrait from "../../imports/creator-portrait-editorial-clean.webp";
+import creatorPortrait from "../../imports/creator-portrait-premium.webp";
 import { serviceLinks } from "./MusicSection";
 import "../../styles/three-path.css";
 

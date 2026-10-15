@@ -1,0 +1,36 @@
+/* Premium UI Finisher — shared media rules, iPad and iPhone */
+.creator-service { grid-template-columns: 60px minmax(0, 1.1fr) minmax(0, 1fr); cursor: default; }
+.creator-service:hover { background: none; border-color: var(--creator-rule); }
+.creator-service:hover h3 { color: var(--creator-paper); }
+.creator-service > svg { display: none; }
+.creator-hero-portrait img { filter: saturate(.91) contrast(1.03) brightness(.96) drop-shadow(0 0 24px rgba(182,161,133,.13)); }
+.live-card { border: 1px solid rgba(242,239,233,.14); border-radius: 0; box-shadow: none; }
+.live-card.is-active { border-color: rgba(242,239,233,.22); box-shadow: none; }
+.live-card-topline, .live-play-control, .live-mute-control, .live-sound-status, .live-card-copy { display: none !important; }
+.live-card-poster { filter: saturate(.85) brightness(.86); }
+.live-card-video { filter: saturate(.9) brightness(.9) contrast(1.04); }
+.live-card-scrim { background: linear-gradient(180deg, rgba(0,0,0,.13), transparent 35%, rgba(0,0,0,.45)); }
+.live-creator-control { z-index: 8; left: 20px; right: 20px; bottom: 20px; width: auto; justify-content: flex-start; }
+.live-creator-control .creator-work-play-icon { background: rgba(8,9,9,.35); color: #f2f0ea; }
+.live-creator-control:hover .creator-work-play-icon { background: #d7c5a9; color: #080909; }
+.live-carousel-caption { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 14px auto 0; max-width: 820px; text-align: center; color: #eeeae1; }
+.live-carousel-caption > span { font-family: 'Bebas Neue',sans-serif; font-size: clamp(26px,3.6vw,42px); }
+.live-carousel-caption > p { color: #bcbeb5; font-size: 13px; }
+.live-carousel-caption > a { display: inline-flex; align-items: center; gap: 6px; color: #d5bc99; text-decoration: none; font-size: 11px; }
+.live-infinite-slide.is-side .live-creator-control { display: none; }
+.live-infinite-window:focus-visible { outline: 2px solid #c8aa7d; outline-offset: 4px; }
+.creator-service:focus { outline: none; }
+@media(max-width:1100px) {
+ .creator-service { grid-template-columns: 32px minmax(0,1fr) minmax(0,.85fr); gap: 20px; }
+ .live-carousel-caption { flex-wrap: wrap; gap: 6px 16px; }
+}
+@media(max-width:767px) {
+ .creator-service { grid-template-columns: 23px minmax(0,1fr); gap: 13px; }
+ .creator-service p { grid-column: 2; }
+ .live-creator-control { bottom: 15px; left: 15px; font-size: 9px !important; gap: 11px; }
+ .live-creator-control .creator-work-play-icon { width: 44px; height: 44px; }
+ .live-carousel-caption { flex-direction: column; gap: 3px; padding: 0 16px; }
+ .live-carousel-caption > span { font-size: 29px; }
+ .live-carousel-caption > p { margin: 0; font-size: 12px; }
+ .live-carousel-caption > a { min-height: 44px; padding: 8px; }
+}

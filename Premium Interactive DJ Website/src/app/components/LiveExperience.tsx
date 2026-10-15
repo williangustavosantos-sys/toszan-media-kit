@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Play, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, ExternalLink, Play, VolumeX } from "lucide-react";
 import { useLanguage, type Language } from "../context/LanguageContext";
 import { bookingCopy } from "../../data/bookingCopy";
 import "../../styles/music-live.css";
@@ -228,11 +228,7 @@ function AutoplayVideoCard({
       data-reel-id={reel.id}
       data-featured={reel.featured ? "true" : "false"}
       data-autoplay-eligible={shouldPlayVideo ? "true" : "false"}
-      tabIndex={0}
       aria-label={`${reel.title}: ${reel.subtitle}`}
-      onPointerEnter={() => onActivate(reel.id)}
-      onPointerDown={(event) => { if (event.pointerType !== "mouse") onActivate(reel.id); }}
-      onFocus={() => onActivate(reel.id)}
       initial={reduceMotion ? false : { opacity: 0, y: 26 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -260,32 +256,14 @@ function AutoplayVideoCard({
       </video>
 
       <div className="live-card-scrim" aria-hidden="true" />
-      <div className="live-card-topline" aria-hidden="true"><span>{copy.liveProof}</span><span>{reel.duration}</span></div>
-
-      {audioStatus !== "playing" ? (
-        <button type="button" className="live-play-control" onClick={handlePlayWithSound} aria-label={`${copy.play}: ${reel.title}`}>
-          <Play size={18} fill="currentColor" aria-hidden="true" /><span>{audioStatus === "blocked" ? copy.retry : copy.play}</span>
-        </button>
-      ) : (
-        <span className="live-sound-status"><Volume2 size={14} aria-hidden="true" />{copy.soundOn}</span>
-      )}
-
-      <button
-        type="button"
-        className="live-mute-control"
-        aria-label={isThisVideoSoundEnabled && audioStatus === "playing" ? `${copy.mute}: ${reel.title}` : `${copy.play}: ${reel.title}`}
-        aria-pressed={isThisVideoSoundEnabled && audioStatus === "playing"}
-        onClick={handleMuteToggle}
-      >
-        {isThisVideoSoundEnabled && audioStatus === "playing" ? <Volume2 size={18} /> : <VolumeX size={18} />}
+      <button type="button" className="creator-work-play live-creator-control"
+        onClick={audioStatus === "playing" && isThisVideoSoundEnabled ? handleMuteToggle : handlePlayWithSound}
+        aria-label={`${audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : copy.play}: ${reel.title}`}
+        aria-pressed={audioStatus === "playing" && isThisVideoSoundEnabled}>
+        <span className="creator-work-play-icon">{audioStatus === "playing" && isThisVideoSoundEnabled ? <VolumeX size={17} aria-hidden="true" /> : <Play size={16} fill="currentColor" aria-hidden="true" />}</span>
+        <span>{audioStatus === "playing" && isThisVideoSoundEnabled ? copy.mute : audioStatus === "blocked" ? copy.retry : copy.play}</span>
       </button>
 
-      <div className="live-card-copy">
-        <span>{String(index + 1).padStart(2, "0")}</span>
-        <h3>{reel.title}</h3>
-        <p>{reel.subtitle}</p>
-        {reel.url ? <a href={reel.url} target="_blank" rel="noopener noreferrer">{copy.official}<ExternalLink size={13} aria-hidden="true" /></a> : null}
-      </div>
     </motion.article>
   );
 }
@@ -376,6 +354,11 @@ export function LiveExperience({ context = "general" }: { context?: LiveContext 
               </div>;
             })}
           </div>
+        </div>
+        <div className="live-carousel-caption" aria-live="polite">
+          <span>{localizedReels[carouselIndex].title}</span>
+          <p>{localizedReels[carouselIndex].subtitle}</p>
+          {localizedReels[carouselIndex].url ? <a href={localizedReels[carouselIndex].url} target="_blank" rel="noopener noreferrer">{copy.official}<ExternalLink size={14} aria-hidden="true"/></a> : null}
         </div>
         <p className="live-swipe-hint">{language === "pt" ? "Deslize para a esquerda ou direita • reprodução contínua" : language === "it" ? "Scorri a sinistra o a destra • galleria continua" : language === "es" ? "Desliza a izquierda o derecha • galería continua" : language === "fr" ? "Balayez vers la gauche ou la droite • galerie continue" : "Swipe left or right • continuous gallery"}</p>
 

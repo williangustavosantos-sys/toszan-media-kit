@@ -8,6 +8,7 @@ import { CreatorPage } from "./components/CreatorPage";
 import { AnalyticsPage } from "./components/AnalyticsPage";
 import "../styles/three-path.css";
 import "../styles/single-page.css";
+import "../styles/premium-ui-finisher.css";
 
 function PDFDownloads() {
   const {language} = useLanguage();
