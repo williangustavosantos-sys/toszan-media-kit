@@ -214,3 +214,5 @@ html { scroll-padding-top:0; }
   .general-hero-actions .hero-whatsapp { margin:0; }
   .general-hero-text-links { grid-column:1/-1; }
 }
+/* The loaded image must paint above its persistent loading/error backing. */
+.music-artwork>img { position:relative; z-index:1; }
