@@ -128,6 +128,8 @@ async (page) => {
       await page.waitForFunction(()=>{const img=document.querySelector('.music-selected-track .music-artwork img');return img.complete&&img.naturalWidth>0&&getComputedStyle(img).opacity==='1';});
       const artwork=await page.locator('.music-selected-track .music-artwork img').getAttribute('src');
       check(artwork.includes('promo-set-2026'),`${locale}: stale artwork after rapid selection`);
+      const visibleArtwork=await page.locator('.music-selected-track .music-artwork img').evaluate(img=>{const r=img.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===img;});
+      check(visibleArtwork,`${locale}: loaded artwork obscured by another layer`);
       await capture(`${locale}-music`);
       check(await page.locator('.whatsapp-floating').count()===1,`${locale}: duplicate floating contact`);
       results.flows.push({locale,whatsapp:{href,destination},clips,wrapped,creator,cover,last,artwork});
