@@ -11,8 +11,8 @@ const labels: Record<Language, { play: string; sound: string; mute: string; retr
   fr: { play: "Lire", sound: "Activer le son", mute: "Couper le son", retry: "Réessayer" },
 };
 
-// Only two Creator previews may decode simultaneously. The selected DJ reel keeps
-// its own slot, and a user's explicit choice outranks ambient autoplay.
+// Every actually visible preview should play; off-screen media is paused.
+// Prefetch only when approaching the viewport to avoid a cold first frame.
 type PlaybackEntry = {
   video: HTMLVideoElement;
   kind: "dj" | "creator";
@@ -31,12 +31,8 @@ let manualOrder = 0;
 function rebalancePlayback() {
   const eligible = (entry: PlaybackEntry) =>
     entry.active && entry.ratio >= 0.15 && !document.hidden && (entry.auto || entry.manualOrder > 0);
-  const creators = [...mediaEntries.values()]
-    .filter(entry => entry.kind === "creator" && eligible(entry))
-    .sort((a, b) => b.manualOrder - a.manualOrder || b.ratio - a.ratio);
-  const admittedCreators = new Set(creators.slice(0, 2));
   for (const entry of mediaEntries.values()) {
-    const next = eligible(entry) && (entry.kind === "dj" || admittedCreators.has(entry));
+    const next = eligible(entry);
     if (next === entry.admitted) continue;
     entry.admitted = next;
     if (next) entry.start();
@@ -55,10 +51,10 @@ function prioritizeVideo(video: HTMLVideoElement) {
 function claimAudio(owner: HTMLVideoElement) {
   document.querySelectorAll<HTMLVideoElement>("video[data-inline-video]").forEach(video => {
     if (video === owner) return;
-    const hadAudio = !video.muted;
+    // Muting the previous owner must NOT pause its visual preview.
+    // Paused admitted videos used to stay frozen until the next scroll.
     video.muted = true;
     video.defaultMuted = true;
-    if (hadAudio) video.pause();
   });
 }
 
@@ -135,6 +131,20 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
       stop,
     };
     mediaEntries.set(video, entry);
+
+    // Warm up metadata near the viewport. Loading *all* site videos on first
+    // paint wastes bandwidth; loading only when already visible makes users
+    // wait for the first decoded frame (then it works on a return visit).
+    const preloadObserver = new IntersectionObserver(entries => {
+      if (!entries[0]?.isIntersecting || !active || reduced || saveData || entry.admitted) return;
+      preloadObserver.disconnect();
+      if (video.readyState < 1 && !video.error) {
+        video.preload = "metadata";
+        video.load();
+      }
+    }, { rootMargin: "500px 0px", threshold: 0 });
+    preloadObserver.observe(video);
+
     const observer = new IntersectionObserver(entries => {
       const observed = entries[0];
       entry.ratio = observed.isIntersecting ? observed.intersectionRatio : 0;
@@ -146,6 +156,7 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
     document.addEventListener("visibilitychange", rebalancePlayback);
     return () => {
       observer.disconnect();
+      preloadObserver.disconnect();
       document.removeEventListener("visibilitychange", rebalancePlayback);
       mediaEntries.delete(video);
       stop();
@@ -209,7 +220,7 @@ export function InlineVideo({ source, poster, title, active = true, kind, childr
         if (status === "error") retryCount.current = 0;
         prioritizeVideo(video);
         if (playing && sound) { video.muted = true; video.defaultMuted = true; setSound(false); }
-        else void play(playing ? true : false);
+        else void play(true);
       }}>
       {!playing ? <Play size={16} fill="currentColor" /> : sound ? <VolumeX size={16} /> : <Volume2 size={16} />}
       <span>{label}</span>
