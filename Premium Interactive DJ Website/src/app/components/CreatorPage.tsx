@@ -54,11 +54,11 @@ function setCreatorMeta(copy: CreatorCopy) {
   upsertMeta("property", "og:title", copy.meta.title);
   upsertMeta("property", "og:description", copy.meta.description);
   upsertMeta("property", "og:type", "website");
-  upsertMeta("property", "og:url", "https://toszan-media-kit.vercel.app/creator");
-  upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/optimized/brand/toszan-dourado-capa-oficial.webp");
+  upsertMeta("property", "og:url", "https://toszan.com.br/creator");
+  upsertMeta("property", "og:image", "https://toszan.com.br/optimized/brand/toszan-dourado-capa-oficial.webp");
   upsertMeta("name", "twitter:card", "summary_large_image");
   upsertMeta("name", "theme-color", "#080909");
-  upsertCanonical("https://toszan-media-kit.vercel.app/creator");
+  upsertCanonical("https://toszan.com.br/creator");
 }
 
 export function EditorialReveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {

@@ -28,8 +28,8 @@ function updateMeta(copy: BookingCopy) {
   meta("property", "og:title", copy.metaTitle);
   meta("property", "og:description", copy.metaDescription);
   meta("property", "og:type", "website");
-  meta("property", "og:url", "https://toszan-media-kit.vercel.app/booking");
-  meta("property", "og:image", "https://toszan-media-kit.vercel.app/foto_dj4.JPG");
+  meta("property", "og:url", "https://toszan.com.br/booking");
+  meta("property", "og:image", "https://toszan.com.br/foto_dj4.JPG");
   meta("name", "twitter:card", "summary_large_image");
   let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
   if (!canonical) {
@@ -37,7 +37,7 @@ function updateMeta(copy: BookingCopy) {
     canonical.rel = "canonical";
     document.head.appendChild(canonical);
   }
-  canonical.href = "https://toszan-media-kit.vercel.app/booking";
+  canonical.href = "https://toszan.com.br/booking";
   let schema = document.head.querySelector<HTMLScriptElement>('script[data-route-schema="booking"]');
   if (!schema) {
     schema = document.createElement("script");
@@ -52,8 +52,8 @@ function updateMeta(copy: BookingCopy) {
     alternateName: "TOSZAN",
     jobTitle: "DJ",
     description: copy.metaDescription,
-    url: "https://toszan-media-kit.vercel.app/booking",
-    image: "https://toszan-media-kit.vercel.app/foto_dj4.JPG",
+    url: "https://toszan.com.br/booking",
+    image: "https://toszan.com.br/foto_dj4.JPG",
     sameAs: [media.instagram, media.soundcloud, "https://open.spotify.com/artist/27FuT8olmWQ5g51OEwMkWt"],
   });
 }

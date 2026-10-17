@@ -1,9 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
   "name": "toszan-media-kit",
-  "compatibility_date": "2026-10-17",
-  "workers_dev": true,
-  "assets": {
-    "directory": "./dist",
-    "html_handling": "auto-trailing-slash"
-  }
+  "pages_build_output_dir": "./dist"
 }

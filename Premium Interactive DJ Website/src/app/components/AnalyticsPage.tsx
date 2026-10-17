@@ -39,11 +39,11 @@ function setAnalyticsMeta(copy: CreatorCopy) {
   upsertMeta("property", "og:title", title);
   upsertMeta("property", "og:description", copy.analyticsPage.verification);
   upsertMeta("property", "og:type", "website");
-  upsertMeta("property", "og:url", "https://toszan-media-kit.vercel.app/analytics");
-  upsertMeta("property", "og:image", "https://toszan-media-kit.vercel.app/analytics/2026-07/instagram-insights-views-overview.png");
+  upsertMeta("property", "og:url", "https://toszan.com.br/analytics");
+  upsertMeta("property", "og:image", "https://toszan.com.br/analytics/2026-07/instagram-insights-views-overview.png");
   upsertMeta("name", "robots", "noindex, nofollow");
   upsertMeta("name", "theme-color", "#080909");
-  upsertCanonical("https://toszan-media-kit.vercel.app/analytics");
+  upsertCanonical("https://toszan.com.br/analytics");
 }
 
 function MetricCard({ label, value, detail, index, onOpen, openLabel }: { label: string; value: string; detail: string; index: number; onOpen: () => void; openLabel: string }) {
