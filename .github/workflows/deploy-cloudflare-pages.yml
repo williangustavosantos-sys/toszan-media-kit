@@ -1,0 +1,80 @@
+name: Publish TOSZAN to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Premium Interactive DJ Website/**'
+      - '.github/workflows/deploy-cloudflare-pages.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: toszan-cloudflare-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Check deployment credentials
+        id: credentials
+        shell: bash
+        run: |
+          if [[ -z "$CLOUDFLARE_API_TOKEN" ]]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN not configured. Deployment intentionally skipped."
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout source
+        if: steps.credentials.outputs.available == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        if: steps.credentials.outputs.available == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: 'Premium Interactive DJ Website/package-lock.json'
+
+      - name: Install dependencies
+        if: steps.credentials.outputs.available == 'true'
+        working-directory: 'Premium Interactive DJ Website'
+        run: npm ci
+
+      - name: Build Media Kit
+        if: steps.credentials.outputs.available == 'true'
+        working-directory: 'Premium Interactive DJ Website'
+        run: npm run build
+
+      - name: Verify essential files
+        if: steps.credentials.outputs.available == 'true'
+        working-directory: 'Premium Interactive DJ Website'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s dist/index.html
+          test -s dist/booking.html
+          test -s dist/creator.html
+          test -s dist/analytics.html
+          test -s dist/optimized/brand/toszan-dourado-capa-oficial.webp
+          test -s dist/creator/optimized/ugc-creator-introduction.mp4
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.credentials.outputs.available == 'true'
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 5c96e48dfb6497c1452353c1e666b291
+          workingDirectory: 'Premium Interactive DJ Website'
+          command: pages deploy dist --project-name=toszan-media-kit --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
